@@ -15,5 +15,5 @@
 
 
 wordfreq_check <- function(textdoc){
-
+  print(textdoc)
 }
