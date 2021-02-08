@@ -9,7 +9,8 @@ Description: This package analyzes the opinions inherent in a text document
   references (within the document with respect to another subject B)
   have on the former. This package is specifically designed for analyzing 
   the opinions expressed on social media platforms, such as Twitter, Facebook, 
-  and Youtube comment sections.
+  and Youtube comment sections. The package also include other functions that 
+  allow a user to explore the characteristics of the raw text datasets. 
 Language: en-US
 License: GPL-3
 URL: https://cran.r-project.rg/web/packages/opitools/index.html
