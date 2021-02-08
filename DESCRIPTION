@@ -6,10 +6,11 @@ Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
 Description: This package analyzes the opinions inherent in a text document
   relating to a specific subject (A), and determines the impacts that certain 
-  references (within the document within respect to another subject B)
+  references (within the document with respect to another subject B)
   have on the former. This package is specifically designed for analyzing 
-  opinions expressed on social media platforms, such as Twitter, Facebook, 
-  and Youtube comment sections.
+  the opinions expressed on social media platforms, such as Twitter, Facebook, 
+  and Youtube comment sections. The package also include other functions that 
+  allow a user to explore the characteristics of the raw text datasets. 
 Language: en-US
 License: GPL-3
 URL: https://cran.r-project.rg/web/packages/opitools/index.html
