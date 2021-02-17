@@ -1,16 +1,15 @@
 Package: opitools
 Type: Package
-Title: opitools - An R-package for opinion analysis of social media data
+Title: An R-package for analyzing Opinions in Big Text Document.
 Version: 1.0.0
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
 Description: This package analyzes the opinions inherent in a text document
-  relating to a specific subject (A), and determines the impacts that certain 
-  references (within the document with respect to another subject B)
-  have on the former. This package is specifically designed for analyzing 
-  the opinions expressed on social media platforms, such as Twitter, Facebook, 
-  and Youtube comment sections. The package also include other functions that 
-  allow a user to explore the characteristics of the raw text datasets. 
+  relating to a specific subject (A), and determines the impacts that opinion 
+  expressed with respect to another subject (B) have on the opinion 
+  concerning subject A. This package is specifically designed for application 
+  to social media datasets, such as Twitter, Facebook, and Youtube 
+  commentaries.
 Language: en-US
 License: GPL-3
 URL: https://cran.r-project.rg/web/packages/opitools/index.html
@@ -20,10 +19,20 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Imports:
-  ggplot2
+  ggplot2,
+  tibble,
+  tidytext,
+  magrittr,
+  dplyr,
+  plyr,
+  tm,
+  stringr,
+  purrr,
+  tidyr,
+  utils,
+  likert
 RoxygenNote: 7.1.0
 Suggests:
   knitr,
-  rmarkdown,
-  dplyr
+  rmarkdown
 VignetteBuilder: knitr
