@@ -305,14 +305,17 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   output$criterion <- alternative
   output$exp_summary <- summary(expected_scores)
 
-  output$ptable <- data.frame(cbind(observed_score, S_beat, nsim, p=(S+1)/(nsim+1),   signif))
-  output$key <- rev(p_loc)
+  output$p_table <- knitr::kable(data.frame(cbind(observed_score, S_beat, nsim, p=(S+1)/(nsim+1),   signif)))
+  output$p_key <- rev(p_loc)
+  output$p_formula <- "(S_beat + 1)/(nsim + 1)"
 
-  output
 
   return(output)
 
 }
+
+
+
 
 
 

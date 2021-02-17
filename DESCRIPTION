@@ -5,11 +5,10 @@ Version: 1.0.0
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
 Description: This package analyzes the opinions inherent in a text document
-  relating to a specific subject (A), and determines the impacts that opinion 
-  expressed with respect to another subject (B) have on the opinion 
-  concerning subject A. This package is specifically designed for application 
-  to social media datasets, such as Twitter, Facebook, and Youtube 
-  commentaries.
+  relating to a specific subject (A), and can be deployed to assess
+  the impacts that opinion expressed with respect to another subject (B) 
+  have on subject A. This package is specifically designed for application 
+  to social media datasets, such as Twitter and Facebook.
 Language: en-US
 License: GPL-3
 URL: https://cran.r-project.rg/web/packages/opitools/index.html
