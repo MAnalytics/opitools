@@ -232,7 +232,7 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
 
       if(quiet == FALSE){
         flush.console()
-        print(paste("No. of simulations completed:", m, sep=","))
+        print(paste("No. of simulations completed:", m, sep=" "))
       }
       if(quiet == TRUE){
         #do nothing

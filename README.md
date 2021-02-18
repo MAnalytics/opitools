@@ -80,7 +80,7 @@ covid_keys
 
 results <- opi_impact(textdoc = policing_otd, sec_keywords=covid_keys, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
-                       pplot = FALSE, quiet=FALSE)
+                       pplot = TRUE, quiet=FALSE)
                        
 print(results)
 

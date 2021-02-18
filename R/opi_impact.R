@@ -211,8 +211,8 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
     likert.options(legend="Classes")
     p <- likert(res)
     title = "Percentage proportion of classes"
-    plot(p, center=3, centered=FALSE) + ggtitle(title)
-    likert.bar.plot(p, legend="Classes")
+    #plot(p, center=3, centered=FALSE) + ggtitle(title)
+    pp <- likert.bar.plot(p, legend="Classes")
   }
 
   if(pplot == FALSE){
@@ -322,6 +322,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   output$p_table <- knitr::kable(data.frame(cbind(observed_score, S_beat, nsim, p=(S+1)/(nsim+1),   signif)))
   output$p_key <- rev(p_loc)
   output$p_formula <- "(S_beat + 1)/(nsim + 1)"
+  output$plot <- pp
 
 
   return(output)
