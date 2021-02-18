@@ -82,8 +82,30 @@ results <- opi_impact(textdoc = policing_otd, sec_keywords=covid_keys, metric = 
                        fun = NULL, nsim = 99, alternative="two.sided",
                        pplot = FALSE, quiet=FALSE)
                        
-#print the result
 print(results)
+
+$test
+[1] "Test of significance (Randomization testing)"
+
+$criterion
+[1] "two.sided"
+
+$exp_summary
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -8.240  -5.880  -5.880  -5.028  -3.530  -1.180 
+
+$p_table
+
+
+|observed_score |S_beat |nsim |p    |signif |
+|:--------------|:------|:----|:----|:------|
+|-5.88          |56     |99   |0.57 |'      |
+
+$p_key
+[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+$p_formula
+[1] "(S_beat + 1)/(nsim + 1)"
+
 #......
 
 
