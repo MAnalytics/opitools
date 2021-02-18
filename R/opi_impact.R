@@ -61,7 +61,7 @@
 #' containing) secondary keywords (i.e. 'present' and
 #' 'absent' groups), as well as the proportion of
 #' 'positive' and 'negative' classes.
-#' @param quiet [TRUE or FALSE] To suppress processing
+#' @param quiet (TRUE or FALSE) To suppress processing
 #' messages. Default: \code{TRUE}.
 #' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
 #' fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
@@ -219,9 +219,17 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
     #do nothing
   }
 
+  if(quiet == TRUE){
   #generate expected scores using `opi_sim` function
-  expected_scores <- opi_sim(osd_data = OSD_joined, nsim=nsim,
-                             metric = metric, fun = NULL, quiet=TRUE)
+  expected_scores <- opi_sim(osd_data = OSD_joined,
+                             nsim=nsim,quiet=TRUE)
+  }
+
+  if(quiet == FALSE){
+  #generate expected scores using `opi_sim` function
+  expected_scores <- opi_sim(osd_data = OSD_joined,
+                             nsim=nsim,quiet=FALSE)
+  }
 
   #check if there is contradiction in
   #the alternative argument

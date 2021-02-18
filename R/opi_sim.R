@@ -27,7 +27,7 @@
 #' @param fun A user-defined function if parameter \code{metric}
 #' is set as \code{5}. Also, see the documentation
 #' of \code{fun} parameter of \code{opi_score} function for details.
-#' @param quiet [TRUE or FALSE] To suppress processing
+#' @param quiet (TRUE or FALSE) To suppress processing
 #' messages. Default: \code{TRUE}.
 #' @usage opi_sim(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE)
 #' @details Employs randomization testing approach in

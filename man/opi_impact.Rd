@@ -5,7 +5,8 @@
 \title{To assess the impact of subject B on subject A}
 \usage{
 opi_impact(textdoc, sec_keywords=NULL, metric = 1,
-fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE)
+fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
+quiet=TRUE)
 }
 \arguments{
 \item{textdoc}{A collection (dataframe) of individual text
@@ -59,6 +60,9 @@ the proportion of text records containing (or not
 containing) secondary keywords (i.e. 'present' and
 'absent' groups), as well as the proportion of
 'positive' and 'negative' classes.}
+
+\item{quiet}{(TRUE or FALSE) To suppress processing
+messages. Default: \code{TRUE}.}
 }
 \value{
 Details of statistical significance of impacts
@@ -101,5 +105,8 @@ replicas have higher scores than observed score,
 then the p-value is equal to (3+1)/(99+1) = 0.04.
 }
 \references{
-(1) Adepeju and Jimoh, 2021,
+(1) Adepeju, M. and Jimoh, F. (2021). An Analytical
+Framework for Measuring Inequality in the Public Opinions on
+Policing – Assessing the impacts of COVID-19 Pandemic using
+Twitter Data. https://doi.org/10.31235/osf.io/c32qh
 }

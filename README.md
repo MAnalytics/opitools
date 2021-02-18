@@ -52,9 +52,25 @@ head(policing_otd)
 Assuming that we want to assess the impacts of a secondary subject B on the original subject A (for which OTD is downloaded), we need to first identify keywords that relate to the former from the OTD. A user can employ any relevant analytical means in order to identify such keywords, e.g. using frequency analysis or `tf_idf` metric (Silge, J. and Robinson, D. 2016). Alternatively, a user can define those keywords manually. For example, keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data include words, such as 'covid-19', 'coronavirus', 'pandemic' and their variations. We provide a full list of these keywords in the package. They can be accessed by typing:
 
 ```r
-#accessing covid-19 related keywords
 
 covid_keys 
+#          keys
+#1     pandemic
+#2    pandemics
+#3     lockdown
+#4    lockdowns
+#5       corona
+#6  coronavirus
+#7        covid
+#8      covid19
+#9     covid-19
+#10       virus
+#11     viruses
+#12  quarantine
+#13      infect
+#14     infects
+#15   infecting
+#16    infected
 
 ```
 
@@ -62,9 +78,9 @@ covid_keys
 
 #Running the analysis
 
-results <- opi_impact(textdoc = polic, sec_keywords=covid_keys, metric = 1,
+results <- opi_impact(textdoc = policing_otd, sec_keywords=covid_keys, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
-                       pplot = FALSE)
+                       pplot = FALSE, quiet=FALSE)
                        
 #print the result
 print(results)

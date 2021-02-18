@@ -4,7 +4,7 @@
 \alias{opi_sim}
 \title{To simulate the expected sentiment (opinion) distribution}
 \usage{
-opi_sim(osd_data, nsim=99, metric = 1, fun = NULL)
+opi_sim(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE)
 }
 \arguments{
 \item{osd_data}{\link{list} An observed sentiment document
@@ -31,6 +31,9 @@ here must correspond to that of \code{opi_score} function.}
 \item{fun}{A user-defined function if parameter \code{metric}
 is set as \code{5}. Also, see the documentation
 of \code{fun} parameter of \code{opi_score} function for details.}
+
+\item{quiet}{(TRUE or FALSE) To suppress processing
+messages. Default: \code{TRUE}.}
 }
 \value{
 Returns a list of expected opinion scores based on
@@ -56,5 +59,8 @@ with the probabilities derived from text document that do not
 contain those keywords.
 }
 \references{
-(1) Adepeju and Jimoh, 2021,
+(1) Adepeju, M. and Jimoh, F. (2021). An Analytical
+Framework for Measuring Inequality in the Public Opinions on
+Policing – Assessing the impacts of COVID-19 Pandemic using
+Twitter Data. https://doi.org/10.31235/osf.io/c32qh
 }
