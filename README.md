@@ -27,6 +27,15 @@ Below is an example usage of the main `opitools` function, `opi_impact`. Given a
 
 ### Importing the dataset
 
+
+
+
+
+#copy and paste should suffice here.. for now
+
+
+
+
 ```r
 #Upon installing the package, the dataset can be 
 #assessed by typing:
@@ -61,7 +70,6 @@ results <- opi_impact(textdoc = polic, sec_keywords=covid_keys, metric = 1,
 print(results)
 #......
 
-#run in the console and paste result here..
 
 ```
 
