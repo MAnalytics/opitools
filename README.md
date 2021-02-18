@@ -10,7 +10,8 @@ The `opitools` is an opinion analysis toolset designed for analyzing opinion-bas
 
 From an R console, type:
 
-``` r
+```{r, eval=TRUE}
+#{r, echo=TRUE, message=FALSE, eval=TRUE}
 #install.packages("opitools")
 library(opitools)
 
