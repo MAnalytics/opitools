@@ -1,6 +1,6 @@
 # "opitools"
 
-An R-package for analyzing Opinions in Big Text Document.
+An R-package for analyzing Opinions in Big Text Doc
 
 ### Description
 
