@@ -10,7 +10,7 @@ The `opitools` is an opinion analysis toolset designed for analyzing opinion-bas
 
 From an R console, type:
 
-```{r, eval=TRUE}
+```{r}
 #{r, echo=TRUE, message=FALSE, eval=TRUE}
 #install.packages("opitools")
 library(opitools)
@@ -45,7 +45,7 @@ Assuming that we want to assess the impacts of a secondary subject B on the orig
 ```r
 #accessing covid-19 related keywords
 
-> covid_keys 
+covid_keys 
 
 ```
 
@@ -59,6 +59,9 @@ results <- opi_impact(textdoc = polic, sec_keywords=covid_keys, metric = 1,
                        
 #print the result
 print(results)
+#......
+
+#run in the console and paste result here..
 
 ```
 
