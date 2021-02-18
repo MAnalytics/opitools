@@ -61,8 +61,11 @@
 #' containing) secondary keywords (i.e. 'present' and
 #' 'absent' groups), as well as the proportion of
 #' 'positive' and 'negative' classes.
+#' @param quiet [TRUE or FALSE] To suppress processing
+#' messages. Default: \code{TRUE}.
 #' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
-#' fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE)
+#' fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
+#' quiet=TRUE)
 #' @details This function compares the observed opinion scores
 #' (computed using the \code{opi_score} function) with the
 #' expected opinion scores (distribution) from the
@@ -80,7 +83,10 @@
 #' then the p-value is equal to (3+1)/(99+1) = 0.04.
 #' @return Details of statistical significance of impacts
 #' of subject B on subject A.
-#' @references (1) Adepeju and Jimoh, 2021,
+#' @references (1) Adepeju, M. and Jimoh, F. (2021). An Analytical
+#' Framework for Measuring Inequality in the Public Opinions on
+#' Policing – Assessing the impacts of COVID-19 Pandemic using
+#' Twitter Data. https://doi.org/10.31235/osf.io/c32qh
 #' @importFrom tidytext unnest_tokens
 #' @importFrom tibble tibble
 #' @importFrom magrittr %>%
@@ -90,7 +96,7 @@
 
 opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
-                       pplot = FALSE){ #tweets
+                       pplot = FALSE, quiet=TRUE){ #tweets
   #output holder
   output <- list()
 
@@ -99,7 +105,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
     stop("Number of simulation (nsim) is too small!!")
   }
 
-  if(nsim < 9999){
+  if(nsim > 9999){
     stop(paste("Consider specifying a smaller",
           "number of simulations (nsim)!!", sep=" "))
   }
@@ -215,7 +221,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
 
   #generate expected scores using `opi_sim` function
   expected_scores <- opi_sim(osd_data = OSD_joined, nsim=nsim,
-                             metric = metric, fun = NULL)
+                             metric = metric, fun = NULL, quiet=TRUE)
 
   #check if there is contradiction in
   #the alternative argument
