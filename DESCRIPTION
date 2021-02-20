@@ -1,6 +1,6 @@
 Package: opitools
 Type: Package
-Title: An R-package for analyzing Opinions in Big Text Document.
+Title: An R-package for analyzing Opinions in a Text Document.
 Version: 1.0.0
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
