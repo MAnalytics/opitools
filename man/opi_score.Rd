@@ -2,71 +2,69 @@
 % Please edit documentation in R/opi_score.R
 \name{opi_score}
 \alias{opi_score}
-\title{Opinion score of a text document}
+\title{Opinion score of the subject matter in a text document}
 \usage{
 opi_score(textdoc, metric = 1, fun = NULL)
 }
 \arguments{
-\item{textdoc}{A collection (dataframe) of individual text
-records, such as tweets or Facebook posts. The first column
-of the dataframe must contain the text records.}
+\item{textdoc}{An \code{n} x \code{1} list (dataframe) of
+individual text records, where \code{n} is the total
+number of individual records.}
 
 \item{metric}{\link{integer} Metric to utilize for the calculation
-of the opinion score. Input values: \code{1, 2, ...,5}.
+of the opinion score. Available values are: \code{1, 2, ...,5}.
 Assuming \code{P}, \code{N} and \code{O} represent positive,
-negative, and neutral text records, respectively,
-\code{1}: \code{((P - N)/(P + N))*100}, Polarity
-(percentage difference) (Bound: -100\%, +100\%);
-\code{2}: \code{((abs(P - N) / (P + N + O))*100},
-Polarity (proportional difference) (Bound: 0, +100\%);
-\code{3}: \code{(P/ (P + N + O))*100}, Positivity
-(Bound: 0, +100\%); \code{4}: \code{(N / (P + N + O))*100},
-Negativity (Bound: 0, +100\%) (Malshe, A. 2019;
+negative, and neutral text records, respectively, the followings
+are few examples of opinion scores from the literature:
+\code{1}: Polarity (percentage difference)
+\code{((P - N)/(P + N))*100}, (Bound: -100\%, +100\%);
+\code{2}: Polarity (proportional difference)
+\code{((abs(P - N) / (P + N + O))*100},
+(Bound: 0, +100\%);
+\code{3}: Positivity \code{(P/ (P + N + O))*100},
+(Bound: 0, +100\%); \code{4}: Negativity \code{(N / (P + N + O))*100},
+(Bound: 0, +100\%) (Malshe, A. 2019;
 Lowe et al. 2011).\code{5}: To pass a
-user-defined function as argument into \code{fun} parameter.}
+user-defined function as argument into the \code{fun} parameter below.}
 
-\item{fun}{A user-defined function if parameter \code{metric}
-is set as \code{5}. For example, myfun <- function(P, N, O){
-("some tasks to do"); return("a value")}.
+\item{fun}{A user-defined function provided parameter
+\code{metric} above is set as \code{5}.
+For example, given the function \code{myfun} <- function(P, N, O){
+("some tasks to do"); return("a value")}, the
 \code{fun} parameter is then set as \code{fun = myfun}.
 Default: \code{NULL} i.e. when \code{metric} parameter
-is \code{1}, \code{2},..,or \code{4}.
-Default: \code{FALSE}.}
+is not \code{5}.}
 }
 \value{
 Returns an \code{opi_object} containing details of the
-extracted sentiments and the computed opinion score.
+opinion measures from the text document.
 }
 \description{
-Given a text document (concerning a subject A)
+Given a text document (concerning a subject A),
 this function compute the overall opinion score based on the
-proportion of positive and negative sentiments expressed across
-individual text record within the document. The function
-transforms the text document into a tidy-format dataframe,
-referred to as \verb{observed sentiment document (OSD)}, with each word
-assigned a sentiment score. The overall sentiment score is
-then computed from the OSD.
-word
+proportion of text records classified as expressing positive,
+negative or neutral sentiment. The function first transforms
+the text document into a tidy-format dataframe, referred to
+as \verb{observed sentiment document (OSD)}, in which each text
+record is assigned a sentiment class based on the sum of all
+sentiments expressed by words in the text record.
 }
 \details{
 An opinion score is derived from all the sentiments
-(i.e. positive and negative) expressed within a text document, assuming
-that each text record is considered to express only one sentiment
-(i.e. positive, negative or neutral sentiment). We deploy
-lexicon-based approach (Taboada et al. 2011) to determine
-the sentiment of each text record, employing the \code{AFINN} lexicon
-(Nielsen, 2011). Depending on the question at hand, a user can
-retrieve any or all of the metrics above.
+(i.e. positive, negative (and neutral) expressed within a
+text document. We deploy a lexicon-based approach
+(Taboada et al. 2011) using the \code{AFINN} lexicon
+(Nielsen, 2011).
 }
 \references{
-Malshe, A. (2019) Data Analytics Applications.
-Online. Available at:
+(1) Malshe, A. (2019) Data Analytics Applications.
+Online book available at:
 https://ashgreat.github.io/analyticsAppBook/index.html.
 Date accessed: 15th December 2020.
-Taboada, M., Brooke, J., Tofiloski, M., Voll, K. and Stede, M., 2011.
+(2) Taboada, M.et al. (2011).
 Lexicon-based methods for sentiment analysis. Computational
 linguistics, 37(2), pp.267-307.
-Lowe, W., Benoit, K., Mikhaylov, S. and Laver, M., 2011.
+(3) Lowe, W. et al. (2011).
 Scaling policy preferences from coded political texts.
 Legislative studies quarterly, 36(1), pp.123-155.
 }

@@ -3,9 +3,9 @@
 \docType{data}
 \name{covid_keys}
 \alias{covid_keys}
-\title{COVID-19 pandemic keywords}
+\title{COVID-19 pandemic related keywords}
 \format{
-A list
+A list (dataframe)
 }
 \usage{
 covid_keys

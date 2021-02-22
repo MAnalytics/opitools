@@ -1,0 +1,476 @@
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `opitools'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\inputencoding{utf8}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{An R-package for analyzing Opinions in a Text Document}
+\item[Version]\AsIs{1.0.0}
+\item[Author]\AsIs{Monsuru Adepeju [cre, aut],}
+\item[Maintainer]\AsIs{Monsuru Adepeju }\email{monsuur2010@yahoo.com}\AsIs{}
+\item[Description]\AsIs{This package analyzes the opinions inherent in a text document
+relating to a specific subject (A), and assesses
+the impacts that opinion expressed with respect to another subject (B)
+have on subject A. This package is specifically designed for application
+to social media datasets, such as Twitter and Facebook.}
+\item[Language]\AsIs{en-US}
+\item[License]\AsIs{GPL-3}
+\item[URL]\AsIs{}\url{https://cran.r-project.rg/web/packages/opitools/index.html}\AsIs{}
+\item[BugReports]\AsIs{}\url{https://github.com/MAnalytics/opitools/issues}\AsIs{}
+\item[Depends]\AsIs{R (>= 3.5.0)}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[Roxygen]\AsIs{list(markdown = TRUE)}
+\item[Imports]\AsIs{ggplot2,
+tibble,
+tidytext,
+magrittr,
+dplyr,
+plyr,
+tm,
+stringr,
+purrr,
+tidyr,
+utils,
+likert,
+cowplot,
+data.table}
+\item[RoxygenNote]\AsIs{7.1.0}
+\item[Suggests]\AsIs{knitr,
+rmarkdown}
+\item[VignetteBuilder]\AsIs{knitr}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{covid\_keys}{COVID-19 pandemic related keywords}{covid.Rul.keys}
+\keyword{datasets}{covid\_keys}
+%
+\begin{Description}\relax
+A list of keywords relating to the COVID-19 pandemic
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+covid_keys
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+A list (dataframe)
+\end{Format}
+\inputencoding{utf8}
+\HeaderA{opi\_impact}{Impact analysis of subject B on the opinion expressed concerning subject A}{opi.Rul.impact}
+%
+\begin{Description}\relax
+This function assesses the impacts of a
+subject B (henceforth referred to as
+secondary subject) on the opinion concerning subject A in
+a text document. Keywords relating to the secondary subject,
+either identified analytically (e.g. using
+\code{tf\_idf} function) or collated manually, are provided
+as input into the function (see below). The subject A
+(primary subject) is the subject matter upon which the
+text document is based. For instance, by downloading Twitter
+data that include hashtags: '\#police', '\#policing' and/or
+'\#law enforcement', then "Police/Policing"
+becomes the primary subject of the text document.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+opi_impact(textdoc, sec_keywords=NULL, metric = 1,
+fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
+quiet=TRUE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{textdoc}] An \code{n} x \code{1} list (dataframe) of
+individual text records, where \code{n} is the total
+number of individual records.
+
+\item[\code{sec\_keywords}] \LinkA{list}{list} A one-column dataframe (of any
+number of rows) containing a list of keywords relating to
+the secondary subject (\code{B}).
+
+\item[\code{metric}] \LinkA{integer}{integer} Metric to utilize for the calculation
+of the opinion score. Default: \code{1}. See detailed documentation
+in the \code{opi\_score} function.
+
+\item[\code{fun}] A user-defined function provided parameter
+\code{metric} is set as \code{5}. See detailed documentation
+in the \code{opi\_score} function.
+
+\item[\code{nsim}] \LinkA{integer}{integer} Number of replicas (ESD) to generate.
+See detailed documentation in the \code{opi\_sim} function.
+Default: \code{99}.
+
+\item[\code{alternative}] \LinkA{character}{character} Default: \code{"two.sided"},
+indicating a two-tailed test. A user can override
+this by specifying \code{“less”} or \code{“greater”} to run
+the analysis as a one-tailed test with the observed score
+being located at the lower or upper regions of the
+distribution, respectively. Note: for \code{metric=1}
+(see above), the \code{alternative} parameter should be
+set as \code{"two.sided"} because the opinion score is
+bounded by both negative and positive values. For a positively
+bounded opinion score, such as when
+\code{metric = 2, 3 or 4}, the the \code{alternative} parameter
+should be "greater", and "less" otherwise.
+
+\item[\code{pplot}] \LinkA{logical}{logical} To display graphical plot showing
+the proportion of text records containing (or not
+containing) any of the specified secondary keywords.
+
+\item[\code{quiet}] (TRUE or FALSE) To suppress processing
+and warning messages. Default: \code{TRUE}.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+This function calculate the statistical
+significance value (\code{p-value}) by comparing the
+observed opinion scores (from the \code{opi\_score}
+function) with the expected opinion scores (distribution) from the
+\code{opi\_sim} function. The formula is given as
+p = (S.beat+1)/(S.total+1), where 'S\_total' is the total
+number of replicas created, 'S.beat' is number of replicas
+with the expected score greater than the observed score. If a user-defined opinion
+score function is specified, he/she needs to determine
+whether a one-tailed or two-tailed comparison is required.
+(see explanations above).
+\end{Details}
+%
+\begin{Value}
+Details of statistical significance of impacts
+of secondary subject B on the opinion concerning subject A.
+\end{Value}
+%
+\begin{References}\relax
+(1) Adepeju, M. and Jimoh, F. (2021). An Analytical
+Framework for Measuring Inequality in the Public Opinions on
+Policing – Assessing the impacts of COVID-19 Pandemic using
+Twitter Data. https://doi.org/10.31235/osf.io/c32qh
+\end{References}
+\inputencoding{utf8}
+\HeaderA{opi\_score}{Opinion score of the subject matter in a text document}{opi.Rul.score}
+%
+\begin{Description}\relax
+Given a text document (concerning a subject A),
+this function compute the overall opinion score based on the
+proportion of text records classified as expressing positive,
+negative or neutral sentiment. The function first transforms
+the text document into a tidy-format dataframe, referred to
+as \AsIs{observed sentiment document (OSD)}, in which each text
+record is assigned a sentiment class based on the sum of all
+sentiments expressed by words in the text record.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+opi_score(textdoc, metric = 1, fun = NULL)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{textdoc}] An \code{n} x \code{1} list (dataframe) of
+individual text records, where \code{n} is the total
+number of individual records.
+
+\item[\code{metric}] \LinkA{integer}{integer} Metric to utilize for the calculation
+of the opinion score. Available values are: \code{1, 2, ...,5}.
+Assuming \code{P}, \code{N} and \code{O} represent positive,
+negative, and neutral text records, respectively, the followings
+are few examples of opinion scores from the literature:
+\code{1}: Polarity (percentage difference)
+\code{((P - N)/(P + N))*100}, (Bound: -100\%, +100\%);
+\code{2}: Polarity (proportional difference)
+\code{((abs(P - N) / (P + N + O))*100},
+(Bound: 0, +100\%);
+\code{3}: Positivity \code{(P/ (P + N + O))*100},
+(Bound: 0, +100\%); \code{4}: Negativity \code{(N / (P + N + O))*100},
+(Bound: 0, +100\%) (Malshe, A. 2019;
+Lowe et al. 2011).\code{5}: To pass a
+user-defined function as argument into the \code{fun} parameter below.
+
+\item[\code{fun}] A user-defined function provided parameter
+\code{metric} above is set as \code{5}.
+For example, given the function \code{myfun} <- function(P, N, O)
+("some tasks to do"); return("a value"), the
+\code{fun} parameter is then set as \code{fun = myfun}.
+Default: \code{NULL} i.e. when \code{metric} parameter
+is not \code{5}.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+An opinion score is derived from all the sentiments
+(i.e. positive, negative (and neutral) expressed within a
+text document. We deploy a lexicon-based approach
+(Taboada et al. 2011) using the \code{AFINN} lexicon
+(Nielsen, 2011).
+\end{Details}
+%
+\begin{Value}
+Returns an \code{opi\_object} containing details of the
+opinion measures from the text document.
+\end{Value}
+%
+\begin{References}\relax
+(1) Malshe, A. (2019) Data Analytics Applications.
+Online book available at:
+https://ashgreat.github.io/analyticsAppBook/index.html.
+Date accessed: 15th December 2020.
+(2) Taboada, M.et al. (2011).
+Lexicon-based methods for sentiment analysis. Computational
+linguistics, 37(2), pp.267-307.
+(3) Lowe, W. et al. (2011).
+Scaling policy preferences from coded political texts.
+Legislative studies quarterly, 36(1), pp.123-155.
+\end{References}
+\inputencoding{utf8}
+\HeaderA{opi\_sim}{To simulate the expected sentiment (opinion) distribution}{opi.Rul.sim}
+%
+\begin{Description}\relax
+Given a text document with two underlying subjects
+A and B, this function simulates the expected distribution of the
+observed opinion score from the \code{opi\_score}. The resulting
+tidy-format dataframe is referred to as the \AsIs{expected sentiment document (ESD)} (Adepeju and Jimoh, 2021).
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+opi_sim(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{osd\_data}] A list (dataframe). An \code{n} x \code{3}
+OSD, in which \code{n} represents the number of number of
+text records that have been successfully classified as
+positive, negative or neutral. Column \code{1} of the OSD
+is the record ID, column \code{2} shows the sentiment
+classes (i.e. positive, negative, or neutral), while
+Column \code{3} contains two variables: \code{present} and
+\code{absent}, indicating records that consist and records
+that do not consist, respectively, of any of
+the identified secondary keywords.
+
+\item[\code{nsim}] \LinkA{integer}{integer} Number of replicas (ESD) to generate.
+Recommended values: 99, 999, 9999, and so on. Since the run time
+is proportional to the number of replicas, a lower number of
+simulation is recommended. Default: \code{99}.
+
+\item[\code{metric}] \LinkA{integer}{integer} Metric to utilize for the calculation
+of the opinion score. Default: \code{1}. See detailed documentation
+in the \code{opi\_score} function. The argument selected here must
+correspond to that of \code{opi\_score} function in order to
+compute a statistical significance value (p-value).
+
+\item[\code{fun}] A user-defined function provided parameter
+\code{metric} is set as \code{5}. See detailed documentation
+in the \code{opi\_score} function.
+
+\item[\code{quiet}] (TRUE or FALSE) To suppress processing and Warning
+messages. Default: \code{TRUE}.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Uses randomization testing approach in
+order to generate expected distribution of the observed
+opinion scores (see details in Adepeju, M. and Jimoh, F., 2021).
+\end{Details}
+%
+\begin{Value}
+Returns a list of expected opinion scores with length equal
+to the number of simulation (\code{nsim}) specified.
+\end{Value}
+%
+\begin{References}\relax
+(1) Adepeju, M. and Jimoh, F. (2021). An Analytical
+Framework for Measuring Inequality in the Public Opinions on
+Policing – Assessing the impacts of COVID-19 Pandemic using
+Twitter Data. https://doi.org/10.31235/osf.io/c32qh
+\end{References}
+\inputencoding{utf8}
+\HeaderA{osd\_data}{Observed sentiment document (OSD)}{osd.Rul.data}
+\keyword{datasets}{osd\_data}
+%
+\begin{Description}\relax
+A tidy-format list (dataframe) showing the resulting
+classification of each text records into positive, negative
+or neutral sentiment. The second column of the dataframe consists of
+labels variables \code{present} and \code{absent} to indicate whether any of the secondary
+keywords exist in a text record.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+osd_data
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+A list (dataframe)
+\end{Format}
+\inputencoding{utf8}
+\HeaderA{policing\_otd}{Fake Twitter posts on police/policing 1}{policing.Rul.otd}
+\keyword{datasets}{policing\_otd}
+%
+\begin{Description}\relax
+A text document (an OTD) containing twitter posts
+(for an anonymous geographical location 1) on police/policing
+(primary subject A). The OTD includes
+posts that express sentiments on policing in relation to
+the COVID-19 pandemic (Secondary subject B)
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+policing_otd
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+A list (dataframe)
+\end{Format}
+\inputencoding{utf8}
+\HeaderA{tf\_idf}{Highlight the top-most important topics in a text document}{tf.Rul.idf}
+%
+\begin{Description}\relax
+This function identifies the most
+important words across different text groups in a text document,
+according to the \code{tf-idf} measure (Silge \& Robinson, 2016).
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+tf_idf(textdoc, n_top=10, showplot=FALSE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{textdoc}] An \code{n} x \code{1} list (dataframe) of
+individual text records, where \code{n} is the total
+number of individual records. An \code{n} x code2 dataframe can
+also be supplied, but the second column must contain
+pre-defined group labels of the text records, e.g. group labels
+according to geographical locations.
+For an \code{n} x code1 dataframe, the function
+automatically impose arbitrary group labels on
+the text document, based on the length \code{n} of the document.
+Default: \code{FALSE}
+
+\item[\code{n\_top}] \LinkA{integer}{integer} maximum number of top-most important words
+per group to display. Default value: \code{10}
+
+\item[\code{showplot}] To display graphical plot showing
+ranks of top-most important words by group.
+Default: \code{FALSE}
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+The function utilizes the \code{tf-idf} measure
+in order to determine the most important words across various
+text groups in a document. The idea of \code{tf-idf} is
+to find words that are not used very much, but appear across
+many groups in the document. using this function, a user
+may be able to identify certain keywords that indicates some
+underlying (secondary) subject that are been discussed
+in relation to the original (primary) subject of the text
+document.
+\end{Details}
+%
+\begin{Value}
+A graphical display showing top-most important
+words in each group, according to the \code{tf-idf}
+measure.
+\end{Value}
+%
+\begin{References}\relax
+Silge, J. and Robinson, D. (2016) tidytext:
+Text mining and analysis using tidy data principles in R.
+Journal of Open Source Software, 1, 37.
+\end{References}
+\inputencoding{utf8}
+\HeaderA{tweets}{Fake Twitter posts on police/policing 2}{tweets}
+\keyword{datasets}{tweets}
+%
+\begin{Description}\relax
+A text document (an OTD) containing twitter posts
+(for an anonymous geographical location 2) on police/policing
+(primary subject A). The OTD includes
+posts that express sentiments on policing in relation to
+the COVID-19 pandemic (Secondary subject B)
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+tweets
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+A list(dataframe)
+\end{Format}
+\inputencoding{utf8}
+\HeaderA{word\_distrib}{Term Distribution}{word.Rul.distrib}
+%
+\begin{Description}\relax
+This function examines whether the word
+frequency in a text document follows the Zipf distribution
+(Zipf 1934). The Zipf's distribution is considered the
+distribution of a perfect natural language text.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+word_distrib(textdoc)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{textdoc}] \code{n} x \code{1} list (dataframe)
+of individual text records, where \code{n} is the number
+of individual records.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+The Zipf's distribution is most easily observed by
+plotting the data on a log-log graph, with the axes being
+log(word rank order) and log(word frequency). For a perfect
+natural language text, the relationship between the rank and
+the frequency should have a negative slope with all points
+falling on a straight line. Any deviation from a straight
+line can be considered an element of imperfection from the
+text document.
+\end{Details}
+%
+\begin{Value}
+A graphical plot showing the rank-frequency graph.
+\end{Value}
+%
+\begin{References}\relax
+Zipf G (1936). The Psychobiology of Language.
+London: Routledge; 1936.
+\end{References}
+\printindex{}
+\end{document}

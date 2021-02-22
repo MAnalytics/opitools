@@ -3,17 +3,18 @@
 \docType{data}
 \name{policing_otd}
 \alias{policing_otd}
-\title{Sample simulated Twitter posts}
+\title{Fake Twitter posts on police/policing 1}
 \format{
-A matrix
+A list (dataframe)
 }
 \usage{
 policing_otd
 }
 \description{
-This text document contains simulated twitter posts
-concerning policing. Within this OTD, a number of posts express
-certain sentiments COVID-19 pandemic in relation to police/policing
-activities within an area.
+A text document (an OTD) containing twitter posts
+(for an anonymous geographical location 1) on police/policing
+(primary subject A). The OTD includes
+posts that express sentiments on policing in relation to
+the COVID-19 pandemic (Secondary subject B)
 }
 \keyword{datasets}

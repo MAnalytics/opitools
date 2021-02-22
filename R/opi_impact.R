@@ -1,88 +1,64 @@
-#' @title To assess the impact of subject B on subject A
-#' @description To determine the impacts of the opinion
-#' (inherent within a text document) concerning subject B
-#' on the original subject A of the text document. For
-#' Twitter data, subject A refers to the subject whose
-#' related keywords (#hashtags) are used to download the
-#' data. Subject B refers to any other secondary subject
-#' that was being discussed in relation to subject A in the
-#' text document. Keywords relating to secondary subject
-#' need to be identified and input into \code{opi_mpact}
-#' function. These keywords can be identified by running
-#' a preliminary topic analysis on the downloaded text
-#' document. We provided \code{tf_idf} function to help a
-#' user identify important keywords that may signify a
-#' secondary subject in a text document. A user is free to
-#' deploy any other means in order to extract these important
-#' (secondary) keywords. Alternatively, a user can specify
-#' these keywords manually.
-#' @param textdoc A collection (dataframe) of individual text
-#' records, such as tweets or Facebook posts. The first column
-#' of the dataframe must contain the text records.
-#' @param sec_keywords [list] A one column  dataframe (of any
+#' @title Impact analysis of subject B on the opinion expressed concerning subject A
+#' @description This function assesses the impacts of a
+#' subject B (henceforth referred to as
+#' secondary subject) on the opinion concerning subject A in
+#' a text document. Keywords relating to the secondary subject,
+#' either identified analytically (e.g. using
+#' \code{tf_idf} function) or collated manually, are provided
+#' as input into the function (see below). The subject A
+#' (primary subject) is the subject matter upon which the
+#' text document is based. For instance, by downloading Twitter
+#' data that include hashtags: '#police', '#policing' and/or
+#' '#law enforcement', then "Police/Policing"
+#' becomes the primary subject of the text document.
+#' @param textdoc An \code{n} x \code{1} list (dataframe) of
+#' individual text records, where \code{n} is the total
+#' number of individual records.
+#' @param sec_keywords [list] A one-column dataframe (of any
 #' number of rows) containing a list of keywords relating to
 #' the secondary subject (\code{B}).
 #' @param metric [integer] Metric to utilize for the calculation
-#' of the opinion score. Default: \code{1}. See the documentation
-#' of \code{metric} parameter of \code{opi_score} function for details.
-#' @param fun A user-defined function if parameter \code{metric}
-#' is set as \code{5}. Also, see the documentation
-#' of \code{fun} parameter of \code{opi_score} function for details.
-#' @param nsim [integer] Number of replicas of the OSD to generate.
-#' Recommended values: 99, 999, 9999, and so on. Since the run time
-#' is proportional to the number of replicas, a lower number of
-#' simulation is recommended. Default: \code{99}.
-#' @param alternative [character] By default, this function will
-#' assume a two-tailed test, as indicated by \code{"two.sided"} argument
-#' in the `alternative` parameter. You can override
-#' this by specifying \code{“less”} or \code{“greater”}, which will
-#' run the analysis as a one-tailed test with the
-#' criterion (i.e. the observed score) being located at the
-#' lower or upper regions of the distribution, respectively.
-#' Note: when \code{metric} parameter is set as \code{1},
-#' `alternative` parameter is \code{"two.sided"}, while it is
-#' \code{"less"} when \code{metric} parameter is set as \code{2},
-#' \code{3}, or \code{4}. For a user-defined metric, i.e.
-#' when \code{metric=5} with \code{fun} parameter specified,
-#' the user needs to determine the bounds of the metric score
-#' (see full documentation of \code{fun} parameter in
-#' \code{opi_score} function). A simple rule that can be
-#' applied is that if the opinion score can assume either
-#' a negative or a positive value, then the `alternative`
-#' argument should be set as "two.sided", else if it can
-#' only assume a negative value, it should be set as "less",
-#' and lastly, if it can only assume a positive value, then
-#' it should be set as "greater". Note that the function is
-#' able to detect a contradicting sign to the \code{less}
-#' or \code{greater} argument, and automatically utilize the
-#' \code{"two.sided"} criterion instead.
+#' of the opinion score. Default: \code{1}. See detailed documentation
+#' in the \code{opi_score} function.
+#' @param fun A user-defined function provided parameter
+#' \code{metric} is set as \code{5}. See detailed documentation
+#' in the \code{opi_score} function.
+#' @param nsim [integer] Number of replicas (ESD) to generate.
+#' See detailed documentation in the \code{opi_sim} function.
+#' Default: \code{99}.
+#' @param alternative [character] Default: \code{"two.sided"},
+#' indicating a two-tailed test. A user can override
+#' this by specifying \code{“less”} or \code{“greater”} to run
+#' the analysis as a one-tailed test with the observed score
+#' being located at the lower or upper regions of the
+#' distribution, respectively. Note: for \code{metric=1}
+#' (see above), the `alternative` parameter should be
+#' set as \code{"two.sided"} because the opinion score is
+#' bounded by both negative and positive values. For a positively
+#' bounded opinion score, such as when
+#' \code{metric = 2, 3 or 4}, the the `alternative` parameter
+#' should be "greater", and "less" otherwise.
 #' @param pplot [logical] To display graphical plot showing
 #' the proportion of text records containing (or not
-#' containing) secondary keywords (i.e. 'present' and
-#' 'absent' groups), as well as the proportion of
-#' 'positive' and 'negative' classes.
+#' containing) any of the specified secondary keywords.
 #' @param quiet (TRUE or FALSE) To suppress processing
-#' messages. Default: \code{TRUE}.
+#' and warning messages. Default: \code{TRUE}.
 #' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
 #' fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
 #' quiet=TRUE)
-#' @details This function compares the observed opinion scores
-#' (computed using the \code{opi_score} function) with the
-#' expected opinion scores (distribution) from the
-#' \code{opi_sim} function, in order to estimate the
-#' statistical significance value (p-value). The p-value
-#' is computed as p = (S.beat+1)/(S.total+1),
-#' where 'S_total' is the total number of replicas created,
-#' 'S.beat' is number of replicas with the expected score
-#' greater than the observed score. If a user-defined opinion
+#' @details This function calculate the statistical
+#' significance value (\code{p-value}) by comparing the
+#' observed opinion scores (from the \code{opi_score}
+#' function) with the expected opinion scores (distribution) from the
+#' \code{opi_sim} function. The formula is given as
+#' p = (S.beat+1)/(S.total+1), where 'S_total' is the total
+#' number of replicas created, 'S.beat' is number of replicas
+#' with the expected score greater than the observed score. If a user-defined opinion
 #' score function is specified, he/she needs to determine
 #' whether a one-tailed or two-tailed comparison is required.
-#' Typically, a `99` replicas is sufficient.
-#' Thus, if, for example, three of the 99
-#' replicas have higher scores than observed score,
-#' then the p-value is equal to (3+1)/(99+1) = 0.04.
+#' (see explanations above).
 #' @return Details of statistical significance of impacts
-#' of subject B on subject A.
+#' of secondary subject B on the opinion concerning subject A.
 #' @references (1) Adepeju, M. and Jimoh, F. (2021). An Analytical
 #' Framework for Measuring Inequality in the Public Opinions on
 #' Policing – Assessing the impacts of COVID-19 Pandemic using
@@ -92,6 +68,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom stringr str_detect
 #' @importFrom purrr map_chr
+#'
 #' @export
 
 opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,

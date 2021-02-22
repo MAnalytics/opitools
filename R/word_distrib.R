@@ -1,34 +1,47 @@
-#' @title Word (Term) Distribution
-#' @description Models words in a text document in terms of the
-#' Zipf's distribution (Zipf's 1936). Allows a user to assess
-#' whether the content of text document follows the natural
-#' language text distribution.
-#' Generates Examines whether the word frequency in a text
-#' document follows the Zipf distribution (Zipf 1934).
-#' @param textdoc A collection (dataframe) of individual text
-#' records, such as tweets or Facebook posts.
+#' @title Term Distribution
+#' @description This function examines whether the word
+#' frequency in a text document follows the Zipf distribution
+#' (Zipf 1934). The Zipf's distribution is considered the
+#' distribution of a perfect natural language text.
+#' @param textdoc \code{n} x \code{1} list (dataframe)
+#' of individual text records, where \code{n} is the number
+#' of individual records.
 #' @usage word_distrib(textdoc)
+# @examples
+#'
+# #collect an n x 1 text document
+# tweets_dat <- as.data.frame(tweets[,1])
+#'
+# plt = word_distrib(textdoc = tweets_dat)
+#'
+# plt
+#'
 #' @details The Zipf's distribution is most easily observed by
 #' plotting the data on a log-log graph, with the axes being
-#' log(term rank order) and log(term frequency). For a perfect
-#' dataset, the relationship between rank and frequency should
-#' have a negative slope with all points falling on a straight
-#' line.
+#' log(word rank order) and log(word frequency). For a perfect
+#' natural language text, the relationship between the rank and
+#' the frequency should have a negative slope with all points
+#' falling on a straight line. Any deviation from a straight
+#' line can be considered an element of imperfection from the
+#' text document.
 #' @return A graphical plot showing the rank-frequency graph.
-#' @references Zipf G. The Psychobiology of Language.
+#' @references Zipf G (1936). The Psychobiology of Language.
 #' London: Routledge; 1936.
-#' the rank of word in the text document.
 #' @importFrom tidytext unnest_tokens
-#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 ggplot geom_line
 #' @importFrom tibble tibble
 #' @importFrom magrittr %>%
-#' @importFrom plyr count
-#'
-#'
+#' @importFrom dplyr summarise
+#' @importFrom cowplot get_legend plot_grid
 #' @export
 
+word_distrib <- function(textdoc){
 
-word_distrib <- function(textdoc=data){
+  #check that data is one-column
+  if(dim(textdoc)[2]!=1){
+    stop("Dataframe must include just one column!!")
+  }
+
 
   dat <- list(textdoc)
 
@@ -36,8 +49,8 @@ word_distrib <- function(textdoc=data){
 
   #tokenize document
   tokenized <- tibble(text = as.character(unlist(dat)))%>%
-                  unnest_tokens(word, text)%>% #tokenize
-                  dplyr::select(everything())
+    unnest_tokens(word, text)%>% #tokenize
+    dplyr::select(everything())
   series <- tokenized
 
   #compute term frequencies
@@ -61,10 +74,10 @@ word_distrib <- function(textdoc=data){
     scale_x_log10 <- scale_y_log10 <- filter <- lm <- geom_abline <- xlab <-
     ylab <- theme_light <- scale_colour_brewer <- NULL
 
-  ggplot(freq_by_rank, aes(rank, `term_freq`)) +
-    geom_line() +
-    scale_x_log10() +
-    scale_y_log10()
+  # ggplot(freq_by_rank, aes(rank, `term_freq`)) +
+  #   geom_line() +
+  #   scale_x_log10() +
+  #   scale_y_log10()
 
   #compare the distribution to a simple regression line
   #examine the head, tail and mid section of the plot
@@ -74,20 +87,57 @@ word_distrib <- function(textdoc=data){
     dplyr::rename(`term_freq` = 5)
   int_slope <- lm(log10(`term_freq`) ~ log10(rank), data = lower_rank)
 
-  lpt <- freq_by_rank %>%
-    ggplot(aes(rank, `term_freq`, color = "red")) +
-    geom_abline(intercept = as.numeric(int_slope$coefficients[1]), slope = as.numeric(int_slope$coefficients[2]),
-                color = "gray50", linetype = 2, size=0.6) +
-    geom_line(size = 1.6, alpha = 0.8) +
-    xlab("log(Rank)") +
-    ylab("log(Term frequency)")+
-    scale_x_log10() +
-    scale_y_log10() +
-    theme_light()
+  #colors <- c("Sepal Width" = "blue", "Petal Length" = "red")
 
-  return(
-  lpt + scale_colour_brewer(palette = "Set1")
+  #create a fictitious data to borrow its legend
+  dat <- tribble(
+    ~ Legend, ~ x, ~ y,
+    "LogFreq_vs_LogRank", -1, -1,
+    "LogFreq_vs_LogRank", 1, 1,
+    "Idealized_Zipfs_Law", -1, 1,
+    "Idealized_Zipfs_Law", 1, -1
   )
 
+  #
+  p = ggplot(data = dat) +
+    geom_line(aes(x = x, y = y, color = Legend), size=1.2) +
+    scale_color_manual(values = c(LogFreq_vs_LogRank = "red", Idealized_Zipfs_Law = "gray40"))
+
+  #get legend
+  leg <- get_legend(p)
+
+  freq_by_rank <- freq_by_rank %>%
+    mutate(group=1)
+
+  lpt <- freq_by_rank %>%
+    ggplot(aes(rank, `term_freq`, color="Log(freq) vs. Log(r)")) +
+    geom_line(size = 1.6, alpha = 0.8, colour="red") +
+    labs(title="Checking text document against Zipf's law")+
+    scale_x_log10() +
+    scale_y_log10() +
+    xlab("log(Rank)") +
+    ylab("log(Term frequency)")+
+    #theme(legend.position = "top")
+    geom_abline(intercept = as.numeric(int_slope$coefficients[1]),
+                slope = as.numeric(int_slope$coefficients[2]),
+      color = c("gray40"), linetype = 2, size=1.2) +
+    theme_light()+
+    scale_shape_manual(values = 1) +
+    labs(shape = "", linetype = "") +
+    theme(panel.border = element_rect(colour = "black", fill=NA),
+      aspect.ratio = 1, axis.text = element_text(colour = 1, size = 12))
+
+  final_lpt <- plot_grid(lpt, leg, ncol = 2, rel_heights = c(1, .1),
+                         rel_widths = c(2,1), axis = "l")#,
+                         #labels = c("AA","BB"),
+                         #label_x = c(1.28, 0.495), label_y= c(0.53, 0.485))
+  final_lpt
+
+  return(final_lpt)
 
 }
+
+#plt = word_distrib(textdoc = policing_otd)
+#print(plt)
+
+#Ideal Zipf's law

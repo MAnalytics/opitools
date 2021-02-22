@@ -3,14 +3,18 @@
 \docType{data}
 \name{tweets}
 \alias{tweets}
-\title{Simulated Twitter posts}
+\title{Fake Twitter posts on police/policing 2}
 \format{
-A matrix
+A list(dataframe)
 }
 \usage{
 tweets
 }
 \description{
-Fake Twitter posts
+A text document (an OTD) containing twitter posts
+(for an anonymous geographical location 2) on police/policing
+(primary subject A). The OTD includes
+posts that express sentiments on policing in relation to
+the COVID-19 pandemic (Secondary subject B)
 }
 \keyword{datasets}

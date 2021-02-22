@@ -1,11 +1,11 @@
 Package: opitools
 Type: Package
-Title: An R-package for analyzing Opinions in a Text Document.
+Title: An R-package for analyzing Opinions in a Text Document
 Version: 1.0.0
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
 Description: This package analyzes the opinions inherent in a text document
-  relating to a specific subject (A), and can be deployed to assess
+  relating to a specific subject (A), and assesses
   the impacts that opinion expressed with respect to another subject (B) 
   have on subject A. This package is specifically designed for application 
   to social media datasets, such as Twitter and Facebook.
@@ -29,7 +29,9 @@ Imports:
   purrr,
   tidyr,
   utils,
-  likert
+  likert,
+  cowplot,
+  data.table
 RoxygenNote: 7.1.0
 Suggests:
   knitr,

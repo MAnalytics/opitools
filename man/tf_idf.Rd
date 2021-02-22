@@ -2,52 +2,49 @@
 % Please edit documentation in R/tf_idf.R
 \name{tf_idf}
 \alias{tf_idf}
-\title{Detect important topics in a text document}
+\title{Highlight the top-most important topics in a text document}
 \usage{
-tf_idf(textdoc = tweets, grouping=FALSE, n=10, showplot=FALSE)
+tf_idf(textdoc, n_top=10, showplot=FALSE)
 }
 \arguments{
-\item{textdoc}{A collection (dataframe) of individual text
-records, such as tweets or Facebook posts.
-By default: The \code{textdoc} is a one-column dataframe.
-If contains two-columns, the second column must contain
-text group labels.}
-
-\item{grouping}{Indicate whether the dataframe
-includes a second column indicating a defined groupings.
-If \code{FALSE}, the function impose arbitrary groups.
+\item{textdoc}{An \code{n} x \code{1} list (dataframe) of
+individual text records, where \code{n} is the total
+number of individual records. An \code{n} x code{2} dataframe can
+also be supplied, but the second column must contain
+pre-defined group labels of the text records, e.g. group labels
+according to geographical locations.
+For an \code{n} x code{1} dataframe, the function
+automatically impose arbitrary group labels on
+the text document, based on the length \code{n} of the document.
 Default: \code{FALSE}}
 
-\item{n}{\link{integer} the number of top important words across
-the text document to display. Default value: \code{10}}
+\item{n_top}{\link{integer} maximum number of top-most important words
+per group to display. Default value: \code{10}}
 
-\item{showplot}{To show graphical plot showing
-rank of important words by group. Default: \code{FALSE}}
+\item{showplot}{To display graphical plot showing
+ranks of top-most important words by group.
+Default: \code{FALSE}}
 }
 \value{
-List of topics with their respective tf-idf values
-(importance).
+A graphical display showing top-most important
+words in each group, according to the \code{tf-idf}
+measure.
 }
 \description{
-Calculates the tf-idf metric
-(Silge & Robinson, 2016) in order to determine
-the important topics in a document. The \code{tf-idf}
-value represents level of importance of a given
-topic (or word) across the group of text that exist in a document.
+This function identifies the most
+important words across different text groups in a text document,
+according to the \code{tf-idf} measure (Silge & Robinson, 2016).
 }
 \details{
-The idea of tf-idf is to find important
-words from the content of the text document across various
-text groups by decreasing the weight for commonly used words
-and increasing the weight for words that are not used very
-much in the documents. Based on the result, a user may be
-able to identify words that indicates certain underlying
-subjects that relate to the original subject of the text
-document. A user can collate these words and use them
-as input into the \code{sec_keywords} parameter of the
-\code{opi_impact} function. For this function, we built on
-the \code{bind_tf_idf} function from the tidytext R-package
-(Silge & Robinson, 2016).
+The function utilizes the \code{tf-idf} measure
+in order to determine the most important words across various
+text groups in a document. The idea of \code{tf-idf} is
+to find words that are not used very much, but appear across
+many groups in the document. using this function, a user
+may be able to identify certain keywords that indicates some
+underlying (secondary) subject that are been discussed
+in relation to the original (primary) subject of the text
+document.
 }
 \references{
 Silge, J. and Robinson, D. (2016) tidytext:

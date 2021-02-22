@@ -2,35 +2,35 @@
 % Please edit documentation in R/word_distrib.R
 \name{word_distrib}
 \alias{word_distrib}
-\title{Word (Term) Distribution}
+\title{Term Distribution}
 \usage{
 word_distrib(textdoc)
 }
 \arguments{
-\item{textdoc}{A collection (dataframe) of individual text
-records, such as tweets or Facebook posts.}
+\item{textdoc}{\code{n} x \code{1} list (dataframe)
+of individual text records, where \code{n} is the number
+of individual records.}
 }
 \value{
 A graphical plot showing the rank-frequency graph.
 }
 \description{
-Models words in a text document in terms of the
-Zipf's distribution (Zipf's 1936). Allows a user to assess
-whether the content of text document follows the natural
-language text distribution.
-Generates Examines whether the word frequency in a text
-document follows the Zipf distribution (Zipf 1934).
+This function examines whether the word
+frequency in a text document follows the Zipf distribution
+(Zipf 1934). The Zipf's distribution is considered the
+distribution of a perfect natural language text.
 }
 \details{
 The Zipf's distribution is most easily observed by
 plotting the data on a log-log graph, with the axes being
-log(term rank order) and log(term frequency). For a perfect
-dataset, the relationship between rank and frequency should
-have a negative slope with all points falling on a straight
-line.
+log(word rank order) and log(word frequency). For a perfect
+natural language text, the relationship between the rank and
+the frequency should have a negative slope with all points
+falling on a straight line. Any deviation from a straight
+line can be considered an element of imperfection from the
+text document.
 }
 \references{
-Zipf G. The Psychobiology of Language.
+Zipf G (1936). The Psychobiology of Language.
 London: Routledge; 1936.
-the rank of word in the text document.
 }
