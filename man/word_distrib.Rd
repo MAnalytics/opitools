@@ -30,6 +30,15 @@ falling on a straight line. Any deviation from a straight
 line can be considered an element of imperfection from the
 text document.
 }
+\examples{
+
+#Get an \code{n} x 1 text document
+tweets_dat <- as.data.frame(tweets[,1])
+plt = word_distrib(textdoc = tweets_dat)
+
+plt
+
+}
 \references{
 Zipf G (1936). The Psychobiology of Language.
 London: Routledge; 1936.

@@ -7,14 +7,13 @@
 #' of individual text records, where \code{n} is the number
 #' of individual records.
 #' @usage word_distrib(textdoc)
-# @examples
+#' @examples
 #'
-# #collect an n x 1 text document
-# tweets_dat <- as.data.frame(tweets[,1])
+#' #Get an \code{n} x 1 text document
+#' tweets_dat <- as.data.frame(tweets[,1])
+#' plt = word_distrib(textdoc = tweets_dat)
 #'
-# plt = word_distrib(textdoc = tweets_dat)
-#'
-# plt
+#' plt
 #'
 #' @details The Zipf's distribution is most easily observed by
 #' plotting the data on a log-log graph, with the axes being
