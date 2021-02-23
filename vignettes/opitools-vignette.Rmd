@@ -216,8 +216,98 @@ write_as_csv(all_Tweets, "tweets.csv", na="NA", fileEncoding = "UTF-8")
 
 ```
 
+# Exploration of a text document
+
+Following the data download, a user may wish to explore the inherent characteristics of the data. For example, "What is the nature of word usage in a Twitter text document compareed to typical natural language document?" This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution [@Zipf1936] – the famous frequency distribution expected of a natural language document. By Zipf’s distribution, we expect the frequency of words contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function can be used to generate a plot (e.g Figure `r fig$ref("figs1")`) that shows the comparison.   
+
+```{r, message=FALSE, include = TRUE, eval=FALSE}
+#using a randomised Twitter data from 'opitools'
+
+tweets_dat <- as.data.frame(tweets[,1])
+
+plt = word_distrib(textdoc = tweets_dat)
+
+#to plot
+plt
+
+```
+
+```{r figs1, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs1", "Data freq. plot vs. Zipf's distribution")}
+knitr::include_graphics("zipf.png")
+```
+
+For a natural language text, the relationship between the rank and the frequency should have a negative slope with all points falling on a straight line. Any deviation from the straight line can be considered an element of imperfection of the text document. An example of such element is the presence of abnormal terms in the document. From Figure `r fig$ref("figs1")` we divide the graph into the three sections: the upper, the middle and the lower section. By fitting a regression line (to represent an ideal Zipf's distribution), we can see what the slope of the upper section is quite different from the rest of the graph. The deviation at the high rank is quite unusual because a corpus of English language often contains enough of common words, such as 'the', 'of', and 'at', in order to obey the Zipf's law. This deviation only suggests a significant use of a wide range of abbreviation instead of these common words. The remaining part of the graph suggests that the documents . Apart from the small deviation at the upper section of the graph, we can state that the law holds within most parts of the Twitter text document.
+
+# Impact Analysis
+
+The randomized Twitter data (above) relates to the tweets containing law enforcement-related search words (e.g. policing, law enforcement, etc), and are downloaded during the era of COVID-19 pandemic.  We will like to assess the impacts of COVID-19 pandemic (as a secondary subject B) on the original theme of the data, i.e. `policing during pandemic`. First, we need to identify keywords that have been used to reference COVID-19 pandemic in the text data. A user can employ any relevant analytical approach (e.g. frequency analysis) in order to identify such keywords. Alternatively, a user can input those keywords manually. Thus, for COVID-19 pandemic, the defined keywords can be accessed by typing `covid_keys` in the console: 
+```r
+
+> covid_keys 
+
+#          keys
+#1     pandemic
+#2    pandemics
+#3     lockdown
+#4    lockdowns
+#5       corona
+#6  coronavirus
+#7        covid
+#8      covid19
+#9     covid-19
+#10       virus
+#11     viruses
+#12  quarantine
+#13      infect
+#14     infects
+#15   infecting
+#16    infected
+
+```
+
+The main impact analysis can be executed by running the following codes:
+
+```{r, message=FALSE, include = TRUE, eval=TRUE}
+
+# Get an n x 1 text document
+  tweets_dat <- as.data.frame(tweets[,1])
+
+# Run the analysis
+
+results <- opi_impact(tweets_dat = tweets, sec_keywords=covid_keys, metric = 1,
+                       fun = NULL, nsim = 99, alternative="two.sided",
+                       pplot = TRUE, quiet=FALSE)
+                       
+print(results)
+
+$test
+[1] "Test of significance (Randomization testing)"
+
+$criterion
+[1] "two.sided"
+
+$exp_summary
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -8.240  -5.880  -5.880  -5.028  -3.530  -1.180 
+
+$p_table
 
 
+|observed_score |S_beat |nsim |pvalue    |signif |
+|:--------------|:------|:----|:----|:------|
+|-5.88          |56     |99   |0.57 |'      |
+
+$p_key
+[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+
+$p_formula
+[1] "(S_beat + 1)/(nsim + 1)"
+
+#......
+```
+
+
+The definition of opinion function may vary according to the domain of interest
 
 ```{r, eval=FALSE, echo=FALSE, include=FALSE}
 
