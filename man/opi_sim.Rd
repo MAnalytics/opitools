@@ -13,8 +13,8 @@ text records that have been successfully classified as
 positive, negative or neutral. Column \code{1} of the OSD
 is the record ID, column \code{2} shows the sentiment
 classes (i.e. positive, negative, or neutral), while
-Column \code{3} contains two variables: \code{present} and
-\code{absent}, indicating records that consist and records
+Column \code{3} contains two indicator variables: \code{present}
+and \code{absent}, to indicate records that consist and records
 that do not consist, respectively, of any of
 the identified secondary keywords.}
 
@@ -50,6 +50,32 @@ tidy-format dataframe is referred to as the \verb{expected sentiment document (E
 Uses randomization testing approach in
 order to generate expected distribution of the observed
 opinion scores (see details in Adepeju, M. and Jimoh, F., 2021).
+}
+\examples{
+
+#Prepare an osd data from the output
+#of `opi_score` function.
+
+score <- opi_score(textdoc = policing_otd,
+                     metric = 1, fun = NULL)
+#extract OSD
+OSD <- score$OSD
+#note that `OSD` is shorter in length
+#than `policing_otd`, meaning that some
+#text records were not classified
+
+#Bind a fictitious indicator column
+set.seed(1000)
+osd_data2 <- data.frame(cbind(OSD,
+           keywords = sample(c("present","absent"), nrow(OSD),
+           replace=TRUE, c(0.35, 0.65))))
+
+#generate expected distribution
+exp_score <- opi_sim(osd_data2, nsim=99, metric = 1,
+                                 fun = NULL, quiet=TRUE)
+#preview the distribution
+hist(exp_score)
+
 }
 \references{
 (1) Adepeju, M. and Jimoh, F. (2021). An Analytical

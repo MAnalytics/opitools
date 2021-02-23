@@ -56,6 +56,32 @@ text document. We deploy a lexicon-based approach
 (Taboada et al. 2011) using the \code{AFINN} lexicon
 (Nielsen, 2011).
 }
+\examples{
+# Use police/pandemic posts on Twitter
+# Experiment with a standard metric (e.g. metric 1)
+score <- opi_score(textdoc = policing_otd, metric = 1, fun = NULL)
+#print result details
+print(score)
+#preview results
+print(score)
+
+#Example using a user-defined opinion score -
+#a demonstration with a component of SIM opinion
+#Score function (by Razorfish, 2009). The opinion
+#function can be expressed as:
+
+myfun <- function(P, N, O){
+  score <- (P + O - N)/(P + O + N)
+return(score)
+}
+
+#Run analysis
+score <- opi_score(textdoc = policing_otd, metric = 5, fun = myfun)
+#preview results
+print(score)
+
+
+}
 \references{
 (1) Malshe, A. (2019) Data Analytics Applications.
 Online book available at:
@@ -67,4 +93,6 @@ linguistics, 37(2), pp.267-307.
 (3) Lowe, W. et al. (2011).
 Scaling policy preferences from coded political texts.
 Legislative studies quarterly, 36(1), pp.123-155.
+(4) Razorfish (2019) Social Influence Marketing (SIM) score.
+Report by
 }

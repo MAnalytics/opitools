@@ -33,6 +33,32 @@
 #' Default: \code{NULL} i.e. when \code{metric} parameter
 #' is not \code{5}.
 #' @usage opi_score(textdoc, metric = 1, fun = NULL)
+#'
+#' @examples
+#' # Use police/pandemic posts on Twitter
+#' # Experiment with a standard metric (e.g. metric 1)
+#' score <- opi_score(textdoc = policing_otd, metric = 1, fun = NULL)
+#' #print result details
+#' print(score)
+#' #preview results
+#' print(score)
+#'
+#' #Example using a user-defined opinion score -
+#' #a demonstration with a component of SIM opinion
+#' #Score function (by Razorfish, 2009). The opinion
+#' #function can be expressed as:
+#'
+#' myfun <- function(P, N, O){
+#'   score <- (P + O - N)/(P + O + N)
+#' return(score)
+#' }
+#'
+#' #Run analysis
+#' score <- opi_score(textdoc = policing_otd, metric = 5, fun = myfun)
+#' #preview results
+#' print(score)
+#'
+#'
 #' @details An opinion score is derived from all the sentiments
 #' (i.e. positive, negative (and neutral) expressed within a
 #' text document. We deploy a lexicon-based approach
@@ -50,14 +76,17 @@
 #' (3) Lowe, W. et al. (2011).
 #' Scaling policy preferences from coded political texts.
 #' Legislative studies quarterly, 36(1), pp.123-155.
+#' (4) Razorfish (2019) Social Influence Marketing (SIM) score.
+#' Report by
 #' @import dplyr
 #' @importFrom tidyr separate
-#' @importFrom tidytext unnest_tokens
+#' @importFrom tidytext unnest_tokens get_sentiments
 #' @importFrom tibble tibble as_tibble
 #' @importFrom magrittr %>%
+#' @import tibble tibble
 #' @export
 
-opi_score <- function(textdoc=textonly, metric = 1, fun = NULL){
+opi_score <- function(textdoc, metric = 1, fun = NULL){
 
   #global variables
   ID <- as_tibble <- bigram <- get_sentiments <- neg <- sentiment <-
@@ -160,7 +189,7 @@ opi_score <- function(textdoc=textonly, metric = 1, fun = NULL){
         N <- afinn_OSD[which(afinn_OSD$sentiment == "negative"),2]
         PD <- round(((P - N)/(P + N))*100,digits = 2)
 
-        opi_object$sentiments <- afinn_OSD
+        opi_object$sentiments <- knitr::kable(data.frame(afinn_OSD))
         opi_object$opiscore <- paste(PD, "%", sep="")
         opi_object$metric <- "Polarity (Percentage Difference)"
         opi_object$equation <- paste('((#Positive - #Negative)',
@@ -180,7 +209,7 @@ opi_score <- function(textdoc=textonly, metric = 1, fun = NULL){
         afinn_OSD <- afinn_OSD %>%
           rename(No_of_text_records=n)
 
-        opi_object$sentiments <- afinn_OSD
+        opi_object$sentiments <- knitr::kable(data.frame(afinn_OSD))
         opi_object$opiscore <- paste(PD, "%", sep="")
         opi_object$metric <- "Polarity (Proportional Difference)"
         opi_object$equation <- paste('(abs(#Positive - #Negative)',
@@ -200,7 +229,7 @@ opi_score <- function(textdoc=textonly, metric = 1, fun = NULL){
         afinn_OSD <- afinn_OSD %>%
           rename(No_of_text_records=n)
 
-        opi_object$sentiments <- afinn_OSD
+        opi_object$sentiments <- knitr::kable(data.frame(afinn_OSD))
         opi_object$opiscore <- paste(PoS, "%", sep="")
         opi_object$metric <- "Positivity"
         opi_object$equation <- "(#Positive / (#Positive + #Negative + #neutral))*100%"
@@ -218,7 +247,7 @@ opi_score <- function(textdoc=textonly, metric = 1, fun = NULL){
         afinn_OSD <- afinn_OSD %>%
           rename(No_of_text_records=n)
 
-        opi_object$sentiments <- afinn_OSD
+        opi_object$sentiments <- knitr::kable(data.frame(afinn_OSD))
         opi_object$opiscore <- paste(Neg, "%", sep="")
         opi_object$metric <- "Negativity"
         opi_object$equation <- "(#Negativity / (#Positive + #Negative + #neutral))*100%"
@@ -238,7 +267,7 @@ opi_score <- function(textdoc=textonly, metric = 1, fun = NULL){
     afinn_OSD <- afinn_OSD %>%
       rename(No_of_text_records=n)
 
-    opi_object$sentiments <- afinn_OSD
+    opi_object$sentiments <- knitr::kable(data.frame(afinn_OSD))
     opi_object$opiscore <- userfun
     opi_object$metric <- "User-defined"
     opi_object$equation <- fun

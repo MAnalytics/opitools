@@ -27,11 +27,14 @@
 #' @references Zipf G (1936). The Psychobiology of Language.
 #' London: Routledge; 1936.
 #' @importFrom tidytext unnest_tokens
-#' @importFrom ggplot2 ggplot geom_line
+#' @importFrom ggplot2 ggplot geom_line aes scale_color_manual
+#' labs scale_x_log10 scale_y_log10 scale_shape_manual geom_abline
+#' xlab ylab theme theme_light element_text element_rect
 #' @importFrom tibble tibble
 #' @importFrom magrittr %>%
 #' @importFrom dplyr summarise
 #' @importFrom cowplot get_legend plot_grid
+#'
 #' @export
 
 word_distrib <- function(textdoc){
@@ -40,7 +43,6 @@ word_distrib <- function(textdoc){
   if(dim(textdoc)[2]!=1){
     stop("Dataframe must include just one column!!")
   }
-
 
   dat <- list(textdoc)
 
@@ -71,7 +73,7 @@ word_distrib <- function(textdoc){
   data <- word <- text <- everything <- summarise <- n <- mutate <-
     row_number <- total <- aes <- `term_freq` <- geom_line <-
     scale_x_log10 <- scale_y_log10 <- filter <- lm <- geom_abline <- xlab <-
-    ylab <- theme_light <- scale_colour_brewer <- NULL
+    ylab <- theme_light <- scale_colour_brewer <- x <- y <- NULL
 
   # ggplot(freq_by_rank, aes(rank, `term_freq`)) +
   #   geom_line() +
@@ -98,9 +100,14 @@ word_distrib <- function(textdoc){
   )
 
   #
-  p = ggplot(data = dat) +
-    geom_line(aes(x = x, y = y, color = Legend), size=1.2) +
+  # p = ggplot(data = dat) +
+  #   geom_line(aes(x = x, y = y, color = Legend), size=1.2) +
+  #   scale_color_manual(values = c(LogFreq_vs_LogRank = "red", Idealized_Zipfs_Law = "gray40"))
+
+  p = ggplot(data=dat, aes(x, y, color=Legend)) +
+    geom_line(size = 1.6, alpha = 0.8) +
     scale_color_manual(values = c(LogFreq_vs_LogRank = "red", Idealized_Zipfs_Law = "gray40"))
+
 
   #get legend
   leg <- get_legend(p)
@@ -108,8 +115,7 @@ word_distrib <- function(textdoc){
   freq_by_rank <- freq_by_rank %>%
     mutate(group=1)
 
-  lpt <- freq_by_rank %>%
-    ggplot(aes(rank, `term_freq`, color="Log(freq) vs. Log(r)")) +
+  lpt <- ggplot(freq_by_rank, aes(rank, term_freq, color="Log(freq) vs. Log(r)")) +
     geom_line(size = 1.6, alpha = 0.8, colour="red") +
     labs(title="Checking text document against Zipf's law")+
     scale_x_log10() +

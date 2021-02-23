@@ -3,8 +3,8 @@
 #' subject B (henceforth referred to as
 #' secondary subject) on the opinion concerning subject A in
 #' a text document. Keywords relating to the secondary subject,
-#' either identified analytically (e.g. using
-#' \code{tf_idf} function) or collated manually, are provided
+#' can be identified through a frequency analysis or
+#' collated manually, and should be provided
 #' as input into the function (see below). The subject A
 #' (primary subject) is the subject matter upon which the
 #' text document is based. For instance, by downloading Twitter
@@ -46,6 +46,24 @@
 #' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
 #' fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
 #' quiet=TRUE)
+#' @example
+#' #test document: 'policing_otd'
+#' #list of keywords: 'covid_keys'
+#'
+#' output <- opi_impact(textdoc = policing_otd,
+#'           sec_keywords=covid_keys, metric = 1,
+#'           fun = NULL, nsim = 99, alternative="two.sided",
+#'           pplot = TRUE, quiet=TRUE)
+#'
+#' #check output variables
+#' print(output)
+#'
+#' #to access the pvalue
+#' output$pvalue
+#'
+#'
+#'
+#' #run function
 #' @details This function calculate the statistical
 #' significance value (\code{p-value}) by comparing the
 #' observed opinion scores (from the \code{opi_score}
@@ -68,9 +86,9 @@
 #' @importFrom magrittr %>%
 #' @importFrom stringr str_detect
 #' @importFrom purrr map_chr
-#'
+#' @importFrom magrittr %>%
 #' @export
-
+#'
 opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        pplot = FALSE, quiet=TRUE){ #tweets
@@ -296,7 +314,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   output$criterion <- alternative
   output$exp_summary <- summary(expected_scores)
 
-  output$p_table <- knitr::kable(data.frame(cbind(observed_score, S_beat, nsim, p=(S+1)/(nsim+1),   signif)))
+  output$p_table <- knitr::kable(data.frame(cbind(observed_score, S_beat, nsim, pvalue=(S+1)/(nsim+1),   signif)))
   output$p_key <- rev(p_loc)
   output$p_formula <- "(S_beat + 1)/(nsim + 1)"
   output$plot <- pp

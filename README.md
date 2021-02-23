@@ -46,7 +46,7 @@ head(policing_otd)
 
 ### Performing analysis
 
-Assuming that we want to assess the impacts of a secondary subject B inherent in the document on the original subject A (for which OTD is downloaded), we need to first identify keywords that are used to reference the subject B in the OTD. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using frequency analysis or `tf_idf` metric (Silge, J. and Robinson, D. 2016). Alternatively, a user can define those keywords manually. For example, keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data include words, such as 'covid-19', 'coronavirus', 'pandemic' and their variations. We provide a full list of these keywords in the package, and can be accessed by typing:
+Assuming that we want to assess the impacts of a secondary subject B inherent in the document on the original subject A (for which OTD is downloaded), we need to first identify keywords that are used to reference the subject B in the OTD. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using a frequency analysis. Alternatively, a user can define those keywords manually. For example, keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data include words, such as 'covid-19', 'coronavirus', 'pandemic' and their variations. We provide a full list of these keywords in the package, and can be accessed by typing:
 
 ```r
 
@@ -95,7 +95,7 @@ $exp_summary
 $p_table
 
 
-|observed_score |S_beat |nsim |p    |signif |
+|observed_score |S_beat |nsim |pvalue    |signif |
 |:--------------|:------|:----|:----|:------|
 |-5.88          |56     |99   |0.57 |'      |
 
@@ -114,6 +114,3 @@ $p_formula
 1. Adepeju, M. and Jimoh, F. (2021). An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the impacts of COVID-19 Pandemic using Twitter Data. [https://doi.org/10.31235/osf.io/c32qh](https://osf.io/preprints/socarxiv/c32qh/)
 
 2. Kearney MW (2019). “rtweet: Collecting and analyzing Twitter data.” Journal of Open Source Software, 4(42), 1829. [doi: 10.21105/joss.01829](https://doi.org/10.21105/joss.01829)
-
-
-3. Silge, J. and Robinson, D. (2016). tidytext: Text mining and analysis using tidy data principles in R. Journal of Open Source Software, 1, 37. [doi:10.21105/joss.00037](https://joss.theoj.org/papers/10.21105/joss.00037)

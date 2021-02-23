@@ -21,6 +21,7 @@ Imports:
   ggplot2,
   tibble,
   tidytext,
+  textdata,
   magrittr,
   dplyr,
   plyr,

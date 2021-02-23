@@ -58,8 +58,8 @@ This function assesses the impacts of a
 subject B (henceforth referred to as
 secondary subject) on the opinion concerning subject A in
 a text document. Keywords relating to the secondary subject,
-either identified analytically (e.g. using
-\code{tf_idf} function) or collated manually, are provided
+can be identified through a frequency analysis or
+collated manually, and should be provided
 as input into the function (see below). The subject A
 (primary subject) is the subject matter upon which the
 text document is based. For instance, by downloading Twitter
