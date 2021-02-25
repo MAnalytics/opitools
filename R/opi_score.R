@@ -76,8 +76,8 @@
 #' (3) Lowe, W. et al. (2011).
 #' Scaling policy preferences from coded political texts.
 #' Legislative studies quarterly, 36(1), pp.123-155.
-#' (4) Razorfish (2019) Social Influence Marketing (SIM) score.
-#' Report by
+#' (4) Razorfish (2009) Fluent: The Razorfish Social Influence
+#' Marketing Report. Accessed: 24th February, 2021.
 #' @import dplyr
 #' @importFrom tidyr separate
 #' @importFrom tidytext unnest_tokens get_sentiments
