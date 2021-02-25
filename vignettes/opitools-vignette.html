@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Assessing the impacts of COVID-19 pandemic on public opinion concerning policing using Twitter data - A demonstration using &#39;Opitools&#39; package</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Assessing the impacts of COVID-19 pandemic on public opinion concerning policing using Twitter data - A demonstration using <code>&#39;Opitools&#39;</code> package</h1>
+<h4 class="author"><div class="line-block"><code>Author:</code><br />
+<code>Adepeju, M.</code><br />
+<code>Big Data Centre, Manchester Metropolitan University, Manchester, M15 6BH</code></div></h4>
+<h4 class="date"><div class="line-block"><code>Date:</code><br />
+<code>2021-02-25</code></div></h4>
+<div class="abstract">
+<p class="abstract">Abstract</p>
+The lack of tools for analysing cross-impact of opinions expressed amongst multiple subjects, within a text document, facilitate the development of <code>&#39;opitool&#39;</code> package. For instance, given a collection of tweets on a specific subject A, a researcher may want to assess whether the opinion expressed on subject A in relation to another (secondary) subject B has significantly impacted the overall opinion from the text document. For a real life example, we may want to examine if public opinion expressed concerning policing (as subject A) has been significantly impacted by the public concerns for COVID-19 pandemic (as subject B) (see Adepeju and Jimoh, 2021). This document describes how the aforementioned analysis can be completed using the <code>opitools</code> package.
+</div>
+
+
+
+<style type="text/css">
+
+h1.title {
+  font-size: 26px;
+  line-height: 130%;
+  color: Black;
+  text-align: center;
+}
+
+h2.subtitle {
+  font-size: 13px;
+  line-height: 120%;
+  color: Black;
+  text-align: center;
+}
+
+h4.author { /* Header 4 - and the author and data headers use this too  */
+  font-size: 17px;
+  font-family: "Arial";
+  color: Black;
+  text-align: center;
+}
+h4.date { /* Header 4 - and the author and data headers use this too  */
+  font-size: 17px;
+  font-family: "Arial", Times, serif;
+  color: Black;
+  text-align: center;
+}
+
+h4.abstract { /* Header 4 - and the author and data headers use this too  */
+  font-size: 10px;
+  font-family: "Arial", Times, serif;
+  color: black;
+  text-align: center;
+}
+
+h4.institute{ /* Header 4 - and the author and data headers use this too  */
+  font-size: 10px;
+  font-family: "Arial", Times, serif;
+  color: black;
+  text-align: center;
+}
+
+body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 13px;
+}
+pre {
+  font-size: 13px
+}
+h1 { /* Header 1 */
+  font-size: 16px;
+  color: DarkBlue;
+}
+h2 { /* Header 2 */
+    font-size: 16px;
+  color: DarkBlue;
+}
+h3 { /* Header 3 */
+  font-size: 15px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+
+</style>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The <code>opitools</code> is an opinion analytical toolset designed for assessing cross-impacts of opinion expressed on multiple subjects in an opinion-based text documents (OTD) from a social media platform. An OTD (input as <code>textdoc</code>) should composed of individual text records on a specific subject (A). An example of an OTD is a collection of Twitter posts concerning a specific topic or hashtag. Any other subjects referenced in relation to the primary subject A can be referred to as secondary subjects, and they can be identified through the keywords used in the text records.In the article <span class="citation">(Adepeju and Jimoh 2021)</span>, we described how to deploy <code>opitools</code> in order to answer a real-life research question, such as ‘what are the impacts of <code>COVID-19 pandemic</code> (secondary subject) on the public opinion concerning policing (primary subject) across England and Wales?’ The <code>opitools</code> may be used to answer similar questions relating to many public organisations in order to unravelling important issues that may be driving confidence and trust in relation to their services.</p>
+</div>
+<div id="downloading-twitter-data" class="section level1">
+<h1>Downloading Twitter data</h1>
+<p>The <code>rtweet</code> package <span class="citation">(Kearney 2019)</span> is one of the R packages that provide access to the Twitter API for data download. The code section below can be used to download tweets for a pre-defined geographical coverage (lat:‘53.805,long:-4.242,radius: 350mi’) within the last seven days (free download). We will be downloading tweets relating to ‘policing’. Thus, I define the search words as {“<code>police</code>”, “<code>policing</code>”, “<code>law enforcement</code>”} Note: A user need to first secure access to Twitter developer platform (from <a href="https://developer.twitter.com/en/apply-for-access">here</a>), then follow instructions on this <a href="https://developer.twitter.com/en/docs/twitter-api/getting-started/guide">page</a> on how to obtain a set of tokens (keys) required connect to the Twitter API.</p>
+<div id="working-directory" class="section level3">
+<h3>Working directory</h3>
+<p>Set a local directory:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>WORKING_DIR &lt;-<span class="st"> &#39;C:/R/Github/JGIS_Policing_COVID-19&#39;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#setting working directory</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">setwd</span>(WORKING_DIR)</span></code></pre></div>
+</div>
+<div id="installing-libraries" class="section level3">
+<h3>Installing libraries</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(opitools) <span class="co">#for impact analysis</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">library</span>(rtweet) <span class="co">#for data download</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">library</span>(twitteR) <span class="co">#for setting up Twitter authorization</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; Warning: package &#39;twitteR&#39; was built under R version 4.0.3</span></span></code></pre></div>
+</div>
+<div id="running-essential-function-and-define-tokens" class="section level3">
+<h3>Running essential function and define tokens</h3>
+<p>Free Twitter developer accounts have a restriction of 18,000 tweets per 15 minutes, otherwise a user may loose access (temporarily) to download data. Therefore, it is important to wait for 15 minutes after every 18,000 tweets download. Run the <code>waitFun</code> function to help surpass the restriction as the data is being downloaded using different search words.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#Run function </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>waitFun &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  p1 &lt;-<span class="st"> </span><span class="kw">proc.time</span>()</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="kw">Sys.sleep</span>(x)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="kw">proc.time</span>() <span class="op">-</span><span class="st"> </span>p1</span>
+<span id="cb3-7"><a href="#cb3-7"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#specify tokens and authorize</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#Note: replace asterisk with real keys</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>consumer_key &lt;-<span class="st"> &#39;*******************************&#39;</span> </span>
+<span id="cb3-13"><a href="#cb3-13"></a>consumer_secret &lt;-<span class="st"> &#39;*******************************&#39;</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>access_token &lt;-<span class="st"> &#39;*******************************&#39;</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>access_secret &lt;-<span class="st"> &#39;*******************************&#39;</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="kw">setup_twitter_oauth</span>(consumer_key, consumer_secret, access_token, access_secret)</span>
+<span id="cb3-18"><a href="#cb3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19"></a>token &lt;-<span class="st"> </span><span class="kw">create_token</span>(</span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="dt">app =</span> <span class="st">&quot;AppName&quot;</span>, <span class="co">#App name</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>  <span class="dt">consumer_key =</span> consumer_key,</span>
+<span id="cb3-22"><a href="#cb3-22"></a>  <span class="dt">consumer_secret =</span> consumer_secret)</span></code></pre></div>
+</div>
+<div id="start-download" class="section level3">
+<h3>Start download</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#Define the keywords for subject A</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>keywords &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;police&quot;</span>, <span class="st">&quot;policing&quot;</span>, <span class="st">&quot;law enforcement&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#tweets holder</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>all_Tweets &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#Loop through each keyword and wait for 15 minutes </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#and row-bind the results </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">length</span>(keywords))){</span>
+<span id="cb4-11"><a href="#cb4-11"></a>  </span>
+<span id="cb4-12"><a href="#cb4-12"></a>  tweets_g1 &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a>  tweets_g1 &lt;-<span class="st"> </span><span class="kw">search_tweets</span>(<span class="dt">q=</span>keywords[i],  <span class="dt">n=</span><span class="dv">17500</span>, <span class="dt">type=</span><span class="st">&quot;recent&quot;</span>, <span class="dt">include_rts=</span><span class="ot">TRUE</span>, </span>
+<span id="cb4-15"><a href="#cb4-15"></a>                             <span class="dt">token =</span> token, <span class="dt">lang=</span><span class="st">&quot;en&quot;</span>,<span class="dt">geocode=</span><span class="st">&#39;53.805,-4.242,350mi&#39;</span>)</span>
+<span id="cb4-16"><a href="#cb4-16"></a>  </span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="cf">if</span>(<span class="kw">nrow</span>(tweets_g1)<span class="op">!=</span><span class="dv">0</span>){</span>
+<span id="cb4-18"><a href="#cb4-18"></a>    tweets_g1 &lt;-<span class="st"> </span>tweets_g1 <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">class=</span>keywords[i])</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    all_Tweets &lt;-<span class="st"> </span><span class="kw">rbind</span>(all_Tweets, tweets_g1)</span>
+<span id="cb4-20"><a href="#cb4-20"></a>  }</span>
+<span id="cb4-21"><a href="#cb4-21"></a>  </span>
+<span id="cb4-22"><a href="#cb4-22"></a>  <span class="kw">flush.console</span>()</span>
+<span id="cb4-23"><a href="#cb4-23"></a>  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="kw">nrow</span>(tweets_g1), <span class="kw">nrow</span>(tweets_g1), <span class="dt">sep=</span><span class="st">&quot;||&quot;</span>))</span>
+<span id="cb4-24"><a href="#cb4-24"></a>  <span class="kw">print</span>(<span class="st">&quot;waiting for 15.5 minutes&quot;</span>)</span>
+<span id="cb4-25"><a href="#cb4-25"></a>  <span class="kw">waitFun</span>(<span class="dv">960</span>)</span>
+<span id="cb4-26"><a href="#cb4-26"></a>}</span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#save the output</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="kw">write_as_csv</span>(all_Tweets, <span class="st">&quot;tweets.csv&quot;</span>, <span class="dt">na=</span><span class="st">&quot;NA&quot;</span>, <span class="dt">fileEncoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="exploration-of-a-text-document" class="section level1">
+<h1>Exploration of a text document</h1>
+<p>Following the data download, a user may wish to explore the inherent characteristics of the data. For example, “What is the nature of word usage in a Twitter text document compareed to typical natural language document?” This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution <span class="citation">(Zipf 1936)</span> – the famous frequency distribution expected of a natural language document. By Zipf’s distribution, we expect the frequency of words contained in the document to be inversely proportional to its rank in a frequency table. The <code>word_distrb</code> function can be used to generate a plot (e.g Figure ) that shows the comparison.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#using a randomised Twitter data from &#39;opitools&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#data(tweets)</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>tweets_dat &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(tweets[,<span class="dv">1</span>])</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a>plt =<span class="st"> </span><span class="kw">word_distrib</span>(<span class="dt">textdoc =</span> tweets_dat)</span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#to plot</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#plt</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="data:image/png;base64,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" alt="Figure 1: Data freq. plot vs. Zipf&#39;s distribution" width="617" />
+<p class="caption">
+Figure 1: Data freq. plot vs. Zipf’s distribution
+</p>
+</div>
+<p>For a natural language text, the relationship between the rank and the frequency should have a negative slope with all points falling on a straight line. Any deviation from the straight line can be considered an element of imperfection of the text document. An example of such element is the presence of abnormal terms in the document. From Figure 1 we divide the graph into the three sections: the upper, the middle and the lower section. By fitting a regression line (to represent an ideal Zipf’s distribution), we can see what the slope of the upper section is quite different from the rest of the graph. The deviation at the high rank is quite unusual because a corpus of English language often contains enough of common words, such as ‘the’, ‘of’, and ‘at’, in order to obey the Zipf’s law. This deviation only suggests a significant use of a wide range of abbreviation instead of these common words. The remaining part of the graph suggests that the documents . Apart from the small deviation at the upper section of the graph, we can state that the law holds within most parts of the Twitter text document.</p>
+</div>
+<div id="impact-analysis" class="section level1">
+<h1>Impact Analysis</h1>
+<p>The randomized Twitter data (above) relates to the tweets containing law enforcement-related search words (e.g. policing, law enforcement, etc), and are downloaded during the era of COVID-19 pandemic. We will like to assess the impacts of COVID-19 pandemic (as a secondary subject B) on the original theme of the data, i.e. <code>policing during pandemic</code>. First, we need to identify keywords that have been used to reference COVID-19 pandemic in the text data. A user can employ any relevant analytical approach (e.g. frequency analysis) in order to identify such keywords. Alternatively, a user can input those keywords manually. Thus, for COVID-19 pandemic, the defined keywords can be accessed by typing <code>covid_keys</code> in the console:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;</span><span class="st"> </span>covid_keys </span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#          keys</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#1     pandemic</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#2    pandemics</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#3     lockdown</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#4    lockdowns</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#5       corona</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#6  coronavirus</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#7        covid</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#8      covid19</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#9     covid-19</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#10       virus</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#11     viruses</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#12  quarantine</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#13      infect</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#14     infects</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#15   infecting</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#16    infected</span></span></code></pre></div>
+<p>The main impact analysis can be executed by running the following codes:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">data</span>(tweets)</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># Get an n x 1 text document</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>tweets_dat &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(tweets[,<span class="dv">1</span>])</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co"># Run the analysis</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a>output &lt;-<span class="st"> </span><span class="kw">opi_impact</span>(tweets_dat, <span class="dt">sec_keywords=</span>covid_keys, <span class="dt">metric =</span> <span class="dv">1</span>,</span>
+<span id="cb7-10"><a href="#cb7-10"></a>                       <span class="dt">fun =</span> <span class="ot">NULL</span>, <span class="dt">nsim =</span> <span class="dv">99</span>, <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>,</span>
+<span id="cb7-11"><a href="#cb7-11"></a>                       <span class="dt">quiet=</span><span class="ot">TRUE</span>)</span>
+<span id="cb7-12"><a href="#cb7-12"></a>                       </span></code></pre></div>
+<p>To print result:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>output</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; $test</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; [1] &quot;Test of significance (Randomization testing)&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; </span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; $criterion</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; [1] &quot;two.sided&quot;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; </span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; $exp_summary</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 </span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; </span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; $p_table</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; </span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; </span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; observed_score   S_beat   nsim   pvalue   signif </span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; ---------------  -------  -----  -------  -------</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; -28.23           0        99     0.01     ***    </span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; </span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; $p_key</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; [1] &quot;0.99&#39;&quot;   &quot;0.05*&quot;   &quot;0.025**&quot; &quot;0.01***&quot;</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; </span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; $p_formula</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt; [1] &quot;(S_beat + 1)/(nsim + 1)&quot;</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="co">#&gt; $test</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="co">#&gt; [1] &quot;Test of significance (Randomization testing)&quot;</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a><span class="co">#&gt; </span></span>
+<span id="cb8-28"><a href="#cb8-28"></a><span class="co">#&gt; $criterion</span></span>
+<span id="cb8-29"><a href="#cb8-29"></a><span class="co">#&gt; [1] &quot;two.sided&quot;</span></span>
+<span id="cb8-30"><a href="#cb8-30"></a><span class="co">#&gt; </span></span>
+<span id="cb8-31"><a href="#cb8-31"></a><span class="co">#&gt; $exp_summary</span></span>
+<span id="cb8-32"><a href="#cb8-32"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb8-33"><a href="#cb8-33"></a><span class="co">#&gt;  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 </span></span>
+<span id="cb8-34"><a href="#cb8-34"></a><span class="co">#&gt; </span></span>
+<span id="cb8-35"><a href="#cb8-35"></a><span class="co">#&gt; $p_table</span></span>
+<span id="cb8-36"><a href="#cb8-36"></a><span class="co">#&gt; </span></span>
+<span id="cb8-37"><a href="#cb8-37"></a><span class="co">#&gt; </span></span>
+<span id="cb8-38"><a href="#cb8-38"></a><span class="co">#&gt; observed_score   S_beat   nsim   pvalue   signif </span></span>
+<span id="cb8-39"><a href="#cb8-39"></a><span class="co">#&gt; ---------------  -------  -----  -------  -------</span></span>
+<span id="cb8-40"><a href="#cb8-40"></a><span class="co">#&gt; -28.23           0        99     0.01     ***    </span></span>
+<span id="cb8-41"><a href="#cb8-41"></a><span class="co">#&gt; </span></span>
+<span id="cb8-42"><a href="#cb8-42"></a><span class="co">#&gt; $p_key</span></span>
+<span id="cb8-43"><a href="#cb8-43"></a><span class="co">#&gt; [1] &quot;0.99&#39;&quot;   &quot;0.05*&quot;   &quot;0.025**&quot; &quot;0.01***&quot;</span></span>
+<span id="cb8-44"><a href="#cb8-44"></a><span class="co">#&gt; </span></span>
+<span id="cb8-45"><a href="#cb8-45"></a><span class="co">#&gt; $p_formula</span></span>
+<span id="cb8-46"><a href="#cb8-46"></a><span class="co">#&gt; [1] &quot;(S_beat + 1)/(nsim + 1)&quot;</span></span></code></pre></div>
+<ul>
+<li><p>The description of output variables is as follows:</p>
+<ul>
+<li><p><code>test</code> - title of the analysis</p></li>
+<li><p><code>criterion</code> - criterion for determining the significance value</p></li>
+<li><p><code>exp_summary</code> - summary of expected opinion scores</p></li>
+<li><p><code>p_table</code> - details of Statistical Significance</p></li>
+<li><p><code>p_key</code> - keys for interpreting the statistical significance value</p></li>
+<li><p><code>p_formula</code> - function of opinion score employed</p></li>
+<li><p><code>pp</code> - plot showing proportion of classes</p></li>
+</ul></li>
+</ul>
+<p>The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning policing, as indicated by the opinion scores -28.23 and a <code>pvalue</code> of 0.01. The argument <code>pplot</code> = TRUE prompted the plot showing the proportion of each sentiment class, as shown in figure 2.</p>
+<div id="using-a-user-defined-opinion-score-function" class="section level2">
+<h2>Using a user-defined opinion score function</h2>
+<p>As the definition of opinion score function may vary from one application domain to another, a user is allowed to specify a pre-defined opinion function score. For instance, <span class="citation">(Razorfish 2009)</span> defines opinion score towards a product brand in terms of <code>score = (P + O - N)/(P + O + N)</code>, where <code>P</code>, <code>O</code>, and <code>N</code>, represent the amount of positive, neutral and negative, sentiments, respectively. Thus, the analysis can be re-run with this user-defined opinion score function, as follows:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#define opinion score function</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>myfun &lt;-<span class="st"> </span><span class="cf">function</span>(P, N, O){</span>
+<span id="cb9-4"><a href="#cb9-4"></a>   score &lt;-<span class="st"> </span>(P <span class="op">+</span><span class="st"> </span>O <span class="op">-</span><span class="st"> </span>N)<span class="op">/</span>(P <span class="op">+</span><span class="st"> </span>O <span class="op">+</span><span class="st"> </span>N)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>   <span class="kw">return</span>(score)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>}</span></code></pre></div>
+<p>Re-run analysis</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2"></a>results &lt;-<span class="st"> </span><span class="kw">opi_impact</span>(tweets_dat, <span class="dt">sec_keywords=</span>covid_keys, <span class="dt">metric =</span> <span class="dv">5</span>,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>                       <span class="dt">fun =</span> myfun, <span class="dt">nsim =</span> <span class="dv">99</span>, <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>                       <span class="dt">quiet=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p>To print result:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">print</span>(results)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; $test</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt; [1] &quot;Test of significance (Randomization testing)&quot;</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; </span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt; $criterion</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt; [1] &quot;two.sided&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; </span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt; $exp_summary</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt;  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 </span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt; </span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt; $p_table</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt; </span></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="co">#&gt; </span></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co">#&gt; observed_score       S_beat   nsim   pvalue   signif </span></span>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="co">#&gt; -------------------  -------  -----  -------  -------</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a><span class="co">#&gt; -0.234129692832764   99       99     1        NA     </span></span>
+<span id="cb11-20"><a href="#cb11-20"></a><span class="co">#&gt; </span></span>
+<span id="cb11-21"><a href="#cb11-21"></a><span class="co">#&gt; $p_key</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a><span class="co">#&gt; [1] &quot;0.99&#39;&quot;   &quot;0.05*&quot;   &quot;0.025**&quot; &quot;0.01***&quot;</span></span>
+<span id="cb11-23"><a href="#cb11-23"></a><span class="co">#&gt; </span></span>
+<span id="cb11-24"><a href="#cb11-24"></a><span class="co">#&gt; $p_formula</span></span>
+<span id="cb11-25"><a href="#cb11-25"></a><span class="co">#&gt; [1] &quot;(S_beat + 1)/(nsim + 1)&quot;</span></span></code></pre></div>
+<p>Based on the user defined score function, the observed opinion score is estimated as -0.234, while the <code>pvalue</code> is equal to 1 (non-significance). This implies that the outcome of whether a subject B has had a significant impact on the primary subject A is also dependent on the opinion score function specified.</p>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>The <code>opitools</code> package has been developed in order to aid the replication of an opinion analytical framework proposed in <span class="citation">(Adepeju and Jimoh 2021)</span>, in which we also demonstrated the use of the package for exploring public opinion on policing during the pandemic. Meanwhile, the utility of the functions in this package are not limited to law enforcement, but rather can be applicable to exploring citizens opinion on any public organization more generally. This package is being updated on a regular basis to add more functionalities to the existing <code>functions</code>.</p>
+<p>We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references hanging-indent">
+<div id="ref-Adepeju2021">
+<p>Adepeju, M., and F. Jimoh. 2021. “An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the Impacts of Covid-19 Pandemic Using Twitter Data.” <em>Journal of Geographical Information System (in Press)</em>.</p>
+</div>
+<div id="ref-Kearney2019">
+<p>Kearney, MW. 2019. “&quot;Rtweet: Collecting and Analyzing Twitter Data&quot;.” <em>Journal of Open Source Software</em> 4(42): 1829.</p>
+</div>
+<div id="ref-Razorfish2019">
+<p>Razorfish. 2009. <em>Fluent: The Razorfish Social Influence Marketing Report</em>. Atlanta, United States.</p>
+</div>
+<div id="ref-Zipf1936">
+<p>Zipf, G. 1936. <em>The Psychobiology of Language</em>. Routledge.</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

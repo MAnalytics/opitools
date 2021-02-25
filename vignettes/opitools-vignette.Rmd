@@ -13,6 +13,10 @@ date: |
 output:
   rmarkdown::html_vignette
   
+#output:
+  #rmarkdown::html_vignette
+  #pdf_document: default
+  
 #dev: png
 #output:
   #word_document: default
@@ -145,15 +149,22 @@ WORKING_DIR <- 'C:/R/Github/JGIS_Policing_COVID-19'
 setwd(WORKING_DIR)
 ```
 
-### Installing libraries, essential function, and define tokens
 
-Free Twitter developer accounts have a restriction of 18,000 tweets per 15 minutes, otherwise a user may loose access (temporarily) to download data. Therefore, it is important to wait for 15 minutes after every 18,000 tweets download. Run the codes below to install the necessary libraries and the `waitFun` function to help with the restriction. 
+### Installing libraries
+```{r, include=TRUE, message=FALSE, eval=TRUE}
+
+library(opitools) #for impact analysis
+library(rtweet) #for data download
+library(twitteR) #for setting up Twitter authorization
+
+```
+
+
+### Running essential function and define tokens
+
+Free Twitter developer accounts have a restriction of 18,000 tweets per 15 minutes, otherwise a user may loose access (temporarily) to download data. Therefore, it is important to wait for 15 minutes after every 18,000 tweets download. Run the `waitFun` function to help surpass the restriction as the data is being downloaded using different search words. 
 
 ```{r, message=FALSE, eval=FALSE}
-
-library(opitools)
-library(rtweet)
-library(twitteR) #for setting up Twitter authorization
 
 #Run function 
 waitFun <- function(x){
@@ -221,14 +232,17 @@ write_as_csv(all_Tweets, "tweets.csv", na="NA", fileEncoding = "UTF-8")
 Following the data download, a user may wish to explore the inherent characteristics of the data. For example, "What is the nature of word usage in a Twitter text document compareed to typical natural language document?" This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution [@Zipf1936] – the famous frequency distribution expected of a natural language document. By Zipf’s distribution, we expect the frequency of words contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function can be used to generate a plot (e.g Figure `r fig$ref("figs1")`) that shows the comparison.   
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
+
 #using a randomised Twitter data from 'opitools'
+
+#data(tweets)
 
 tweets_dat <- as.data.frame(tweets[,1])
 
 plt = word_distrib(textdoc = tweets_dat)
 
 #to plot
-plt
+#plt
 
 ```
 
@@ -269,82 +283,133 @@ The main impact analysis can be executed by running the following codes:
 
 ```{r, message=FALSE, include = TRUE, eval=TRUE}
 
+data(tweets)
+
 # Get an n x 1 text document
-  tweets_dat <- as.data.frame(tweets[,1])
+tweets_dat <- as.data.frame(tweets[,1])
 
 # Run the analysis
 
-results <- opi_impact(tweets_dat = tweets, sec_keywords=covid_keys, metric = 1,
+output <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
-                       pplot = TRUE, quiet=FALSE)
+                       quiet=TRUE)
                        
-print(results)
+```
 
-$test
-[1] "Test of significance (Randomization testing)"
+To print result: 
 
-$criterion
-[1] "two.sided"
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+output
 
-$exp_summary
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- -8.240  -5.880  -5.880  -5.028  -3.530  -1.180 
+#> $test
+#> [1] "Test of significance (Randomization testing)"
+#> 
+#> $criterion
+#> [1] "two.sided"
+#> 
+#> $exp_summary
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 
+#> 
+#> $p_table
+#> 
+#> 
+#> observed_score   S_beat   nsim   pvalue   signif 
+#> ---------------  -------  -----  -------  -------
+#> -28.23           0        99     0.01     ***    
+#> 
+#> $p_key
+#> [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+#> 
+#> $p_formula
+#> [1] "(S_beat + 1)/(nsim + 1)"
+```
 
-$p_table
+* The description of output variables is as follows:
+
+  + `test` - title of the analysis
+
+  + `criterion` - criterion for determining the significance value
+
+  + `exp_summary` - summary of expected opinion scores
+  
+  + `p_table` - details of Statistical Significance
+
+  + `p_key` - keys for interpreting the statistical significance value
+
+  + `p_formula` - function of opinion score employed
+  
+  + `plot` - plot showing Percentage proportion of classes
 
 
-|observed_score |S_beat |nsim |pvalue    |signif |
-|:--------------|:------|:----|:----|:------|
-|-5.88          |56     |99   |0.57 |'      |
+The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning policing, as indicated by the opinion scores -28.23 and a `pvalue` of 0.01. To display the graphics showing the proportion of sentiment classes (as in Figure `r fig$ref("figs2")`), type `output$plot` in the console.
 
-$p_key
-[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-
-$p_formula
-[1] "(S_beat + 1)/(nsim + 1)"
-
-#......
+```{r figs2, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs2", "Percentage proportion of classes")}
+knitr::include_graphics("likert.png")
 ```
 
 
-The definition of opinion function may vary according to the domain of interest
 
-```{r, eval=FALSE, echo=FALSE, include=FALSE}
+## Using a user-defined opinion score function
 
-#clustering
-akObj <- akclustr(prop_crime_per200_people, id_field = TRUE, 
-                                method = "linear", k = c(3,8), crit = "Calinski_Harabasz", verbose=TRUE)
-```
-
-In order to preview all the variables of the `quality_plot` object, type: 
+As the definition of opinion score function may vary from one application domain to another, a user is allowed to specify a pre-defined opinion function score. For instance, [@Razorfish2019] defines opinion score towards a product brand in terms of `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount of positive, neutral and negative, sentiments, respectively. Thus, the analysis can be re-run with this user-defined opinion score function, as follows: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-names(akObj)
+#define opinion score function
+myfun <- function(P, N, O){
+   score <- (P + O - N)/(P + O + N)
+   return(score)
+}
 
 ```
 
-* The description of these variables are as follow:
+Re-run analysis
 
-  + `traj` - returns the input data set used for the clustering.
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-  + `id_field` - indicates whether the input data set included the id field.
+results <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 5,
+                       fun = myfun, nsim = 99, alternative="two.sided",
+                       quiet=TRUE)
+```
 
-  + `solutions` - the list of cluster solutions by `k` values.
+To print result: 
 
-  + `qualitycriterion` - the quality criterion specified.
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-  + `optimal_k` - the optimal value of `k` as determined by the quality criterion.
+print(results)
 
-  + `qualityCrit.List` - the estimated quality of cluster solutions by `k` values.
+#> $test
+#> [1] "Test of significance (Randomization testing)"
+#> 
+#> $criterion
+#> [1] "two.sided"
+#> 
+#> $exp_summary
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 
+#> 
+#> $p_table
+#> 
+#> 
+#> observed_score       S_beat   nsim   pvalue   signif 
+#> -------------------  -------  -----  -------  -------
+#> -0.234129692832764   99       99     1        NA     
+#> 
+#> $p_key
+#> [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+#> 
+#> $p_formula
+#> [1] "(S_beat + 1)/(nsim + 1)"
 
-  + `qltyplot` - the plot of `qualityCrit.List`, with a red vertical line to indicate the optimal value of `k`.
+```
 
+Based on the user defined score function, the observed opinion score is estimated as -0.234, while the `pvalue` is equal to 1 (non-significance). This implies that the outcome of whether a subject B has had a significant impact on the primary subject A is also dependent on the opinion score function specified.
 
 
 # Conclusion
 
-The `akmedoids` package has been developed in order to aid the replication of a place-based crime inequality investigation conducted in Adepeju et al. (2019). Meanwhile, the utility of the functions in this package are not limited to criminology, but rather can be applicable to longitudinal datasets more generally. This package is being updated on a regular basis to add more functionalities to the existing `functions` and add new functions to carry out other longitudinal data analysis. 
+The `opitools` package has been developed in order to aid the replication of an opinion analytical framework proposed in [@Adepeju2021], in which we also demonstrated the use of the package for exploring public opinion on policing during the pandemic. Meanwhile, the utility of the functions in this package are not limited to law enforcement, but rather can be applicable to exploring citizens opinion on any public organization more generally. This package is being updated on a regular basis to add more functionalities to the existing `functions`. 
 
 We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly. 
 
