@@ -38,22 +38,19 @@
 #' bounded opinion score, such as when
 #' \code{metric = 2, 3 or 4}, the the `alternative` parameter
 #' should be "greater", and "less" otherwise.
-#' @param pplot [logical] To display graphical plot showing
-#' the proportion of text records containing (or not
-#' containing) any of the specified secondary keywords.
 #' @param quiet (TRUE or FALSE) To suppress processing
 #' and warning messages. Default: \code{TRUE}.
 #' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
-#' fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
+#' fun = NULL, nsim = 99, alternative="two.sided",
 #' quiet=TRUE)
-#' @example
+#' @examples
 #' #test document: 'policing_otd'
 #' #list of keywords: 'covid_keys'
 #'
 #' output <- opi_impact(textdoc = policing_otd,
 #'           sec_keywords=covid_keys, metric = 1,
 #'           fun = NULL, nsim = 99, alternative="two.sided",
-#'           pplot = TRUE, quiet=TRUE)
+#'           quiet=TRUE)
 #'
 #' #check output variables
 #' print(output)
@@ -61,9 +58,6 @@
 #' #to access the pvalue
 #' output$pvalue
 #'
-#'
-#'
-#' #run function
 #' @details This function calculate the statistical
 #' significance value (\code{p-value}) by comparing the
 #' observed opinion scores (from the \code{opi_score}
@@ -87,11 +81,15 @@
 #' @importFrom stringr str_detect
 #' @importFrom purrr map_chr
 #' @importFrom magrittr %>%
+#' @importFrom stringr str_c
+#' @importFrom likert likert.options likert
+#' likert.bar.plot
 #' @export
-#'
+
 opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
-                       pplot = FALSE, quiet=TRUE){ #tweets
+                       quiet=TRUE){ #tweets
+
   #output holder
   output <- list()
 
@@ -102,7 +100,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
 
   if(nsim > 9999){
     stop(paste("Consider specifying a smaller",
-          "number of simulations (nsim)!!", sep=" "))
+               "number of simulations (nsim)!!", sep=" "))
   }
 
   if(is.null(sec_keywords)){
@@ -112,13 +110,13 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   #check any contradiction in tail comparison
   if(metric == 1 & alternative %in% c("less", "greater")){
     stop(paste("When parameter `metric = 1`, argument",
-        " `alternative` must be set as 'two.sided'!! "))
+               " `alternative` must be set as 'two.sided'!! "))
 
   }
 
   if(metric %in% c(2:4) & alternative == "two.sided"){
     stop(paste('When parameter `metric =` ', metric,
-          ", argument `two.sided` must be set as 'less'!! ", sep=""))
+               ", argument `two.sided` must be set as 'less'!! ", sep=""))
   }
 
   #format keywords
@@ -132,11 +130,11 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   colnames(textdoc) <- "text"
 
   #separate `textdoc` into two:
-  #'textdoc_keypresent': contains any of the keywords
-  #'textdoc_keyabsent': contains no keywords
+  #textdoc_keypresent': contains any of the keywords
+  #textdoc_keyabsent': contains no keywords
 
   textdoc_keypresent <- data.frame(textdoc) %>%
-    dplyr::filter(stringr::str_detect(text, sec_keywords, negate=FALSE)) %>%
+    dplyr::filter(str_detect(text, sec_keywords, negate=FALSE)) %>%
     mutate(keywords = "present")
 
   if(nrow(textdoc_keypresent)==0){
@@ -144,10 +142,10 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
                "the secondary keywords!! Operation terminated!!", sep=" "))
   }
 
-
   textdoc_keyabsent <- data.frame(textdoc) %>%
     dplyr::filter(stringr::str_detect(text, sec_keywords, negate=TRUE))%>%
     mutate(keywords = "absent")
+
 
   #combine and retain the IDs of text records
   #for later joining
@@ -194,8 +192,8 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   #unique(likert_osd$class)
 
   #plot function here
-  if(pplot == TRUE){
-    dev.new(width=8,height=3,noRStudioGD = TRUE)
+  #if(pplot == TRUE){
+    #dev.new(width=8,height=3,noRStudioGD = TRUE)
     #lik_p1 <- read.table(file = paste("Likert_Data",PR[m], ".csv", sep="_"), sep=",", head=TRUE)
     lik_p1 <- data.frame(likert_osd) %>% mutate_if(is.character,as.factor)
     # Make list of ordered factor variables
@@ -208,22 +206,22 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
     title = "Percentage proportion of classes"
     #plot(p, center=3, centered=FALSE) + ggtitle(title)
     pp <- likert.bar.plot(p, legend="Classes")
-  }
+  #}
 
-  if(pplot == FALSE){
-    #do nothing
-  }
+  # if(pplot == FALSE){
+  #   #do nothing
+  # }
 
   if(quiet == TRUE){
-  #generate expected scores using `opi_sim` function
-  expected_scores <- opi_sim(osd_data = OSD_joined,
-                             nsim=nsim,quiet=TRUE)
+    #generate expected scores using `opi_sim` function
+    expected_scores <- opi_sim(osd_data = OSD_joined,
+                               nsim=nsim,quiet=TRUE)
   }
 
   if(quiet == FALSE){
-  #generate expected scores using `opi_sim` function
-  expected_scores <- opi_sim(osd_data = OSD_joined,
-                             nsim=nsim,quiet=FALSE)
+    #generate expected scores using `opi_sim` function
+    expected_scores <- opi_sim(osd_data = OSD_joined,
+                               nsim=nsim,quiet=FALSE)
   }
 
   #check if there is contradiction in
@@ -231,7 +229,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   if(observed_score > 0 & alternative == "less"){
     flush.console()
     print(paste("Warning: 'Observed score' is positive!!",
-          "'two.sided' criterion is utilized!"))
+                "'two.sided' criterion is utilized!"))
 
     alternative <- "two.sided"
   }
@@ -261,9 +259,9 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
 
 
   if(alternative == "less"){
-      S <- expected_scores[which(expected_scores <= observed_score)]
-      S <- length(S)
-      p <- round((S + 1)/(nsim + 1), digits = nchar(nsim))
+    S <- expected_scores[which(expected_scores <= observed_score)]
+    S <- length(S)
+    p <- round((S + 1)/(nsim + 1), digits = nchar(nsim))
   }
 
   if(alternative == "greater"){
@@ -319,13 +317,6 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   output$p_formula <- "(S_beat + 1)/(nsim + 1)"
   output$plot <- pp
 
-
   return(output)
 
 }
-
-
-
-
-
-
