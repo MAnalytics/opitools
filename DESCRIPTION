@@ -32,8 +32,10 @@ Imports:
   utils,
   likert,
   cowplot,
-  data.table
-RoxygenNote: 7.1.0
+  data.table,
+  rtweet,
+  twitteR
+RoxygenNote: 7.1.1
 Suggests:
   knitr,
   rmarkdown
