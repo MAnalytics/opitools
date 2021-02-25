@@ -5,7 +5,7 @@
 \title{Impact analysis of subject B on the opinion expressed concerning subject A}
 \usage{
 opi_impact(textdoc, sec_keywords=NULL, metric = 1,
-fun = NULL, nsim = 99, alternative="two.sided", pplot=FALSE,
+fun = NULL, nsim = 99, alternative="two.sided",
 quiet=TRUE)
 }
 \arguments{
@@ -42,10 +42,6 @@ bounded opinion score, such as when
 \code{metric = 2, 3 or 4}, the the \code{alternative} parameter
 should be "greater", and "less" otherwise.}
 
-\item{pplot}{\link{logical} To display graphical plot showing
-the proportion of text records containing (or not
-containing) any of the specified secondary keywords.}
-
 \item{quiet}{(TRUE or FALSE) To suppress processing
 and warning messages. Default: \code{TRUE}.}
 }
@@ -79,6 +75,22 @@ with the expected score greater than the observed score. If a user-defined opini
 score function is specified, he/she needs to determine
 whether a one-tailed or two-tailed comparison is required.
 (see explanations above).
+}
+\examples{
+#test document: 'policing_otd'
+#list of keywords: 'covid_keys'
+
+output <- opi_impact(textdoc = policing_otd,
+          sec_keywords=covid_keys, metric = 1,
+          fun = NULL, nsim = 99, alternative="two.sided",
+          quiet=TRUE)
+
+#check output variables
+print(output)
+
+#to access the pvalue
+output$pvalue
+
 }
 \references{
 (1) Adepeju, M. and Jimoh, F. (2021). An Analytical
