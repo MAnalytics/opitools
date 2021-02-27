@@ -342,7 +342,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <code>Adepeju, M.</code><br />
 <code>Big Data Centre, Manchester Metropolitan University, Manchester, M15 6BH</code></div></h4>
 <h4 class="date"><div class="line-block"><code>Date:</code><br />
-<code>2021-02-25</code></div></h4>
+<code>2021-02-27</code></div></h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 The lack of tools for analysing cross-impact of opinions expressed amongst multiple subjects, within a text document, facilitate the development of <code>&#39;opitool&#39;</code> package. For instance, given a collection of tweets on a specific subject A, a researcher may want to assess whether the opinion expressed on subject A in relation to another (secondary) subject B has significantly impacted the overall opinion from the text document. For a real life example, we may want to examine if public opinion expressed concerning policing (as subject A) has been significantly impacted by the public concerns for COVID-19 pandemic (as subject B) (see Adepeju and Jimoh, 2021). This document describes how the aforementioned analysis can be completed using the <code>opitools</code> package.
@@ -558,51 +558,29 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 <span id="cb7-12"><a href="#cb7-12"></a>                       </span></code></pre></div>
 <p>To print result:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>output</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; $test</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; [1] &quot;Test of significance (Randomization testing)&quot;</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; </span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; $criterion</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; [1] &quot;two.sided&quot;</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; </span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; $exp_summary</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 </span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; </span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; $p_table</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; $test</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; [1] &quot;Test of significance (Randomization testing)&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; $criterion</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; [1] &quot;two.sided&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; </span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt; $exp_summary</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 </span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; </span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; $p_table</span></span>
 <span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; </span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; observed_score   S_beat   nsim   pvalue   signif </span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; ---------------  -------  -----  -------  -------</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; -28.23           0        99     0.01     ***    </span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; </span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; $p_key</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; [1] &quot;0.99&#39;&quot;   &quot;0.05*&quot;   &quot;0.025**&quot; &quot;0.01***&quot;</span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; </span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; $p_formula</span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt; [1] &quot;(S_beat + 1)/(nsim + 1)&quot;</span></span>
-<span id="cb8-24"><a href="#cb8-24"></a></span>
-<span id="cb8-25"><a href="#cb8-25"></a><span class="co">#&gt; $test</span></span>
-<span id="cb8-26"><a href="#cb8-26"></a><span class="co">#&gt; [1] &quot;Test of significance (Randomization testing)&quot;</span></span>
-<span id="cb8-27"><a href="#cb8-27"></a><span class="co">#&gt; </span></span>
-<span id="cb8-28"><a href="#cb8-28"></a><span class="co">#&gt; $criterion</span></span>
-<span id="cb8-29"><a href="#cb8-29"></a><span class="co">#&gt; [1] &quot;two.sided&quot;</span></span>
-<span id="cb8-30"><a href="#cb8-30"></a><span class="co">#&gt; </span></span>
-<span id="cb8-31"><a href="#cb8-31"></a><span class="co">#&gt; $exp_summary</span></span>
-<span id="cb8-32"><a href="#cb8-32"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb8-33"><a href="#cb8-33"></a><span class="co">#&gt;  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 </span></span>
-<span id="cb8-34"><a href="#cb8-34"></a><span class="co">#&gt; </span></span>
-<span id="cb8-35"><a href="#cb8-35"></a><span class="co">#&gt; $p_table</span></span>
-<span id="cb8-36"><a href="#cb8-36"></a><span class="co">#&gt; </span></span>
-<span id="cb8-37"><a href="#cb8-37"></a><span class="co">#&gt; </span></span>
-<span id="cb8-38"><a href="#cb8-38"></a><span class="co">#&gt; observed_score   S_beat   nsim   pvalue   signif </span></span>
-<span id="cb8-39"><a href="#cb8-39"></a><span class="co">#&gt; ---------------  -------  -----  -------  -------</span></span>
-<span id="cb8-40"><a href="#cb8-40"></a><span class="co">#&gt; -28.23           0        99     0.01     ***    </span></span>
-<span id="cb8-41"><a href="#cb8-41"></a><span class="co">#&gt; </span></span>
-<span id="cb8-42"><a href="#cb8-42"></a><span class="co">#&gt; $p_key</span></span>
-<span id="cb8-43"><a href="#cb8-43"></a><span class="co">#&gt; [1] &quot;0.99&#39;&quot;   &quot;0.05*&quot;   &quot;0.025**&quot; &quot;0.01***&quot;</span></span>
-<span id="cb8-44"><a href="#cb8-44"></a><span class="co">#&gt; </span></span>
-<span id="cb8-45"><a href="#cb8-45"></a><span class="co">#&gt; $p_formula</span></span>
-<span id="cb8-46"><a href="#cb8-46"></a><span class="co">#&gt; [1] &quot;(S_beat + 1)/(nsim + 1)&quot;</span></span></code></pre></div>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; </span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; observed_score   S_beat   nsim   pvalue   signif </span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; ---------------  -------  -----  -------  -------</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; -28.23           0        99     0.01     ***    </span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; </span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; $p_key</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; [1] &quot;0.99&#39;&quot;   &quot;0.05*&quot;   &quot;0.025**&quot; &quot;0.01***&quot;</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; </span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt; $p_formula</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#&gt; [1] &quot;(S_beat + 1)/(nsim + 1)&quot;</span></span></code></pre></div>
 <ul>
 <li><p>The description of output variables is as follows:</p>
 <ul>
@@ -612,10 +590,16 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 <li><p><code>p_table</code> - details of Statistical Significance</p></li>
 <li><p><code>p_key</code> - keys for interpreting the statistical significance value</p></li>
 <li><p><code>p_formula</code> - function of opinion score employed</p></li>
-<li><p><code>pp</code> - plot showing proportion of classes</p></li>
+<li><p><code>plot</code> - plot showing Percentage proportion of classes</p></li>
 </ul></li>
 </ul>
-<p>The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning policing, as indicated by the opinion scores -28.23 and a <code>pvalue</code> of 0.01. The argument <code>pplot</code> = TRUE prompted the plot showing the proportion of each sentiment class, as shown in figure 2.</p>
+<p>The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning policing, as indicated by the opinion scores -28.23 and a <code>pvalue</code> of 0.01. To display the graphics showing the proportion of sentiment classes (as in Figure ), type <code>output$plot</code> in the console.</p>
+<div class="figure" style="text-align: center">
+<img src="data:image/png;base64,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" alt="Figure 2: Percentage proportion of classes" width="771" />
+<p class="caption">
+Figure 2: Percentage proportion of classes
+</p>
+</div>
 <div id="using-a-user-defined-opinion-score-function" class="section level2">
 <h2>Using a user-defined opinion score function</h2>
 <p>As the definition of opinion score function may vary from one application domain to another, a user is allowed to specify a pre-defined opinion function score. For instance, <span class="citation">(Razorfish 2009)</span> defines opinion score towards a product brand in terms of <code>score = (P + O - N)/(P + O + N)</code>, where <code>P</code>, <code>O</code>, and <code>N</code>, represent the amount of positive, neutral and negative, sentiments, respectively. Thus, the analysis can be re-run with this user-defined opinion score function, as follows:</p>
@@ -661,7 +645,7 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
-<p>The <code>opitools</code> package has been developed in order to aid the replication of an opinion analytical framework proposed in <span class="citation">(Adepeju and Jimoh 2021)</span>, in which we also demonstrated the use of the package for exploring public opinion on policing during the pandemic. Meanwhile, the utility of the functions in this package are not limited to law enforcement, but rather can be applicable to exploring citizens opinion on any public organization more generally. This package is being updated on a regular basis to add more functionalities to the existing <code>functions</code>.</p>
+<p>The <code>opitools</code> package has been developed in order to aid the replication of the study <span class="citation">(Adepeju and Jimoh 2021)</span>, in which we demonstrated the use of the package for exploring public opinion on policing during the pandemic. The utility of the functions in this package are not limited to law enforcement(s), but rather can be applicable to exploring citizens opinion on any public organization more generally. This package is being updated on a regular basis to add more functionalities.</p>
 <p>We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly.</p>
 </div>
 <div id="references" class="section level1 unnumbered">

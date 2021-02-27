@@ -409,7 +409,7 @@ Based on the user defined score function, the observed opinion score is estimate
 
 # Conclusion
 
-The `opitools` package has been developed in order to aid the replication of an opinion analytical framework proposed in [@Adepeju2021], in which we also demonstrated the use of the package for exploring public opinion on policing during the pandemic. Meanwhile, the utility of the functions in this package are not limited to law enforcement, but rather can be applicable to exploring citizens opinion on any public organization more generally. This package is being updated on a regular basis to add more functionalities to the existing `functions`. 
+The `opitools` package has been developed in order to aid the replication of the study [@Adepeju2021], in which we demonstrated the use of the package for exploring public opinion on policing during the pandemic. The utility of the functions in this package are not limited to law enforcement(s), but rather can be applicable to exploring citizens opinion on any public organization more generally. This package is being updated on a regular basis to add more functionalities. 
 
 We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly. 
 

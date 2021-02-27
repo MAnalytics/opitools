@@ -93,15 +93,30 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
     sentiment_score <- separate <- text <- value <- value2 <-
     word <- word1 <- word2 <- NULL
 
+  #ensuring appropriate length of document is supplied
+  if(dim(textdoc)[1] < 15){
+    stop(paste("Length of document is too small!!",
+               "The minimum document length of 15 is recommended!",
+               "Process terminated!!", sep = " "))
+  }
+
+  #if the length of document is too large
+  if(dim(textdoc)[1] > 10000000){
+    stop(paste("Length of document is too large!!",
+               "The maximum document length is 10 million records!!",
+               "Process terminated!!", sep = " "))
+  }
+
   #check metric
   if(!metric %in% c(1:5)){
     stop(paste("Metric parameter can only assume values from",
-               "1, 2, 3, 4, 5", sep=" "))
+               "1, 2,..., 5", sep=" "))
   }
 
   #check if a user-defined function is inputted
   if(metric == 5 & is.null(fun)){
-    stop("A function in required in the parameter 'fun'")
+    stop(paste("An user-defined opinion function is",
+      "need in the parameter 'fun'", sep=" "))
   }
 
   if(metric %in% c(1:4) & !is.null(fun)){
@@ -119,7 +134,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
   textdoc$ID <- seq.int(nrow(textdoc))
 
   #handle sentiment words preceded by negation words
-  token_neg_pre <- as_tibble(textdoc) %>%
+  token_neg_pre <- suppressMessages(as_tibble(textdoc) %>%
     #unnest_tokens
     unnest_tokens(bigram, text, token = "ngrams", n = 2)%>%
     separate(bigram, c("word1", "word2"), sep = " ")%>%
@@ -136,15 +151,15 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
     dplyr::mutate(value = value2)%>%
     dplyr::select(-c(value2))%>%
     dplyr::rename(word=neg)%>%
-    dplyr::filter(!is.na(value))
+    dplyr::filter(!is.na(value)))
 
   #handle all others
-  token_regular <- textdoc %>%
+  token_regular <- suppressMessages(textdoc %>%
     #handle regular words
     unnest_tokens(word, text, drop = FALSE) %>%
     #join to the lexicon
     inner_join(get_sentiments("afinn")) %>%
-    dplyr::select(-c(text))#drop text
+    dplyr::select(-c(text)))#drop text
 
   #join both tables
   both_tokens <- data.frame(rbind(token_regular, token_neg_pre))

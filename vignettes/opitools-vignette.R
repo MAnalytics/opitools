@@ -121,31 +121,34 @@ output <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 1,
                        quiet=TRUE)
                        
 
-## ---- echo=TRUE, message=FALSE, eval=TRUE-------------------------------------
-output
+## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
+#  output
+#  
+#  #> $test
+#  #> [1] "Test of significance (Randomization testing)"
+#  #>
+#  #> $criterion
+#  #> [1] "two.sided"
+#  #>
+#  #> $exp_summary
+#  #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#  #>  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26
+#  #>
+#  #> $p_table
+#  #>
+#  #>
+#  #> observed_score   S_beat   nsim   pvalue   signif
+#  #> ---------------  -------  -----  -------  -------
+#  #> -28.23           0        99     0.01     ***
+#  #>
+#  #> $p_key
+#  #> [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+#  #>
+#  #> $p_formula
+#  #> [1] "(S_beat + 1)/(nsim + 1)"
 
-#> $test
-#> [1] "Test of significance (Randomization testing)"
-#> 
-#> $criterion
-#> [1] "two.sided"
-#> 
-#> $exp_summary
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 
-#> 
-#> $p_table
-#> 
-#> 
-#> observed_score   S_beat   nsim   pvalue   signif 
-#> ---------------  -------  -----  -------  -------
-#> -28.23           0        99     0.01     ***    
-#> 
-#> $p_key
-#> [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-#> 
-#> $p_formula
-#> [1] "(S_beat + 1)/(nsim + 1)"
+## ----figs2, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs2", "Percentage proportion of classes")----
+knitr::include_graphics("likert.png")
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
