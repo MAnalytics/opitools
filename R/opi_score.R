@@ -78,7 +78,12 @@
 #' Legislative studies quarterly, 36(1), pp.123-155.
 #' (4) Razorfish (2009) Fluent: The Razorfish Social Influence
 #' Marketing Report. Accessed: 24th February, 2021.
-#' @import dplyr
+#' (5) Nielsen, F. A. (2011), “A new ANEW: Evaluation of a word
+#' list for sentiment analysis in microblogs”, Proceedings of the
+#' ESWC2011 Workshop on 'Making Sense of Microposts': Big things
+#' come in small packages (2011) 93-98.
+#' @importFrom dplyr mutate select rename filter
+#' left_join inner_join group_by summarise ungroup
 #' @importFrom tidyr separate
 #' @importFrom tidytext unnest_tokens get_sentiments
 #' @importFrom tibble tibble as_tibble
@@ -87,6 +92,9 @@
 #' @export
 
 opi_score <- function(textdoc, metric = 1, fun = NULL){
+
+  #call afinn
+  #afinn_111 <- afinn_111
 
   #global variables
   ID <- as_tibble <- bigram <- get_sentiments <- neg <- sentiment <-
@@ -109,13 +117,13 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
 
   #check metric
   if(!metric %in% c(1:5)){
-    stop(paste("Metric parameter can only assume values from",
+    stop(paste(" 'Metric' argument can only assume values from",
                "1, 2,..., 5", sep=" "))
   }
 
   #check if a user-defined function is inputted
   if(metric == 5 & is.null(fun)){
-    stop(paste("An user-defined opinion function is",
+    stop(paste("A user-defined opinion function is",
       "need in the parameter 'fun'", sep=" "))
   }
 
@@ -140,46 +148,48 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
     separate(bigram, c("word1", "word2"), sep = " ")%>%
     as.data.frame() %>%
     #get only words preceded by the 'negation' word
-    dplyr::filter(word1 %in% c("not", "never", "no", "without")) %>%
+    filter(word1 %in% c("not", "never", "no", "without")) %>%
     #get sentiment score
-    dplyr::mutate(neg = paste(word1, word2, sep=" ")) %>%
-    dplyr::rename(word  = word2)%>%
-    left_join(get_sentiments("afinn")) %>% #
-    dplyr::select(ID, neg, value)%>%
+    mutate(neg = paste(word1, word2, sep=" ")) %>%
+    rename(word  = word2)%>%
+    #left_join(get_sentiments("afinn")) %>% #
+    left_join(afinn_111) %>% #
+    select(ID, neg, value)%>%
     #reverse the score (and multiply by 2)
-    dplyr::mutate(value2 = value * 2)%>%
-    dplyr::mutate(value = value2)%>%
-    dplyr::select(-c(value2))%>%
-    dplyr::rename(word=neg)%>%
-    dplyr::filter(!is.na(value)))
+    mutate(value2 = value * 2)%>%
+    mutate(value = value2)%>%
+    select(-c(value2))%>%
+    rename(word=neg)%>%
+    filter(!is.na(value)))
 
   #handle all others
   token_regular <- suppressMessages(textdoc %>%
     #handle regular words
     unnest_tokens(word, text, drop = FALSE) %>%
     #join to the lexicon
-    inner_join(get_sentiments("afinn")) %>%
-    dplyr::select(-c(text)))#drop text
+    #inner_join(get_sentiments("afinn")) %>%
+    inner_join(afinn_111) %>%
+    select(-c(text)))#drop text
 
   #join both tables
   both_tokens <- data.frame(rbind(token_regular, token_neg_pre))
 
   afinn_OSD_each <- both_tokens %>%
-    dplyr::group_by(ID)%>%
-    dplyr::summarise(sentiment_score = sum(value))%>%
+    group_by(ID)%>%
+    summarise(sentiment_score = sum(value))%>%
     #retain neutral
-    #dplyr::filter(sentiment_score != 0) %>%
-    dplyr::mutate(sentiment = if_else(sentiment_score > 0,
+    #filter(sentiment_score != 0) %>%
+    mutate(sentiment = if_else(sentiment_score > 0,
                                       "positive",
                                       if_else(sentiment_score < 0, "negative",
                                               "neutral")))%>%
-    dplyr::select(-c(sentiment_score))%>%
+    select(-c(sentiment_score))%>%
     ungroup()
 
     afinn_OSD <- afinn_OSD_each %>%
       group_by(sentiment)%>%
       #count the proportion of
-      dplyr::summarise(n=n())
+      summarise(n=n())
 
 
     #to ensure that each value exist
@@ -198,7 +208,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
         total_n <- sum(afinn_OSD$n)
 
         afinn_OSD <- afinn_OSD %>%
-          dplyr::rename(No_of_text_records=n)
+          rename(No_of_text_records=n)
 
         P <- afinn_OSD[which(afinn_OSD$sentiment == "positive"),2]
         N <- afinn_OSD[which(afinn_OSD$sentiment == "negative"),2]
@@ -228,7 +238,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
         opi_object$opiscore <- paste(PD, "%", sep="")
         opi_object$metric <- "Polarity (Proportional Difference)"
         opi_object$equation <- paste('(abs(#Positive - #Negative)',
-                                      '(#Positive + #Negative + #neutral))*100%',
+                 '(#Positive + #Negative + #neutral))*100%',
                                       sep="/")
         opi_object$OSD <- as_tibble(afinn_OSD_each)
       }
@@ -247,7 +257,8 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
         opi_object$sentiments <- knitr::kable(data.frame(afinn_OSD))
         opi_object$opiscore <- paste(PoS, "%", sep="")
         opi_object$metric <- "Positivity"
-        opi_object$equation <- "(#Positive / (#Positive + #Negative + #neutral))*100%"
+        opi_object$equation <-
+          "(#Positive / (#Positive + #Negative + #neutral))*100%"
         opi_object$OSD <- as_tibble(afinn_OSD_each)
       }
 
@@ -265,7 +276,8 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
         opi_object$sentiments <- knitr::kable(data.frame(afinn_OSD))
         opi_object$opiscore <- paste(Neg, "%", sep="")
         opi_object$metric <- "Negativity"
-        opi_object$equation <- "(#Negativity / (#Positive + #Negative + #neutral))*100%"
+        opi_object$equation <-
+          "(#Negativity / (#Positive + #Negative + #neutral))*100%"
         opi_object$OSD <- as_tibble(afinn_OSD_each)
       }
 
