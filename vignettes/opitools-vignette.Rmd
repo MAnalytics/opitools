@@ -157,6 +157,11 @@ library(opitools) #for impact analysis
 library(rtweet) #for data download
 library(twitteR) #for setting up Twitter authorization
 
+library(wordcloud2)
+library(tidytext)
+library(tibble)
+library(tm)
+
 ```
 
 
@@ -229,7 +234,7 @@ write_as_csv(all_Tweets, "tweets.csv", na="NA", fileEncoding = "UTF-8")
 
 # Exploration of a text document
 
-Following the data download, a user may wish to explore the inherent characteristics of the data. For example, "What is the nature of word usage in a Twitter text document compareed to typical natural language document?" This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution [@Zipf1936] – the famous frequency distribution expected of a natural language document. By Zipf’s distribution, we expect the frequency of words contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function can be used to generate a plot (e.g Figure `r fig$ref("figs1")`) that shows the comparison.   
+Following the data download, a user may wish to explore distribution of the terms within the text document. For example, "What is the nature of word usage in a Twitter text document compared to a typical natural language document?" This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution [@Zipf1936] – the famous frequency distribution that models a natural language document. By Zipf’s distribution, we expect the frequency of a word contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function can be used to generate a plot (e.g Figure `r fig$ref("figs1")`) showing the comparison.   
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
@@ -241,8 +246,9 @@ tweets_dat <- as.data.frame(tweets[,1])
 
 plt = word_distrib(textdoc = tweets_dat)
 
-#to plot
-#plt
+#to show the plot, type:
+
+#>plt$plot
 
 ```
 
@@ -254,7 +260,51 @@ For a natural language text, the relationship between the rank and the frequency
 
 # Impact Analysis
 
-The randomized Twitter data (above) relates to the tweets containing law enforcement-related search words (e.g. policing, law enforcement, etc), and are downloaded during the era of COVID-19 pandemic.  We will like to assess the impacts of COVID-19 pandemic (as a secondary subject B) on the original theme of the data, i.e. `policing during pandemic`. First, we need to identify keywords that have been used to reference COVID-19 pandemic in the text data. A user can employ any relevant analytical approach (e.g. frequency analysis) in order to identify such keywords. Alternatively, a user can input those keywords manually. Thus, for COVID-19 pandemic, the defined keywords can be accessed by typing `covid_keys` in the console: 
+The randomized Twitter data (above) relates to the tweets containing law enforcement-related search words (e.g. policing, law enforcement, etc), and are downloaded during the era of COVID-19 pandemic.  We will like to assess the impacts of COVID-19 pandemic (as a secondary subject B) on the original theme of the data, i.e. `policing during pandemic`. We need to first identify keywords that have been used to reference COVID-19 pandemic in the text data. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using the wordcloud to highlight terms with high within the document. 
+
+```{r, message=FALSE, include = TRUE, eval=FALSE}
+
+dat <- list(tweets_dat)
+
+series <- tibble()
+
+#tokenize document
+series <- tibble(text = as.character(unlist(dat)))%>%
+  unnest_tokens(word, text)%>% #tokenize
+  dplyr::select(everything())
+
+#removing stopwords
+tokenize_series <- series[!series$word %in% stopwords("english"),]
+
+#compute term frequencies
+doc_words <- tokenize_series %>%
+  dplyr::count(word, sort = TRUE) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(len=nchar(word)) %>% 
+  #remove words with character length <= 2
+  dplyr::filter(len > 2)%>%
+  data.frame() %>%
+  dplyr::rename(freq=n)%>%
+  dplyr::select(-c(len))%>%
+  #removing the words, '' & '' because of 
+  #their dominance
+  dplyr::filter(!word %in% c("police", "policing")) 
+
+
+row.names(doc_words) <- doc_words$word
+
+#use only the top 1000 words
+wordcloud2(data=doc_words[1:1000,], size = 0.7, shape = 'pentagon')
+
+```
+
+```{r figs2, echo=FALSE, fig.width=3,fig.height=4,fig.align="center", fig.cap=fig$cap("figs2", "Detecting important words from within the document")}
+knitr::include_graphics("wordcloud.png")
+```
+
+From the word cloud (i.e. `r fig$ref("figs2")`), the size of the words represent their respective frequencies across the document. This graphic could reveal keywords that signify various secondary subjects that are discussed in relation to the policing. Keywords relating to the COVID-19 pandemic are highlighted in red. A user can then collate and prepare those keywords in the same format as the `covid_keys` data supplied with the `opitools` package. The `covid_keys` data include keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data. The keyword data can be accessed by typing:
+
+
 ```r
 
 > covid_keys 
@@ -342,9 +392,9 @@ output
   + `plot` - plot showing Percentage proportion of classes
 
 
-The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning policing, as indicated by the opinion scores -28.23 and a `pvalue` of 0.01. To display the graphics showing the proportion of sentiment classes (as in Figure `r fig$ref("figs2")`), type `output$plot` in the console.
+The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning policing, as indicated by the opinion scores -28.23 and a `pvalue` of 0.01. To display the graphics showing the proportion of sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
 
-```{r figs2, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs2", "Percentage proportion of classes")}
+```{r figs3, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs3", "Percentage proportion of classes")}
 knitr::include_graphics("likert.png")
 ```
 
