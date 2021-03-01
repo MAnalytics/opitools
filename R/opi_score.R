@@ -109,7 +109,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
 
   #global variables
   ID <- as_tibble <- bigram <- get_sentiments <- neg <- sentiment <-
-    sentiment_score <- separate <- text <- value <- value2 <-
+    sentiment_score <- separate <- n <- text <- value <- value2 <-
     word <- word1 <- word2 <- NULL
 
   #ensuring appropriate length of document is supplied
