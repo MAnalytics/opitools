@@ -1,7 +1,7 @@
-#' @title Term Distribution
-#' @description This function examines whether the word
-#' frequency in a text document follows the Zipf distribution
-#' (Zipf 1934). The Zipf's distribution is considered the
+#' @title Word Distribution
+#' @description This function examines whether the distribution
+#' of word frequency in a text document follows the Zipf distribution
+#' (Zipf 1934). The Zipf's distribution is considered the ideal
 #' distribution of a perfect natural language text.
 #' @param textdoc \code{n} x \code{1} list (dataframe)
 #' of individual text records, where \code{n} is the number
@@ -18,11 +18,11 @@
 #' @details The Zipf's distribution is most easily observed by
 #' plotting the data on a log-log graph, with the axes being
 #' log(word rank order) and log(word frequency). For a perfect
-#' natural language text, the relationship between the rank and
-#' the frequency should have a negative slope with all points
-#' falling on a straight line. Any deviation from a straight
-#' line can be considered an element of imperfection from the
-#' text document.
+#' natural language text, the relationship between the word rank
+#' and the word frequency should have a negative slope with all points
+#' falling on a straight line. Any deviation from the straight
+#' line can be considered an imperfection attributable to the
+#' texts within the document.
 #' @return A list of word ranks and their respective
 #' frequencies, and a plot showing the relationship between
 #' the two variables.
