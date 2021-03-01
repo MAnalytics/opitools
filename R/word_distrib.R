@@ -10,7 +10,7 @@
 #' @examples
 #'
 #' #Get an \code{n} x 1 text document
-#' tweets_dat <- as.data.frame(tweets[,1])
+#' tweets_dat <- data.frame(text=tweets[,1])
 #' plt = word_distrib(textdoc = tweets_dat)
 #'
 #' plt
@@ -23,25 +23,32 @@
 #' falling on a straight line. Any deviation from a straight
 #' line can be considered an element of imperfection from the
 #' text document.
-#' @return A graphical plot showing the rank-frequency graph.
+#' @return A list of word ranks and their respective
+#' frequencies, and a plot showing the relationship between
+#' the two variables.
 #' @references Zipf G (1936). The Psychobiology of Language.
 #' London: Routledge; 1936.
 #' @importFrom tidytext unnest_tokens
 #' @importFrom ggplot2 ggplot geom_line aes scale_color_manual
 #' labs scale_x_log10 scale_y_log10 scale_shape_manual geom_abline
 #' xlab ylab theme theme_light element_text element_rect
-#' @importFrom tibble tibble
+#' @importFrom tibble tibble tribble
 #' @importFrom magrittr %>%
-#' @importFrom dplyr summarise
+#' @importFrom dplyr summarise ungroup
 #' @importFrom cowplot get_legend plot_grid
+#' @importFrom dplyr select count ungroup
+#' summarise mutate filter rename
 #'
 #' @export
 
 word_distrib <- function(textdoc){
 
+  outp <- list()
+
   #check that data is one-column
   if(dim(textdoc)[2]!=1){
-    stop("Dataframe must include just one column!!")
+    stop(paste("Dataframe must include only one column",
+        "containing the text records!!", sep=" "))
   }
 
   dat <- list(textdoc)
@@ -73,7 +80,7 @@ word_distrib <- function(textdoc){
   data <- word <- text <- everything <- summarise <- n <- mutate <-
     row_number <- total <- aes <- `term_freq` <- geom_line <-
     scale_x_log10 <- scale_y_log10 <- filter <- lm <- geom_abline <- xlab <-
-    ylab <- theme_light <- scale_colour_brewer <- x <- y <- NULL
+    ylab <- theme_light <-Legend <- scale_colour_brewer <- x <- y <- NULL
 
   # ggplot(freq_by_rank, aes(rank, `term_freq`)) +
   #   geom_line() +
@@ -92,21 +99,17 @@ word_distrib <- function(textdoc){
 
   #create a fictitious data to borrow its legend
   dat <- tribble(
-    ~ Legend, ~ x, ~ y,
+    ~Legend, ~x, ~y,
     "LogFreq_vs_LogRank", -1, -1,
     "LogFreq_vs_LogRank", 1, 1,
     "Idealized_Zipfs_Law", -1, 1,
     "Idealized_Zipfs_Law", 1, -1
   )
 
-  #
-  # p = ggplot(data = dat) +
-  #   geom_line(aes(x = x, y = y, color = Legend), size=1.2) +
-  #   scale_color_manual(values = c(LogFreq_vs_LogRank = "red", Idealized_Zipfs_Law = "gray40"))
-
-  p = ggplot(data=dat, aes(x, y, color=Legend)) +
+  p <- ggplot(data=dat, aes(x, y, color=Legend)) +
     geom_line(size = 1.6, alpha = 0.8) +
-    scale_color_manual(values = c(LogFreq_vs_LogRank = "red", Idealized_Zipfs_Law = "gray40"))
+    scale_color_manual(values = c(LogFreq_vs_LogRank = "red",
+                                  Idealized_Zipfs_Law = "gray40"))
 
 
   #get legend
@@ -115,7 +118,8 @@ word_distrib <- function(textdoc){
   freq_by_rank <- freq_by_rank %>%
     mutate(group=1)
 
-  lpt <- ggplot(freq_by_rank, aes(rank, term_freq, color="Log(freq) vs. Log(r)")) +
+  lpt <- ggplot(freq_by_rank, aes(rank, term_freq,
+                                  color="Log(freq) vs. Log(r)")) +
     geom_line(size = 1.6, alpha = 0.8, colour="red") +
     labs(title="Checking text document against Zipf's law")+
     scale_x_log10() +
@@ -136,9 +140,11 @@ word_distrib <- function(textdoc){
                          rel_widths = c(2,1), axis = "l")#,
                          #labels = c("AA","BB"),
                          #label_x = c(1.28, 0.495), label_y= c(0.53, 0.485))
-  final_lpt
 
-  return(final_lpt)
+  outp$freqRank <- freq_by_rank
+  outp$plot <- final_lpt
+
+  return(outp)
 
 }
 
