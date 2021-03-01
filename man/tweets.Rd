@@ -11,10 +11,12 @@ A list(dataframe)
 tweets
 }
 \description{
-A text document (an OTD) containing twitter posts
-(for an anonymous geographical location 2) on police/policing
-(primary subject A). The OTD includes
-posts that express sentiments on policing in relation to
-the COVID-19 pandemic (Secondary subject B)
+A sample text document (an OTD) containing
+twitter posts (from an anonymous geographical location 2).
+The primary subject of the document is the “process of
+policing” (as the primary subject). The OTD is believed
+to also include posts that express sentiments on the
+COVID-19 pandemic (Secondary subject B) in relation
+to the primary subject.
 }
 \keyword{datasets}

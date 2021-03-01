@@ -2,7 +2,7 @@
 % Please edit documentation in R/opi_score.R
 \name{opi_score}
 \alias{opi_score}
-\title{Opinion score of the subject matter in a text document}
+\title{Opinion score (of the main subject matter) of a text document}
 \usage{
 opi_score(textdoc, metric = 1, fun = NULL)
 }
@@ -11,11 +11,13 @@ opi_score(textdoc, metric = 1, fun = NULL)
 individual text records, where \code{n} is the total
 number of individual records.}
 
-\item{metric}{\link{integer} Metric to utilize for the calculation
-of the opinion score. Available values are: \code{1, 2, ...,5}.
+\item{metric}{\link{an integer} Specify the metric to utilize for
+the calculation of opinion score. Available values in this
+package are: \code{1, 2, ...,5}.
 Assuming \code{P}, \code{N} and \code{O} represent positive,
-negative, and neutral text records, respectively, the followings
-are few examples of opinion scores from the literature:
+negative, and neutral record sentiments, respectively,
+the followings are the details of the opinion score function
+represented by the numerical arguments above:
 \code{1}: Polarity (percentage difference)
 \code{((P - N)/(P + N))*100}, (Bound: -100\%, +100\%);
 \code{2}: Polarity (proportional difference)
@@ -24,16 +26,17 @@ are few examples of opinion scores from the literature:
 \code{3}: Positivity \code{(P/ (P + N + O))*100},
 (Bound: 0, +100\%); \code{4}: Negativity \code{(N / (P + N + O))*100},
 (Bound: 0, +100\%) (Malshe, A. 2019;
-Lowe et al. 2011).\code{5}: To pass a
-user-defined function as argument into the \code{fun} parameter below.}
+Lowe et al. 2011). \code{5}: To pass a
+user-defined opinion score function (also see the \code{fun}
+parameter below.}
 
-\item{fun}{A user-defined function provided parameter
-\code{metric} above is set as \code{5}.
-For example, given the function \code{myfun} <- function(P, N, O){
-("some tasks to do"); return("a value")}, the
-\code{fun} parameter is then set as \code{fun = myfun}.
-Default: \code{NULL} i.e. when \code{metric} parameter
-is not \code{5}.}
+\item{fun}{A user-defined function given that \code{metric}
+parameter (above) is set equal to \code{5}.
+For example, given a defined opinion score function
+\code{myfun} <- \verb{function(P, N, O)\{}
+\code{("some tasks to do")}; \verb{return("a value")\}}, the input
+argument of \code{fun} parameter then becomes \code{fun = myfun}.
+Default: \code{NULL}.}
 }
 \value{
 Returns an \code{opi_object} containing details of the
@@ -41,13 +44,15 @@ opinion measures from the text document.
 }
 \description{
 Given a text document (concerning a subject A),
-this function compute the overall opinion score based on the
+this function computes the overall opinion score based on the
 proportion of text records classified as expressing positive,
-negative or neutral sentiment. The function first transforms
-the text document into a tidy-format dataframe, referred to
-as \verb{observed sentiment document (OSD)}, in which each text
-record is assigned a sentiment class based on the sum of all
-sentiments expressed by words in the text record.
+negative or a neutral sentiment about the subject.
+The function first transforms
+the text document into a tidy-format dataframe, described as the
+\verb{observed sentiment document (OSD)} (Adepeju and Jimoh, 2021),
+in which each text record is assigned a sentiment class based
+on the sum of all sentiments expressed by the words in the
+text record.
 }
 \details{
 An opinion score is derived from all the sentiments
@@ -83,19 +88,24 @@ print(score)
 
 }
 \references{
-(1) Malshe, A. (2019) Data Analytics Applications.
+(1) Adepeju, M. and Jimoh, F. (2021). An
+Analytical Framework for Measuring Inequality in the
+Public Opinions on Policing – Assessing the impacts
+of COVID-19 Pandemic using Twitter Data.
+https://doi.org/10.31235/osf.io/c32qh
+(2) Malshe, A. (2019) Data Analytics Applications.
 Online book available at:
 https://ashgreat.github.io/analyticsAppBook/index.html.
 Date accessed: 15th December 2020.
-(2) Taboada, M.et al. (2011).
+(3) Taboada, M.et al. (2011).
 Lexicon-based methods for sentiment analysis. Computational
 linguistics, 37(2), pp.267-307.
-(3) Lowe, W. et al. (2011).
+(4) Lowe, W. et al. (2011).
 Scaling policy preferences from coded political texts.
 Legislative studies quarterly, 36(1), pp.123-155.
-(4) Razorfish (2009) Fluent: The Razorfish Social Influence
+(5) Razorfish (2009) Fluent: The Razorfish Social Influence
 Marketing Report. Accessed: 24th February, 2021.
-(5) Nielsen, F. A. (2011), “A new ANEW: Evaluation of a word
+(6) Nielsen, F. A. (2011), “A new ANEW: Evaluation of a word
 list for sentiment analysis in microblogs”, Proceedings of the
 ESWC2011 Workshop on 'Making Sense of Microposts': Big things
 come in small packages (2011) 93-98.

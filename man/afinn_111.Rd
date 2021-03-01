@@ -3,7 +3,7 @@
 \docType{data}
 \name{afinn_111}
 \alias{afinn_111}
-\title{COVID-19 pandemic related keywords}
+\title{Lexicon AFINN (word list and sentiment scale)}
 \format{
 A list (dataframe)
 }
@@ -11,8 +11,8 @@ A list (dataframe)
 afinn_111
 }
 \description{
-A lst of lexicon of English words rated for valence with
+A list of lexicon of English words rated for valence with
 an integer between minus five (negative) and plus five (positive).
-The words have been manually labeled by Finn Årup Nielsen in 2009-2011.
+The words have been manually labeled by Nielsen, F. A. (2011).
 }
 \keyword{datasets}

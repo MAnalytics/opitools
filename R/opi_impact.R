@@ -15,10 +15,10 @@
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records.
-#' @param sec_keywords [a list] A one-column dataframe (of any
+#' @param sec_keywords (a list) A one-column dataframe (of any
 #' number of length) containing a list of keywords relating
 #' to the secondary subject (subject \code{B}).
-#' @param metric [an integer] Specify the metric to utilize
+#' @param metric (an integer) Specify the metric to utilize
 #' for the calculation of opinion score. Default: \code{1}.
 #' See detailed documentation
 #' in the \code{opi_score} function.

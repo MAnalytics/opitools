@@ -14,69 +14,73 @@ quiet=TRUE)
 individual text records, where \code{n} is the total
 number of individual records.}
 
-\item{sec_keywords}{\link{list} A one-column dataframe (of any
-number of rows) containing a list of keywords relating to
-the secondary subject (\code{B}).}
+\item{sec_keywords}{\link{a list} A one-column dataframe (of any
+number of length) containing a list of keywords relating
+to the secondary subject (subject \code{B}).}
 
-\item{metric}{\link{integer} Metric to utilize for the calculation
-of the opinion score. Default: \code{1}. See detailed documentation
+\item{metric}{\link{an integer} Specify the metric to utilize
+for the calculation of opinion score. Default: \code{1}.
+See detailed documentation
 in the \code{opi_score} function.}
 
-\item{fun}{A user-defined function provided parameter
-\code{metric} is set as \code{5}. See detailed documentation
+\item{fun}{A user-defined function given that parameter
+\code{metric} (above) is set equal to \code{5}.
+See detailed documentation
 in the \code{opi_score} function.}
 
-\item{nsim}{\link{integer} Number of replicas (ESD) to generate.
+\item{nsim}{\link{an integer} Number of replicas (ESD) to generate.
 See detailed documentation in the \code{opi_sim} function.
 Default: \code{99}.}
 
-\item{alternative}{\link{character} Default: \code{"two.sided"},
+\item{alternative}{\link{a character} Default: \code{"two.sided"},
 indicating a two-tailed test. A user can override
-this by specifying \code{“less”} or \code{“greater”} to run
-the analysis as a one-tailed test with the observed score
-being located at the lower or upper regions of the
-distribution, respectively. Note: for \code{metric=1}
-(see above), the \code{alternative} parameter should be
-set as \code{"two.sided"} because the opinion score is
-bounded by both negative and positive values. For a positively
-bounded opinion score, such as when
-\code{metric = 2, 3 or 4}, the the \code{alternative} parameter
-should be "greater", and "less" otherwise.}
+this default value by specifying \code{“less”} or \code{“greater”}
+to run the analysis as one-tailed test when the observed score
+is located at the lower or upper regions of the expectation
+distribution, respectively. Note: for \code{metric=1},
+the \code{alternative} parameter should be
+set equal to \code{"two.sided"} because the opinion score is
+bounded by both positive and negative values. For an opinion
+score bounded by positive values, such as when
+\code{metric = 2, 3 or 4}, the \code{alternative} parameter
+should be set as "greater", and set as "less" otherwise.
+If metric parameter is set equal to \code{5}, with a user-defined
+opinion score function (i.e. \code{fun} not NULL ), the user is required
+to determine the boundary of the opinion scores, and set the
+\code{alternative} argument appropriately.}
 
 \item{quiet}{(TRUE or FALSE) To suppress processing
-and warning messages. Default: \code{TRUE}.}
+messages. Default: \code{TRUE}.}
 }
 \value{
 Details of statistical significance of impacts
-of secondary subject B on the opinion concerning subject A.
+of a secondary subject \code{B} on the opinion concerning the
+primary subject \code{A}.
 }
 \description{
-This function assesses the impacts of a
-subject B (henceforth referred to as
-secondary subject) on the opinion concerning subject A in
-a text document. Keywords relating to the secondary subject,
-can be identified through a frequency analysis or
-collated manually, and should be provided
-as input into the function (see below). The subject A
-(primary subject) is the subject matter upon which the
-text document is based. For instance, by downloading Twitter
-data that include hashtags: '#police', '#policing' and/or
-'#law enforcement', then "Police/Policing"
-becomes the primary subject of the text document.
+This function assesses the impacts of a subject
+B (a secondary subject) on the opinion concerning subject A
+(the primary subject) in a text document. Keywords relating
+to the secondary subject, can be identified  using any
+analytical techniques, such as the frequency analysis.
+The keywords should then be collated provide as input into
+this function (see below). The subject A (primary subject)
+is usually the main theme of the text document. For instance,
+by downloading Twitter data that include a set of related
+hashtags; e.g. ’#police’, ’#policing’ and/or ’#law enforcement’,
+then "Police or Policing" forms the primary subject of the
+downloaded text document.
 }
 \details{
-This function calculate the statistical
-significance value (\code{p-value}) by comparing the
-observed opinion scores (from the \code{opi_score}
-function) with the expected opinion scores (distribution) from the
-\code{opi_sim} function. The formula is given as
-p = (S.beat+1)/(S.total+1), where 'S_total' is the total
-number of replicas created, 'S.beat' is number of replicas
-with the expected score greater than the observed score.
-If a user-defined opinion
-score function is specified, he/she needs to determine
-whether a one-tailed or two-tailed comparison is required.
-(see explanations above).
+This function calculates the statistical
+significance value (\code{p-value}) of an opinion score
+by comparing the observed score (from the \code{opi_score}
+function) with the expected scores (distribution) (from the
+\code{opi_sim} function). The formula is given as
+\code{p = (S.beat+1)/(S.total+1)}, where \code{S_total} is the total
+number of replicas (\code{nsim}) specified, \code{S.beat} is number of replicas
+in which their expected scores are than the observed score (See
+further details in Adepeju and Jimoh, 2021).
 }
 \examples{
 #test document: 'policing_otd'

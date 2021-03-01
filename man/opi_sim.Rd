@@ -2,38 +2,39 @@
 % Please edit documentation in R/opi_sim.R
 \name{opi_sim}
 \alias{opi_sim}
-\title{To simulate the expected sentiment (opinion) distribution}
+\title{To simulate the opinion expectation distribution
+of a text document.}
 \usage{
 opi_sim(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE)
 }
 \arguments{
 \item{osd_data}{A list (dataframe). An \code{n} x \code{3}
-OSD, in which \code{n} represents the number of number of
+OSD, in which \code{n} represents the length of the
 text records that have been successfully classified as
-positive, negative or neutral. Column \code{1} of the OSD
-is the record ID, column \code{2} shows the sentiment
-classes (i.e. positive, negative, or neutral), while
-Column \code{3} contains two indicator variables: \code{present}
-and \code{absent}, to indicate records that consist and records
-that do not consist, respectively, of any of
-the identified secondary keywords.}
+expressing positive, negative or a neutral sentiment.
+Column \code{1} of the OSD is the text record ID,
+column \code{2} shows the sentiment classes (i.e. positive,
+negative, or neutral), while column \code{3} contains two
+variables: \code{present} and \code{absent} indicating records that
+include and records that do not include any of the specified
+secondary keywords, respectively.}
 
-\item{nsim}{\link{integer} Number of replicas (ESD) to generate.
-Recommended values: 99, 999, 9999, and so on. Since the run time
-is proportional to the number of replicas, a lower number of
-simulation is recommended. Default: \code{99}.}
+\item{nsim}{(an integer) Number of replicas (ESD) to simulate.
+Recommended values are: 99, 999, 9999, and so on. Since the run time
+is proportional to the number of replicas, a moderate number of
+simulation, such as 999, is recommended. Default: \code{99}.}
 
-\item{metric}{\link{integer} Metric to utilize for the calculation
-of the opinion score. Default: \code{1}. See detailed documentation
-in the \code{opi_score} function. The argument selected here must
-correspond to that of \code{opi_score} function in order to
-compute a statistical significance value (p-value).}
+\item{metric}{(an integer) Specify the metric to utilize for the
+calculation of the opinion score. Default: \code{1}. See
+details in the documentation of \code{opi_score} function.
+The input argument here must correspond to that of \code{opi_score}
+function in order to compute a statistical significance value (p-value).}
 
-\item{fun}{A user-defined function provided parameter
-\code{metric} is set as \code{5}. See detailed documentation
-in the \code{opi_score} function.}
+\item{fun}{A user-defined function given that parameter
+\code{metric} is set equal to \code{5}. See details in the
+documentation of the \code{opi_score} function.}
 
-\item{quiet}{(TRUE or FALSE) To suppress processing and Warning
+\item{quiet}{(TRUE or FALSE) To suppress processing
 messages. Default: \code{TRUE}.}
 }
 \value{
@@ -41,15 +42,17 @@ Returns a list of expected opinion scores with length equal
 to the number of simulation (\code{nsim}) specified.
 }
 \description{
-Given a text document with two underlying subjects
-A and B, this function simulates the expected distribution of the
-observed opinion score from the \code{opi_score}. The resulting
-tidy-format dataframe is referred to as the \verb{expected sentiment document (ESD)} (Adepeju and Jimoh, 2021).
+Given a text document concerning two identified
+subjects (primary subject \code{A} and secondary subject \code{B}),
+this function simulates the expectation distribution of the
+observed opinion score (computed using the \code{opi_score} function).
+The resulting tidy-format dataframe is described as the
+\verb{expected sentiment document (ESD)} (Adepeju and Jimoh, 2021).
 }
 \details{
-Uses randomization testing approach in
-order to generate expected distribution of the observed
-opinion scores (see details in Adepeju, M. and Jimoh, F., 2021).
+Employs non-parametric randomization testing approach in
+order to generate the expectation distribution of the observed
+opinion scores (see details in Adepeju and Jimoh 2021).
 }
 \examples{
 
