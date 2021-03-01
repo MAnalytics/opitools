@@ -1,9 +1,9 @@
 #' @title Fake Twitter posts on police/policing 1
-#' @description A text document (an OTD) containing twitter posts
-#' (for an anonymous geographical location 1) on police/policing
-#' (primary subject A). The OTD also includes
-#' posts that express sentiments on policing in relation to
-#' the COVID-19 pandemic (Secondary subject B)
+#' @description A sample text document (an OTD) containing twitter posts
+#' (from an anonymous geographical location 1). The primary subject
+#' of the document is the "process of policing". The `OTD` is believed
+#' to also include posts that express sentiments on COVID-19 pandemic
+#' (secondary subject B) in relation to the primary subject.
 #' @name policing_otd
 #' @docType data
 #' @usage policing_otd
