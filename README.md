@@ -46,7 +46,7 @@ head(policing_otd)
 
 ### Performing analysis
 
-Assuming that we want to assess the impacts of a secondary subject B inherent in the document on the original subject A (for which OTD is downloaded), we need to first identify keywords that are used to reference the subject B in the OTD. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using a frequency analysis. Alternatively, a user can define those keywords manually. For example, keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data include words, such as 'covid-19', 'coronavirus', 'pandemic' and their variations. We provide a full list of these keywords in the package, and can be accessed by typing:
+Assuming that we want to assess the impacts of a secondary subject B inherent in the document on the original subject A (for which OTD is downloaded), we need to first identify keywords that are used to reference the subject B in the OTD. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using frequency analysis of terms within the document. A user can then collate and prepare those keywords in the same format as the `covid_keys` data supplied with the `opitools` package. The `covid_keys` data include keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data. The keyword data can be accessed by typing:
 
 ```r
 
