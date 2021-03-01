@@ -66,21 +66,34 @@
 #' @importFrom tidytext unnest_tokens
 #' @importFrom tibble tibble
 #' @importFrom magrittr %>%
+#' @importFrom dplyr filter group_by mutate
+#' ungroup distinct select summarise bind_rows rename
+#'
 #' @export
 #'
 opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
 
   #options(warn=-1)
 
+  sentiment <- keywords <- nnrow <- pos_neg_count <-
+    prob2 <- head <- ID <- sentiment2 <-
+    flush.console <-
+
   #check if randomization is too small
-  if(nsim < 9){
+  if(nsim < 99){
     stop("Number of simulation (nsim) is too small!!")
+  }
+
+
+  if(nsim > 9999){
+    stop(paste("Consider specifying a smaller",
+               "number of simulations (nsim)!!", sep=" "))
   }
 
   #check metric
   if(!metric %in% c(1:5)){
-    stop(paste("Metric parameter can only assume values from",
-               "1, 2, 3, 4, 5", sep=" "))
+    stop(paste(" 'Metric' argument can only assume values from",
+               "1, 2,..., 5", sep=" "))
   }
 
   #check if a user-defined function is inputted
@@ -104,19 +117,19 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
       #for simulation, neutral remains untouched
       #to be appended back later
       neutral_osd <- osd_data %>%
-        dplyr::filter(sentiment == 'neutral')
+        filter(sentiment == 'neutral')
 
       #filter neutral
       #simul is based on permutation
       #of positv and negat sentimnt labels
       p1 <- osd_data %>%
-        dplyr::filter(sentiment!="neutral")%>%
-        dplyr::group_by(keywords)%>%
-        dplyr::mutate(nnrow=n())%>%
+        filter(sentiment!="neutral")%>%
+        group_by(keywords)%>%
+        mutate(nnrow=n())%>%
         mutate(prob1=nnrow/nrow(osd_data))%>% #prob of absent
         ungroup()%>%
-        dplyr::group_by(keywords, sentiment) %>%
-        dplyr::mutate(pos_neg_count=n())%>%
+        group_by(keywords, sentiment) %>%
+        mutate(pos_neg_count=n())%>%
         mutate(prob2=pos_neg_count/nnrow)##%>%
 
       len_excl_neutral <- nrow(p1)
@@ -127,41 +140,37 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
 
       #now collate the unique probabilities of 'absent' class
       p1_prob <- p1 %>%
-        dplyr::filter(keywords == "absent")%>%
-        dplyr::distinct(sentiment, .keep_all = TRUE)%>%
-        dplyr::select(sentiment, prob2)
+        filter(keywords == "absent")%>%
+        distinct(sentiment, .keep_all = TRUE)%>%
+        select(sentiment, prob2)
 
 
       if(nsim == 1){
         set.seed(len_excl_neutral)
-        new_ex_class_sent = sample(p1_prob$sentiment, length_present_group, replace=TRUE, prob = p1_prob$prob2)
-        #new_ex_class_sent = sample(c("negative", "positive"), sum(unique(p1$nnrow)), replace=TRUE, prob = c(unique(p1$prob_new_assign),(1-unique(p1$prob_new_assign))))
+        new_ex_class_sent <- sample(p1_prob$sentiment,
+          length_present_group, replace=TRUE, prob = p1_prob$prob2)
       }
 
       if(nsim > 1){
       #generate samples of present class using the prob of absent class
         if(m == 1){
           set.seed(len_excl_neutral)
-          new_ex_class_sent = sample(p1_prob$sentiment, length_present_group, replace=TRUE, prob = p1_prob$prob2)
-          #new_ex_class_sent = sample(c("negative", "positive"), sum(unique(p1$nnrow)), replace=TRUE, prob = c(unique(p1$prob_new_assign),(1-unique(p1$prob_new_assign))))
+          new_ex_class_sent <- sample(p1_prob$sentiment,
+            length_present_group, replace=TRUE, prob = p1_prob$prob2)
         }
 
         if(m > 1){
           #set.seed(nrow(data))
-          new_ex_class_sent = sample(p1_prob$sentiment, length_present_group, replace=TRUE, prob = p1_prob$prob2)
-          #new_ex_class_sent = sample(c("negative", "positive"), sum(unique(p1$nnrow)), replace=TRUE, prob = c(unique(p1$prob_new_assign),(1-unique(p1$prob_new_assign))))
+          new_ex_class_sent <- sample(p1_prob$sentiment,
+            length_present_group, replace=TRUE, prob = p1_prob$prob2)
         }
 
       }
 
-      #unique(p1$nnrow)[1]
-
-
       new_ex_class_sent
 
-      new_sentiment_list <- c(new_ex_class_sent, as.vector(unlist(ab_class_sent))) #length(new_sentiment_list)#nrow(p1)
-      #new_sentiment_list <- new_ex_class_sent
-
+      new_sentiment_list <- c(new_ex_class_sent,
+                              as.vector(unlist(ab_class_sent)))
 
       #p1[which(p1$keywords == "present"), 3] <- new_ex_class_sent
 
@@ -171,9 +180,9 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
 
       #expected
       final_p1_ESD <- final_p1 %>%
-        dplyr::select(ID, sentiment, keywords, sentiment2)%>%
+        select(ID, sentiment, keywords, sentiment2)%>%
         mutate(sentiment = sentiment2)%>%
-        dplyr::select(-c(sentiment2))
+        select(-c(sentiment2))
 
       #now, prepare compute different opinion scores
 
@@ -184,7 +193,7 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
       afinn_ESD <- final_p1_ESD %>%
         group_by(sentiment)%>%
         #count the proportion of
-        dplyr::summarise(n=n())
+        summarise(n=n())
 
 
       #to ensure that each value exist
@@ -205,7 +214,7 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
           total_n <- sum(afinn_ESD$n)
 
           afinn_ESD <- afinn_ESD %>%
-            dplyr::rename(No_of_text_records=n)
+            rename(No_of_text_records=n)
 
           P <- afinn_ESD[which(afinn_ESD$sentiment == "positive"),2]
           N <- afinn_ESD[which(afinn_ESD$sentiment == "negative"),2]
