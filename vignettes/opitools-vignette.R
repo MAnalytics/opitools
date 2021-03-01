@@ -32,6 +32,11 @@ library(opitools) #for impact analysis
 library(rtweet) #for data download
 library(twitteR) #for setting up Twitter authorization
 
+library(wordcloud2)
+library(tidytext)
+library(tibble)
+library(tm)
+
 
 ## ---- message=FALSE, eval=FALSE-----------------------------------------------
 #  
@@ -100,12 +105,51 @@ library(twitteR) #for setting up Twitter authorization
 #  
 #  plt = word_distrib(textdoc = tweets_dat)
 #  
-#  #to plot
-#  #plt
+#  #to show the plot, type:
+#  
+#  #>plt$plot
 #  
 
 ## ----figs1, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs1", "Data freq. plot vs. Zipf's distribution")----
 knitr::include_graphics("zipf.png")
+
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  dat <- list(tweets_dat)
+#  
+#  series <- tibble()
+#  
+#  #tokenize document
+#  series <- tibble(text = as.character(unlist(dat)))%>%
+#    unnest_tokens(word, text)%>% #tokenize
+#    dplyr::select(everything())
+#  
+#  #removing stopwords
+#  tokenize_series <- series[!series$word %in% stopwords("english"),]
+#  
+#  #compute term frequencies
+#  doc_words <- tokenize_series %>%
+#    dplyr::count(word, sort = TRUE) %>%
+#    dplyr::ungroup() %>%
+#    dplyr::mutate(len=nchar(word)) %>%
+#    #remove words with character length <= 2
+#    dplyr::filter(len > 2)%>%
+#    data.frame() %>%
+#    dplyr::rename(freq=n)%>%
+#    dplyr::select(-c(len))%>%
+#    #removing the words, '' & '' because of
+#    #their dominance
+#    dplyr::filter(!word %in% c("police", "policing"))
+#  
+#  
+#  row.names(doc_words) <- doc_words$word
+#  
+#  #use only the top 1000 words
+#  wordcloud2(data=doc_words[1:1000,], size = 0.7, shape = 'pentagon')
+#  
+
+## ----figs2, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs2", "Detecting important words from within the document")----
+knitr::include_graphics("wordcloud.png")
 
 ## ---- message=FALSE, include = TRUE, eval=TRUE--------------------------------
 
@@ -147,7 +191,7 @@ output <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 1,
 #  #> $p_formula
 #  #> [1] "(S_beat + 1)/(nsim + 1)"
 
-## ----figs2, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs2", "Percentage proportion of classes")----
+## ----figs3, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs3", "Percentage proportion of classes")----
 knitr::include_graphics("likert.png")
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
