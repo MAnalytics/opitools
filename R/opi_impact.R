@@ -19,7 +19,7 @@
 #' number of length) containing a list of keywords relating
 #' to the secondary subject (subject \code{B}).
 #' @param metric [an integer] Specify the metric to utilize
-#' for the calculation of the opinion score. Default: \code{1}.
+#' for the calculation of opinion score. Default: \code{1}.
 #' See detailed documentation
 #' in the \code{opi_score} function.
 #' @param fun A user-defined function given that parameter
