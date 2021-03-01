@@ -2,7 +2,8 @@
 % Please edit documentation in R/opi_impact.R
 \name{opi_impact}
 \alias{opi_impact}
-\title{Impact analysis of subject B on the opinion expressed concerning subject A}
+\title{Impact analysis of subject B on the opinion expressed
+concerning subject A in a text document}
 \usage{
 opi_impact(textdoc, sec_keywords=NULL, metric = 1,
 fun = NULL, nsim = 99, alternative="two.sided",
@@ -71,7 +72,8 @@ function) with the expected opinion scores (distribution) from the
 \code{opi_sim} function. The formula is given as
 p = (S.beat+1)/(S.total+1), where 'S_total' is the total
 number of replicas created, 'S.beat' is number of replicas
-with the expected score greater than the observed score. If a user-defined opinion
+with the expected score greater than the observed score.
+If a user-defined opinion
 score function is specified, he/she needs to determine
 whether a one-tailed or two-tailed comparison is required.
 (see explanations above).

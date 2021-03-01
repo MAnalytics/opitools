@@ -12,7 +12,8 @@ of individual text records, where \code{n} is the number
 of individual records.}
 }
 \value{
-A graphical plot showing the rank-frequency graph.
+A list of word frequency and ranksgraphical plot
+showing the rank-frequency graph.
 }
 \description{
 This function examines whether the word
@@ -33,7 +34,7 @@ text document.
 \examples{
 
 #Get an \code{n} x 1 text document
-tweets_dat <- as.data.frame(tweets[,1])
+tweets_dat <- data.frame(text=tweets[,1])
 plt = word_distrib(textdoc = tweets_dat)
 
 plt

@@ -95,4 +95,8 @@ Scaling policy preferences from coded political texts.
 Legislative studies quarterly, 36(1), pp.123-155.
 (4) Razorfish (2009) Fluent: The Razorfish Social Influence
 Marketing Report. Accessed: 24th February, 2021.
+(5) Nielsen, F. A. (2011), “A new ANEW: Evaluation of a word
+list for sentiment analysis in microblogs”, Proceedings of the
+ESWC2011 Workshop on 'Making Sense of Microposts': Big things
+come in small packages (2011) 93-98.
 }
