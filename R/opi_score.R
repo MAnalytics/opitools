@@ -12,7 +12,7 @@
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records.
-#' @param metric [an integer] Specify the metric to utilize for
+#' @param metric (an integer) Specify the metric to utilize for
 #' the calculation of opinion score. Available values in this
 #' package are: \code{1, 2, ...,5}.
 #' Assuming \code{P}, \code{N} and \code{O} represent positive,
