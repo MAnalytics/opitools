@@ -31,8 +31,8 @@
 #' Default: \code{99}.
 #' @param alternative [a character] Default: \code{"two.sided"},
 #' indicating a two-tailed test. A user can override
-#' this default value by specifying \code{“less”} or \code{“greater”} to run
-#' the analysis as one-tailed test when the observed score
+#' this default value by specifying \code{“less”} or \code{“greater”}
+#' to run the analysis as one-tailed test when the observed score
 #' is located at the lower or upper regions of the expectation
 #' distribution, respectively. Note: for \code{metric=1},
 #' the `alternative` parameter should be
