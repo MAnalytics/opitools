@@ -78,8 +78,8 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
   #options(warn=-1)
 
   sentiment <- keywords <- nnrow <- pos_neg_count <-
-    prob2 <- head <- ID <- sentiment2 <-
-    flush.console <-
+    prob2 <- head <- ID <- n <- sentiment2 <-
+    flush.console <- NULL
 
   #check if randomization is too small
   if(nsim < 99){
