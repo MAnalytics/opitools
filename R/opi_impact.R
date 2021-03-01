@@ -26,10 +26,10 @@
 #' \code{metric} (above) is set equal to \code{5}.
 #' See detailed documentation
 #' in the \code{opi_score} function.
-#' @param nsim [an integer] Number of replicas (ESD) to generate.
+#' @param nsim (an integer) Number of replicas (ESD) to generate.
 #' See detailed documentation in the \code{opi_sim} function.
 #' Default: \code{99}.
-#' @param alternative [a character] Default: \code{"two.sided"},
+#' @param alternative (a character) Default: \code{"two.sided"},
 #' indicating a two-tailed test. A user can override
 #' this default value by specifying \code{“less”} or \code{“greater”}
 #' to run the analysis as one-tailed test when the observed score
@@ -99,7 +99,8 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        quiet=TRUE){ #tweets
 
-  keywords <- text <- ID <- sentiment<-flush.console <-asterisk <- comb <- NULL
+  keywords <- text <- ID <- sentiment<-flush.console <-
+    desc <- asterisk <- comb <- NULL
 
   #output holder
   output <- list()
