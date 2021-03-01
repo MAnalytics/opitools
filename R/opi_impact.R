@@ -1,45 +1,52 @@
-#' @title Impact analysis of subject B on the opinion expressed concerning subject A
-#' @description This function assesses the impacts of a
-#' subject B (henceforth referred to as
-#' secondary subject) on the opinion concerning subject A in
-#' a text document. Keywords relating to the secondary subject,
-#' can be identified through a frequency analysis or
-#' collated manually, and should be provided
-#' as input into the function (see below). The subject A
-#' (primary subject) is the subject matter upon which the
-#' text document is based. For instance, by downloading Twitter
-#' data that include hashtags: '#police', '#policing' and/or
-#' '#law enforcement', then "Police/Policing"
-#' becomes the primary subject of the text document.
+#' @title Impact analysis of subject B on the opinion expressed
+#' concerning subject A in a text document
+#' @description This function assesses the impacts of a subject
+#' B (a secondary subject) on the opinion concerning subject A
+#' (the primary subject) in a text document. Keywords relating
+#' to the secondary subject, can be identified  using any
+#' analytical techniques, such as the frequency analysis.
+#' The keywords should then be collated provide as input into
+#' this function (see below). The subject A (primary subject)
+#' is usually the main theme of the text document. For instance,
+#' by downloading Twitter data that include a set of related
+#' hashtags; e.g. ’#police’, ’#policing’ and/or ’#law enforcement’,
+#' then "Police or Policing" forms the primary subject of the
+#' downloaded text document.
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records.
-#' @param sec_keywords [list] A one-column dataframe (of any
-#' number of rows) containing a list of keywords relating to
-#' the secondary subject (\code{B}).
-#' @param metric [integer] Metric to utilize for the calculation
-#' of the opinion score. Default: \code{1}. See detailed documentation
+#' @param sec_keywords [a list] A one-column dataframe (of any
+#' number of length) containing a list of keywords relating
+#' to the secondary subject (subject \code{B}).
+#' @param metric [an integer] Specify the metric to utilize
+#' for the calculation of the opinion score. Default: \code{1}.
+#' See detailed documentation
 #' in the \code{opi_score} function.
-#' @param fun A user-defined function provided parameter
-#' \code{metric} is set as \code{5}. See detailed documentation
+#' @param fun A user-defined function given that parameter
+#' \code{metric} (above) is set equal to \code{5}.
+#' See detailed documentation
 #' in the \code{opi_score} function.
-#' @param nsim [integer] Number of replicas (ESD) to generate.
+#' @param nsim [an integer] Number of replicas (ESD) to generate.
 #' See detailed documentation in the \code{opi_sim} function.
 #' Default: \code{99}.
-#' @param alternative [character] Default: \code{"two.sided"},
+#' @param alternative [a character] Default: \code{"two.sided"},
 #' indicating a two-tailed test. A user can override
-#' this by specifying \code{“less”} or \code{“greater”} to run
-#' the analysis as a one-tailed test with the observed score
-#' being located at the lower or upper regions of the
-#' distribution, respectively. Note: for \code{metric=1}
-#' (see above), the `alternative` parameter should be
-#' set as \code{"two.sided"} because the opinion score is
-#' bounded by both negative and positive values. For a positively
-#' bounded opinion score, such as when
-#' \code{metric = 2, 3 or 4}, the the `alternative` parameter
-#' should be "greater", and "less" otherwise.
+#' this default value by specifying \code{“less”} or \code{“greater”} to run
+#' the analysis as one-tailed test when the observed score
+#' is located at the lower or upper regions of the expectation
+#' distribution, respectively. Note: for \code{metric=1},
+#' the `alternative` parameter should be
+#' set equal to \code{"two.sided"} because the opinion score is
+#' bounded by both positive and negative values. For an opinion
+#' score bounded by positive values, such as when
+#' \code{metric = 2, 3 or 4}, the `alternative` parameter
+#' should be set as "greater", and set as "less" otherwise.
+#' If metric parameter is set equal to \code{5}, with a user-defined
+#' opinion score function (i.e. `fun` not NULL ), the user is required
+#' to determine the boundary of the opinion scores, and set the
+#' `alternative` argument appropriately.
 #' @param quiet (TRUE or FALSE) To suppress processing
-#' and warning messages. Default: \code{TRUE}.
+#' messages. Default: \code{TRUE}.
 #' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
 #' fun = NULL, nsim = 99, alternative="two.sided",
 #' quiet=TRUE)
@@ -58,19 +65,18 @@
 #' #to access the pvalue
 #' output$pvalue
 #'
-#' @details This function calculate the statistical
-#' significance value (\code{p-value}) by comparing the
-#' observed opinion scores (from the \code{opi_score}
-#' function) with the expected opinion scores (distribution) from the
-#' \code{opi_sim} function. The formula is given as
-#' p = (S.beat+1)/(S.total+1), where 'S_total' is the total
-#' number of replicas created, 'S.beat' is number of replicas
-#' with the expected score greater than the observed score. If a user-defined opinion
-#' score function is specified, he/she needs to determine
-#' whether a one-tailed or two-tailed comparison is required.
-#' (see explanations above).
+#' @details This function calculates the statistical
+#' significance value (\code{p-value}) of an opinion score
+#' by comparing the observed score (from the \code{opi_score}
+#' function) with the expected scores (distribution) (from the
+#' \code{opi_sim} function). The formula is given as
+#' `p = (S.beat+1)/(S.total+1)`, where `S_total` is the total
+#' number of replicas (`nsim`) specified, `S.beat` is number of replicas
+#' in which their expected scores are than the observed score (See
+#' further details in Adepeju and Jimoh, 2021).
 #' @return Details of statistical significance of impacts
-#' of secondary subject B on the opinion concerning subject A.
+#' of a secondary subject `B` on the opinion concerning the
+#' primary subject `A`.
 #' @references (1) Adepeju, M. and Jimoh, F. (2021). An Analytical
 #' Framework for Measuring Inequality in the Public Opinions on
 #' Policing – Assessing the impacts of COVID-19 Pandemic using
@@ -84,17 +90,22 @@
 #' @importFrom stringr str_c
 #' @importFrom likert likert.options likert
 #' likert.bar.plot
+#' @importFrom dplyr filter mutate left_join arrange
+#' select arrange if_else mutate_if
+
 #' @export
 
 opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        quiet=TRUE){ #tweets
 
+  keywords <- text <- ID <- sentiment<-flush.console <-asterisk <- comb <- NULL
+
   #output holder
   output <- list()
 
   #check if randomization is too small
-  if(nsim < 9){
+  if(nsim < 99){
     stop("Number of simulation (nsim) is too small!!")
   }
 
@@ -108,7 +119,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   }
 
   #check any contradiction in tail comparison
-  if(metric == 1 & alternative %in% c("less", "greater")){
+  if(metric == 1 & (alternative %in% c("less", "greater"))){
     stop(paste("When parameter `metric = 1`, argument",
                " `alternative` must be set as 'two.sided'!! "))
 
@@ -127,23 +138,23 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
 
   #format text records
   textdoc <- data.frame(textdoc[,1])
-  colnames(textdoc) <- "text"
+  colnames(textdoc) <- c("text")
 
   #separate `textdoc` into two:
   #textdoc_keypresent': contains any of the keywords
   #textdoc_keyabsent': contains no keywords
 
   textdoc_keypresent <- data.frame(textdoc) %>%
-    dplyr::filter(str_detect(text, sec_keywords, negate=FALSE)) %>%
+    filter(str_detect(text, sec_keywords, negate=FALSE)) %>%
     mutate(keywords = "present")
 
   if(nrow(textdoc_keypresent)==0){
-    stop(paste("The text record contains NONE any of",
+    stop(paste("The text record contains NONE of",
                "the secondary keywords!! Operation terminated!!", sep=" "))
   }
 
   textdoc_keyabsent <- data.frame(textdoc) %>%
-    dplyr::filter(stringr::str_detect(text, sec_keywords, negate=TRUE))%>%
+    filter(stringr::str_detect(text, sec_keywords, negate=TRUE))%>%
     mutate(keywords = "absent")
 
 
@@ -182,47 +193,56 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   #filter neutral
   likert_osd <- OSD_joined %>%
     #filter(sentiment != "neutral") %>%
-    dplyr::arrange(keywords, desc(sentiment)) %>%
-    dplyr::select(-c(ID)) %>%
-    dplyr::mutate(class = if_else(sentiment == "neutral", paste("neutral", "", sep=""),
-                                  paste(paste("key",keywords, sep="."), sentiment, sep="_")))%>%
-    dplyr::select(class)
+    arrange(keywords, desc(sentiment)) %>%
+    select(-c(ID)) %>%
+    mutate(class = if_else(sentiment == "neutral",
+        paste("neutral", "", sep=""),
+        paste(paste("key",keywords, sep="."), sentiment, sep="_")))%>%
+    select(class)
 
   #hich(OSD_joined$sentiment == "neutral")
   #unique(likert_osd$class)
 
   #plot function here
   #if(pplot == TRUE){
-    #dev.new(width=8,height=3,noRStudioGD = TRUE)
-    #lik_p1 <- read.table(file = paste("Likert_Data",PR[m], ".csv", sep="_"), sep=",", head=TRUE)
     lik_p1 <- data.frame(likert_osd) %>% mutate_if(is.character,as.factor)
     # Make list of ordered factor variables
-    out <- lapply(lik_p1, function(x) ordered(x, levels = c("key.absent_positive", "key.absent_negative", "neutral", "key.present_negative", "key.present_positive")))
+    out <- lapply(lik_p1, function(x) ordered(x,
+           levels = c("key.absent_positive", "key.absent_negative",
+           "neutral", "key.present_negative", "key.present_positive")))
     #  Combine into data.frame
     res <- do.call( data.frame , out )
     # Build plot
     likert.options(legend="Classes")
     p <- likert(res)
-    title = "Percentage proportion of classes"
+    title <- "Percentage proportion of classes"
     #plot(p, center=3, centered=FALSE) + ggtitle(title)
     pp <- likert.bar.plot(p, legend="Classes")
   #}
 
-  # if(pplot == FALSE){
-  #   #do nothing
+    #terminate process if keyword fields
+    #does not include both 'present' and 'absent'
+    pres_abs <- unique(OSD_joined$keywords)
+
+    if(length(pres_abs) == 1){
+      stop(paste("The 'sec_keywords' are either completely present",
+                 "or absent in a sentiment class! The process terminated!!",
+                 sep=" "))
+    }
+
+    #generate expected scores using `opi_sim` function
+    expected_scores <- opi_sim(osd_data = OSD_joined,
+                               nsim=nsim,
+                               metric = metric,
+                               fun = fun,
+                               quiet=quiet)
+  #}
+
+  # if(quiet == FALSE){
+  #   #generate expected scores using `opi_sim` function
+  #   expected_scores <- opi_sim(osd_data = OSD_joined,
+  #                              nsim=nsim,quiet=FALSE)
   # }
-
-  if(quiet == TRUE){
-    #generate expected scores using `opi_sim` function
-    expected_scores <- opi_sim(osd_data = OSD_joined,
-                               nsim=nsim,quiet=TRUE)
-  }
-
-  if(quiet == FALSE){
-    #generate expected scores using `opi_sim` function
-    expected_scores <- opi_sim(osd_data = OSD_joined,
-                               nsim=nsim,quiet=FALSE)
-  }
 
   #check if there is contradiction in
   #the alternative argument
@@ -302,7 +322,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   #finally merge col
   p_loc <- p_loc %>%
     mutate(comb=paste(p_loc, asterisk, sep="")) %>%
-    dplyr::select(comb)
+    select(comb)
 
   p_loc <- p_loc[, "comb"]
 
@@ -312,7 +332,8 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   output$criterion <- alternative
   output$exp_summary <- summary(expected_scores)
 
-  output$p_table <- knitr::kable(data.frame(cbind(observed_score, S_beat, nsim, pvalue=(S+1)/(nsim+1),   signif)))
+  output$p_table <- knitr::kable(data.frame(cbind(observed_score,
+        S_beat, nsim, pvalue=(S+1)/(nsim+1),   signif)))
   output$p_key <- rev(p_loc)
   output$p_formula <- "(S_beat + 1)/(nsim + 1)"
   output$plot <- pp
