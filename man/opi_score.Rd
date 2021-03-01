@@ -11,7 +11,7 @@ opi_score(textdoc, metric = 1, fun = NULL)
 individual text records, where \code{n} is the total
 number of individual records.}
 
-\item{metric}{\link{an integer} Specify the metric to utilize for
+\item{metric}{(an integer) Specify the metric to utilize for
 the calculation of opinion score. Available values in this
 package are: \code{1, 2, ...,5}.
 Assuming \code{P}, \code{N} and \code{O} represent positive,

@@ -14,11 +14,11 @@ quiet=TRUE)
 individual text records, where \code{n} is the total
 number of individual records.}
 
-\item{sec_keywords}{\link{a list} A one-column dataframe (of any
+\item{sec_keywords}{(a list) A one-column dataframe (of any
 number of length) containing a list of keywords relating
 to the secondary subject (subject \code{B}).}
 
-\item{metric}{\link{an integer} Specify the metric to utilize
+\item{metric}{(an integer) Specify the metric to utilize
 for the calculation of opinion score. Default: \code{1}.
 See detailed documentation
 in the \code{opi_score} function.}
@@ -28,11 +28,11 @@ in the \code{opi_score} function.}
 See detailed documentation
 in the \code{opi_score} function.}
 
-\item{nsim}{\link{an integer} Number of replicas (ESD) to generate.
+\item{nsim}{(an integer) Number of replicas (ESD) to generate.
 See detailed documentation in the \code{opi_sim} function.
 Default: \code{99}.}
 
-\item{alternative}{\link{a character} Default: \code{"two.sided"},
+\item{alternative}{(a character) Default: \code{"two.sided"},
 indicating a two-tailed test. A user can override
 this default value by specifying \code{“less”} or \code{“greater”}
 to run the analysis as one-tailed test when the observed score
