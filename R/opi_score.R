@@ -106,6 +106,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
 
   #call afinn
   #afinn_111 <- afinn_111
+  #data("afinn_111")
 
   #global variables
   ID <- as_tibble <- bigram <- get_sentiments <- neg <- sentiment <-
@@ -164,7 +165,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
     mutate(neg = paste(word1, word2, sep=" ")) %>%
     rename(word  = word2)%>%
     #left_join(get_sentiments("afinn")) %>% #
-    left_join(afinn_111) %>% #
+    left_join(sysdata) %>% #
     select(ID, neg, value)%>%
     #reverse the score (and multiply by 2)
     mutate(value2 = value * 2)%>%
@@ -179,7 +180,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
     unnest_tokens(word, text, drop = FALSE) %>%
     #join to the lexicon
     #inner_join(get_sentiments("afinn")) %>%
-    inner_join(afinn_111) %>%
+    inner_join(sysdata) %>%
     select(-c(text)))#drop text
 
   #join both tables
