@@ -26,7 +26,7 @@ always_allow_html: yes
 #fig_caption: yes
 bibliography: references.bib
 
-abstract: The lack of tools for analysing cross-impact of opinions expressed amongst multiple subjects, within a text document, facilitate the development of `'opitool'` package. For instance, given a collection of tweets on a specific subject A, a researcher may want to assess whether the opinion expressed on subject A in relation to another (secondary) subject B has significantly impacted the overall opinion from the text document. For a real life example, we may want to examine if public opinion expressed concerning policing (as subject A) has been significantly impacted by the public concerns for COVID-19 pandemic (as subject B) (see Adepeju and Jimoh, 2021). This document describes how the aforementioned analysis can be completed using the `opitools` package.
+abstract: The lack of tools for analyzing cross-impacts of different subjects on the opinions expressed in a text document, facilitates the development of `'opitool'` package. As an example, given a specific subject A and a text document downloaded with respect to it, a researcher may want to assess whether the opinion expressed concerning another subject B in relation to subject A has impacted the overall opinions on subject A in a significant way. A real life example; To examine if public opinion expressed concerning neighbourhood policing (as subject A) has been impacted significantly by the public concerns around COVID-19 pandemic (as subject B) (see Adepeju and Jimoh, 2021). This document describes how the `opitools` package can be deployed to answer the aforementioned question.
 
 
 vignette: >
@@ -130,13 +130,13 @@ fig <- local({
 
 # Introduction
 
-The `opitools` is an opinion analytical toolset designed for assessing cross-impacts of opinion expressed on multiple subjects in an opinion-based text documents (OTD) from a social media platform. An OTD (input as `textdoc`) should composed of individual text records on a specific subject (A). An example of an OTD is a collection of Twitter posts concerning a specific topic or hashtag. Any other subjects referenced in relation to the primary subject A can be referred to as secondary subjects, and they can be identified through the keywords used in the text records.In the article [@Adepeju2021], we described how to deploy `opitools` in order to answer a real-life research question, such as 'what are the impacts of `COVID-19 pandemic` (secondary subject) on the public opinion concerning policing (primary subject) across England and Wales?' The `opitools` may be used to answer similar questions relating to many public organisations in order to unravelling important issues that may be driving confidence and trust in relation to their services. 
+The `opitools` is an opinion analytical toolset designed for assessing cross-impacts of multiple subjects on the expressed opinions in a text documents (OTD). An OTD (input as `textdoc`) should composed of individual text records on a specified subject (A), such as a hashtag (using Twitter data) or a topic (using Facebook data). Any other subject that is referenced in relation to this primary subject A can be referred to as a secondary subject, and the records relating to the latter can be identified by searching for the keywords that define it's text records. In the article [@Adepeju2021], we described how to deploy `opitools` in order to answer a real-life research question, stated as follows: 'what are the impacts of `COVID-19 pandemic` (secondary subject) on the public opinion concerning neighbourhood policing (primary subject) across England and Wales?' The `opitools` may be used to answer similar questions relating to many public organisations in order to unravel important issues that may be driving confidence and trust in their services. 
 
 
 
 # Downloading Twitter data
 
-The `rtweet` package [@Kearney2019] is one of the R packages that provide access to the Twitter API for data download. The code section below can be used to download tweets for a pre-defined geographical coverage (lat:'53.805,long:-4.242,radius: 350mi') within the last seven days (free download). We will be downloading tweets relating to 'policing'. Thus, I define the search words as {"`police`", "`policing`", "`law enforcement`"} Note: A user need to first secure access to Twitter developer platform (from [here](https://developer.twitter.com/en/apply-for-access)), then follow instructions on this [page](https://developer.twitter.com/en/docs/twitter-api/getting-started/guide) on how to obtain a set of tokens (keys) required connect to the Twitter API.
+The `rtweet` R-package [@Kearney2019] is one of the packages that provide access to the Twitter API for data download. The code section below can be used to download tweets for a pre-defined geographical coverage (lat:'53.805,long:-4.242,radius: 350mi') for the last seven days (free download). We will be downloading tweets relating to 'neighbourhood policing'. Thus, I define the search words as {"`police`", "`policing`", "`law enforcement`"} Note: A user need to first secure access to Twitter developer platform (from [here](https://developer.twitter.com/en/apply-for-access)), then follow instructions on this [page](https://developer.twitter.com/en/docs/twitter-api/getting-started/guide) on how to obtain a set of tokens (keys) required to connect to the Twitter API.
 
 ### Working directory
 
@@ -154,20 +154,19 @@ setwd(WORKING_DIR)
 ```{r, include=TRUE, message=FALSE, eval=TRUE}
 
 library(opitools) #for impact analysis
-library(rtweet) #for data download
-library(twitteR) #for setting up Twitter authorization
-
-library(wordcloud2)
-library(tidytext)
-library(tibble)
-library(tm)
+#library(rtweet) #for data download
+#library(twitteR) #for setting up Twitter authorization
+#library(wordcloud2)
+#library(tibble)
+#library(tm)
+#library(dplyr)
 
 ```
 
 
 ### Running essential function and define tokens
 
-Free Twitter developer accounts have a restriction of 18,000 tweets per 15 minutes, otherwise a user may loose access (temporarily) to download data. Therefore, it is important to wait for 15 minutes after every 18,000 tweets download. Run the `waitFun` function to help surpass the restriction as the data is being downloaded using different search words. 
+Free Twitter developer accounts have a restriction of 18,000 tweets per 15 minutes, otherwise a user may loose access (temporarily) to download the data. Therefore, it is important to wait for 15 minutes after every 18,000 tweets download. Run the `waitFun` function (provided below) to help manage the download process. 
 
 ```{r, message=FALSE, eval=FALSE}
 
@@ -234,7 +233,7 @@ write_as_csv(all_Tweets, "tweets.csv", na="NA", fileEncoding = "UTF-8")
 
 # Exploration of a text document
 
-Following the data download, a user may wish to explore distribution of the terms within the text document. For example, "What is the nature of word usage in a Twitter text document compared to a typical natural language document?" This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution [@Zipf1936] – the famous frequency distribution that models a natural language document. By Zipf’s distribution, we expect the frequency of a word contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function can be used to generate a plot (e.g Figure `r fig$ref("figs1")`) showing the comparison.   
+Following the data download, a user may wish to explore the distribution of the words (terms) within the text document. For example, "What is the nature of word usage in a Twitter text document compared to a typical natural language document?" This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution [@Zipf1936] – the famous frequency distribution that models a natural language document. By Zipf’s distribution, we expect the frequency of a word contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function can be used to generate a plot (e.g Figure `r fig$ref("figs1")`) showing the comparison.   
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
@@ -256,11 +255,11 @@ plt = word_distrib(textdoc = tweets_dat)
 knitr::include_graphics("zipf.png")
 ```
 
-For a natural language text, the relationship between the rank and the frequency should have a negative slope with all points falling on a straight line. Any deviation from the straight line can be considered an element of imperfection of the text document. An example of such element is the presence of abnormal terms in the document. From Figure `r fig$ref("figs1")` we divide the graph into the three sections: the upper, the middle and the lower section. By fitting a regression line (to represent an ideal Zipf's distribution), we can see what the slope of the upper section is quite different from the rest of the graph. The deviation at the high rank is quite unusual because a corpus of English language often contains enough of common words, such as 'the', 'of', and 'at', in order to obey the Zipf's law. This deviation only suggests a significant use of a wide range of abbreviation instead of these common words. The remaining part of the graph suggests that the documents . Apart from the small deviation at the upper section of the graph, we can state that the law holds within most parts of the Twitter text document.
+For a natural language text, the relationship between the rank and the frequency should have a negative slope with all points falling on a straight line. Any deviation from the straight line can be attributable to imperfection of the text document. An example of such imperfection is the presence of strange terms in the document. From Figure `r fig$ref("figs1")` we divide the graph into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an ideal Zipf's distribution), we can see what the slope of the upper section is quite different from the rest of the graph. The deviation at the high rank is quite unusual because a corpus of English language often contains enough of common words, such as 'the', 'of', and 'at', in order to obey the Zipf's law. This deviation only suggests a significant use of a wide range of abbreviation instead of these common words. Apart from the small deviation at the upper section of the graph, we can state that the law holds within most parts of the Twitter text document.
 
 # Impact Analysis
 
-The randomized Twitter data (above) relates to the tweets containing law enforcement-related search words (e.g. policing, law enforcement, etc), and are downloaded during the era of COVID-19 pandemic.  We will like to assess the impacts of COVID-19 pandemic (as a secondary subject B) on the original theme of the data, i.e. `policing during pandemic`. We need to first identify keywords that have been used to reference COVID-19 pandemic in the text data. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using the wordcloud to highlight terms with high within the document. 
+The Twitter data (above) relates to the tweets containing police-related search words (e.g. policing, law enforcement, etc), and are downloaded during the era of COVID-19 pandemic.  We will like to assess the impacts of COVID-19 pandemic (as a secondary subject B) on the original theme of the data, i.e. `policing during pandemic`. We need to first identify keywords that have been used to reference COVID-19 pandemic in the text data. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using the wordcloud.
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
@@ -302,7 +301,7 @@ wordcloud2(data=doc_words[1:1000,], size = 0.7, shape = 'pentagon')
 knitr::include_graphics("wordcloud.png")
 ```
 
-From the word cloud (i.e. `r fig$ref("figs2")`), the size of the words represent their respective frequencies across the document. This graphic could reveal keywords that signify various secondary subjects that are discussed in relation to the policing. Keywords relating to the COVID-19 pandemic are highlighted in red. A user can then collate and prepare those keywords in the same format as the `covid_keys` data supplied with the `opitools` package. The `covid_keys` data include keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data. The keyword data can be accessed by typing:
+From the wordcloud (i.e. `r fig$ref("figs2")`), the size of the words represent their respective frequencies across the document. This graphic reveals keywords that signify various secondary subjects that are discussed in relation to the policing. Some of the keywords relating to the COVID-19 pandemic are highlighted in red. A user can then collate and prepare those keywords in the `covid_keys` data supplied with the `opitools` package. Let us access the terms:
 
 
 ```r
@@ -329,9 +328,9 @@ From the word cloud (i.e. `r fig$ref("figs2")`), the size of the words represent
 
 ```
 
-The main impact analysis can be executed by running the following codes:
+Now, the impact analysis can be performed as follos: 
 
-```{r, message=FALSE, include = TRUE, eval=TRUE}
+```{r, message=FALSE, include = TRUE, eval=FALSE}
 
 data(tweets)
 
@@ -392,7 +391,7 @@ output
   + `plot` - plot showing Percentage proportion of classes
 
 
-The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning policing, as indicated by the opinion scores -28.23 and a `pvalue` of 0.01. To display the graphics showing the proportion of sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
+The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning neighbourhood policing, as indicated by the opinion scores -28.23 and a `pvalue` of 0.01. To display the graphics showing the proportion of sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
 
 ```{r figs3, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs3", "Percentage proportion of classes")}
 knitr::include_graphics("likert.png")
@@ -402,7 +401,7 @@ knitr::include_graphics("likert.png")
 
 ## Using a user-defined opinion score function
 
-As the definition of opinion score function may vary from one application domain to another, a user is allowed to specify a pre-defined opinion function score. For instance, [@Razorfish2019] defines opinion score towards a product brand in terms of `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount of positive, neutral and negative, sentiments, respectively. Thus, the analysis can be re-run with this user-defined opinion score function, as follows: 
+As the definition of opinion score function may vary from one application domain to another, a user is allowed to specify a pre-defined opinion function score. For instance, [@Razorfish2019] defines opinion score towards a product brand in terms of `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Thus, the analysis can be re-run with this user-defined opinion score function, as follows: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
@@ -459,7 +458,7 @@ Based on the user defined score function, the observed opinion score is estimate
 
 # Conclusion
 
-The `opitools` package has been developed in order to aid the replication of the study [@Adepeju2021], in which we demonstrated the use of the package for exploring public opinion on policing during the pandemic. The utility of the functions in this package are not limited to law enforcement(s), but rather can be applicable to exploring citizens opinion on any public organization more generally. This package is being updated on a regular basis to add more functionalities. 
+The `opitools` package has been developed in order to aid the replication of the study [@Adepeju2021], in which we demonstrated the use of the package for exploring public opinion on policing during the pandemic. The utility of the functions in this package are not limited to law enforcement(s), but rather can be applicable to exploring public opinions on any public organization more generally. This package is being updated on a regular basis to add more functionalities. 
 
 We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly. 
 

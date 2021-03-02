@@ -148,7 +148,7 @@ knitr::include_graphics("zipf.png")
 #  wordcloud2(data=doc_words[1:1000,], size = 0.7, shape = 'pentagon')
 #  
 
-## ----figs2, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs2", "Detecting important words from within the document")----
+## ----figs2, echo=FALSE, fig.width=3,fig.height=4,fig.align="center", fig.cap=fig$cap("figs2", "Detecting important words from within the document")----
 knitr::include_graphics("wordcloud.png")
 
 ## ---- message=FALSE, include = TRUE, eval=TRUE--------------------------------
