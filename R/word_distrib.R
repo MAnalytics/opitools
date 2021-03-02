@@ -34,10 +34,9 @@
 #' xlab ylab theme theme_light element_text element_rect
 #' @importFrom tibble tibble tribble
 #' @importFrom magrittr %>%
-#' @importFrom dplyr summarise ungroup
+#' @importFrom dplyr summarise ungroup row_number
+#' select count mutate filter rename
 #' @importFrom cowplot get_legend plot_grid
-#' @importFrom dplyr select count ungroup
-#' summarise mutate filter rename
 #'
 #' @export
 
@@ -58,13 +57,13 @@ word_distrib <- function(textdoc){
   #tokenize document
   tokenized <- tibble(text = as.character(unlist(dat)))%>%
     unnest_tokens(word, text)%>% #tokenize
-    dplyr::select(everything())
+    select(everything())
   series <- tokenized
 
   #compute term frequencies
   doc_words <- series %>%
-    dplyr::count(word, sort = TRUE) %>%
-    dplyr::ungroup()
+    count(word, sort = TRUE) %>%
+    ungroup()
 
   total_words <- doc_words %>%
     summarise(total = sum(n))
@@ -92,7 +91,7 @@ word_distrib <- function(textdoc){
 
   lower_rank <- freq_by_rank %>%
     filter(rank < 500)%>%
-    dplyr::rename(`term_freq` = 5)
+    rename(`term_freq` = 5)
   int_slope <- lm(log10(`term_freq`) ~ log10(rank), data = lower_rank)
 
   #colors <- c("Sepal Width" = "blue", "Petal Length" = "red")
