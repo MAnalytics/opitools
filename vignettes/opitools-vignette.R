@@ -29,13 +29,12 @@ fig <- local({
 ## ---- include=TRUE, message=FALSE, eval=TRUE----------------------------------
 
 library(opitools) #for impact analysis
-library(rtweet) #for data download
-library(twitteR) #for setting up Twitter authorization
-
-library(wordcloud2)
-library(tidytext)
-library(tibble)
-library(tm)
+#library(rtweet) #for data download
+#library(twitteR) #for setting up Twitter authorization
+#library(wordcloud2)
+#library(tibble)
+#library(tm)
+#library(dplyr)
 
 
 ## ---- message=FALSE, eval=FALSE-----------------------------------------------
@@ -151,19 +150,19 @@ knitr::include_graphics("zipf.png")
 ## ----figs2, echo=FALSE, fig.width=3,fig.height=4,fig.align="center", fig.cap=fig$cap("figs2", "Detecting important words from within the document")----
 knitr::include_graphics("wordcloud.png")
 
-## ---- message=FALSE, include = TRUE, eval=TRUE--------------------------------
-
-data(tweets)
-
-# Get an n x 1 text document
-tweets_dat <- as.data.frame(tweets[,1])
-
-# Run the analysis
-
-output <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 1,
-                       fun = NULL, nsim = 99, alternative="two.sided",
-                       quiet=TRUE)
-                       
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  data(tweets)
+#  
+#  # Get an n x 1 text document
+#  tweets_dat <- as.data.frame(tweets[,1])
+#  
+#  # Run the analysis
+#  
+#  output <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 1,
+#                         fun = NULL, nsim = 99, alternative="two.sided",
+#                         quiet=TRUE)
+#  
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  output
