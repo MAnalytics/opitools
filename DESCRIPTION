@@ -8,7 +8,11 @@ Description: This tool analyzes the opinions inherent in a text document
   relating to a specific subject (A), and assesses
   the impacts that opinion expressed with respect to another subject (B) 
   have on subject A. This package is specifically designed for application 
-  to social media datasets, such as Twitter.
+  to social media datasets, such as Twitter and Facebook. The utility of 
+  the package has been demonstrated in Adepeju, M. and Jimoh, F. (2021) 
+  <doi: 10.31235/osf.io/c32qh> in the assessment of impacts of COVID-19 
+  pandemic on public opinions concerning neighborhood policing across 
+  England and Wales.
 Language: en-US
 License: GPL-3
 URL: https://github.com/MAnalytics/opitools
@@ -21,21 +25,14 @@ Imports:
   ggplot2,
   tibble,
   tidytext,
-  textdata,
   magrittr,
   dplyr,
-  plyr,
   tm,
   stringr,
   purrr,
   tidyr,
-  utils,
   likert,
-  cowplot,
-  data.table,
-  rtweet,
-  twitteR,
-  wordcloud2
+  cowplot
 RoxygenNote: 7.1.1
 Suggests:
   knitr,
