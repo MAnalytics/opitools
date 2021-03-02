@@ -94,7 +94,7 @@
 #' ESWC2011 Workshop on 'Making Sense of Microposts': Big things
 #' come in small packages (2011) 93-98.
 #' @importFrom dplyr mutate select rename filter
-#' left_join inner_join group_by summarise ungroup
+#' left_join inner_join group_by summarise ungroup n
 #' @importFrom tidyr separate
 #' @importFrom tidytext unnest_tokens get_sentiments
 #' @importFrom tibble tibble as_tibble
@@ -109,7 +109,7 @@ opi_score <- function(textdoc, metric = 1, fun = NULL){
 
   #global variables
   ID <- as_tibble <- bigram <- get_sentiments <- neg <- sentiment <-
-    sentiment_score <- separate <- n <- text <- value <- value2 <-
+    sentiment_score <- separate <- text <- value <- value2 <-
     word <- word1 <- word2 <- NULL
 
   #ensuring appropriate length of document is supplied
