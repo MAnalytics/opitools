@@ -1,7 +1,7 @@
 ---
 title: "NEWS.md"
 authors: "Monsuru Adepeju"
-date: "01 March 2021"
+date: "02 March 2021"
 output: html_document
 ---
 
