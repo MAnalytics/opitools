@@ -1,2 +1,5 @@
 ^opitools\.Rproj$
 ^\.Rproj\.user$
+
+# Extra miscellaneous support files/directories.
+cran-comments.md
