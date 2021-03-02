@@ -31,7 +31,8 @@
 #' @importFrom tidytext unnest_tokens
 #' @importFrom ggplot2 ggplot geom_line aes scale_color_manual
 #' labs scale_x_log10 scale_y_log10 scale_shape_manual geom_abline
-#' xlab ylab theme theme_light element_text element_rect
+#' xlab ylab theme theme_light element_text element_rect geom_point
+#' ggplot_build position_nudge geom_text
 #' @importFrom tibble tibble tribble
 #' @importFrom magrittr %>%
 #' @importFrom dplyr summarise ungroup row_number
@@ -79,7 +80,8 @@ word_distrib <- function(textdoc){
   data <- word <- text <- everything <- summarise <- n <- mutate <-
     row_number <- total <- aes <- `term_freq` <- geom_line <-
     scale_x_log10 <- scale_y_log10 <- filter <- lm <- geom_abline <- xlab <-
-    ylab <- theme_light <-Legend <- scale_colour_brewer <- x <- y <- NULL
+    ylab <- theme_light <-Legend <- scale_colour_brewer <- x <- y <-
+    position_nudge <- ggplot_build <- NULL
 
   # ggplot(freq_by_rank, aes(rank, `term_freq`)) +
   #   geom_line() +
@@ -117,9 +119,41 @@ word_distrib <- function(textdoc){
   freq_by_rank <- freq_by_rank %>%
     mutate(group=1)
 
+  #get index for labels
+  xx <-round(nrow(freq_by_rank)/10, digits=0) - 2
+  #create sequence
+  idx <- xx
+  for(i in 2:10){#i<-2
+    idx <- rbind(idx, idx[i-1] + xx)
+    #flush.console()
+    #print(i)
+  }
+
+  idx <- as.vector(idx)
+
+  #plot to first get x labels
+  get_x <- ggplot(freq_by_rank, aes(rank, term_freq,
+                                    color="Log(freq) vs. Log(r)")) +
+    geom_line(size = 1.6, alpha = 0.8, colour="red") +
+    geom_point(colour="red", alpha=0, size=1) +
+    geom_text(data=freq_by_rank[idx,],
+              aes(rank, term_freq,label=word))+
+    labs(title="Checking text document against Zipf's law")+
+    scale_x_log10() +
+    scale_y_log10()
+
+  get_x <- ggplot_build(get_x)$layout$panel_params[[1]]$x$get_labels()
+
+  get_x <- as.numeric(get_x[!is.na(get_x)])
+
+
   lpt <- ggplot(freq_by_rank, aes(rank, term_freq,
                                   color="Log(freq) vs. Log(r)")) +
     geom_line(size = 1.6, alpha = 0.8, colour="red") +
+    geom_point(colour="red", alpha=0, size=1) +
+    geom_text(data=freq_by_rank[get_x,],
+              aes(rank, term_freq,label=word, colour="black"),
+              colour="black", position = position_nudge(y = 0.35))+
     labs(title="Checking text document against Zipf's law")+
     scale_x_log10() +
     scale_y_log10() +
@@ -128,12 +162,12 @@ word_distrib <- function(textdoc){
     #theme(legend.position = "top")
     geom_abline(intercept = as.numeric(int_slope$coefficients[1]),
                 slope = as.numeric(int_slope$coefficients[2]),
-      color = c("gray40"), linetype = 2, size=1.2) +
+                color = c("gray40"), linetype = 2, size=1.2) +
     theme_light()+
     scale_shape_manual(values = 1) +
     labs(shape = "", linetype = "") +
     theme(panel.border = element_rect(colour = "black", fill=NA),
-      aspect.ratio = 1, axis.text = element_text(colour = 1, size = 12))
+          aspect.ratio = 1, axis.text = element_text(colour = 1, size = 12))
 
   final_lpt <- plot_grid(lpt, leg, ncol = 2, rel_heights = c(1, .1),
                          rel_widths = c(2,1), axis = "l")#,
