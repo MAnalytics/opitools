@@ -6,4 +6,6 @@ output: html_document
 ---
 
 
-First version of 'Opitool' package (Version: v1.0.0)
+Re-submission of new package ('opitools') after addressing 'NOTES' flagged 
+
+New version: v1.0.1
