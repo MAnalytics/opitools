@@ -10,7 +10,7 @@ An R-package for analyzing Opinions in Big Text Document
 
 ### Description
 
-The `opitools` is an opinion analytical toolset designed for assessing cross-impacts of opinion expressed on multiple subjects in an opinion-based text documents (OTD) from a social media platform. An OTD (input as `textdoc`) should composed of individual text records on a specific subject (A). An example of an OTD is a collection of Twitter posts concerning a specific topic or hashtag. Any other subjects referenced in relation to the primary subject A can be referred to as secondary subjects, and they can be identified through the keywords used in the text records.  In order to download a Twitter OTD for a defined geographical area, please see the manual of `rtweet` package [(Kearney, 1019)](https://doi.org/10.21105/joss.01829) for details. In the article [adepeju, M. and Jimoh, F. (2021)](https://osf.io/preprints/socarxiv/c32qh/), we described how to deploy `opitools` in order to answer a real-life research question, such as 'what are the impacts of `COVID-19 pandemic` (secondary subject) on the public opinion concerning policing (primary subject) across England and Wales?' Please note: A freshly downloaded OTD generally requires some data cleaning exercises in order to remove unwanted texts, such as duplicates, punctuations, hashtags, emojis, and stop words.
+The `opitools` is an opinion analytical toolset designed for assessing cross-impacts of multiple subjects on the expressed opinions in a text documents (OTD). An OTD (input as `textdoc`) should composed of individual text records on a specified subject (A), such as a hashtag (using Twitter data) or a topic (using Facebook data). Any other subject that is referenced in relation to this primary subject A can be referred to as a secondary subject, and the records relating to the latter can be identified by searching for the keywords that define it's text records.  To download a Twitter OTD for a defined geographical area, please see the manual of `rtweet` package [(Kearney, 1019)](https://doi.org/10.21105/joss.01829). In the article [adepeju, M. and Jimoh, F. (2021)](https://osf.io/preprints/socarxiv/c32qh/), we described how to deploy `opitools` in order to answer a real-life research question, stated as follows: 'what are the impacts of `COVID-19 pandemic` (secondary subject) on the public opinion concerning neighbourhood policing (primary subject) across England and Wales?' Please note: A freshly downloaded OTD will require some data cleaning exercises in order to remove unwanted texts, such as duplicates, punctuations, hashtags, emojis, and stop words.
 
 ### Installation from `CRAN`
 
@@ -23,17 +23,16 @@ library(opitools)
 
 ```
 
-To install the development version of the package, type
+To install the development version of the package, type:
 `remotes::install_github("MAnalytics/opitools")`. Please, report any
 installation problems in the issues.
 
 ### Example usage
 
-Below is an example usage of the main `opitools` function, `opi_impact`. Given an `OTD` consisting of public tweets concerning the police/policing during the COVID-19 pandemic, across a geographical area, the following is an example of how `opitools` can be used to estimate the opinion score and also answer the afore-stated research question. In this example, I will use a fake OTD, namely `policing_otd`, available in the `data/` directory.
+Below is an example usage of the main `opitools` function, `opi_impact`. Given an `OTD` consisting of public tweets concerning neighbourhood policing during the COVID-19 pandemic, for a geographical area, the followings demonstrate how `opitools` can be used to estimate the opinion score and also answer the afore-stated research question. In this example, I will use a fake OTD, namely `policing_otd`, accessible by typing `policing_otd` following the package installation. 
 
 ### Importing the dataset
 
-As soon as the package is installed, the data will automatically be available, and can be assessed by typing: 
 
 ```r
 
@@ -46,7 +45,7 @@ head(policing_otd)
 
 ### Performing analysis
 
-Assuming that we want to assess the impacts of a secondary subject B inherent in the document on the original subject A (for which OTD is downloaded), we need to first identify keywords that are used to reference the subject B in the OTD. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using frequency analysis of terms within the document. A user can then collate and prepare those keywords in the same format as the `covid_keys` data supplied with the `opitools` package. The `covid_keys` data include keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data. The keyword data can be accessed by typing:
+Assuming that we want to assess the impacts of another subject inherent in the document (secondary subject B) on the original subject A (for which OTD is downloaded), we need to first identify keywords that relate to subject B in the OTD. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using frequency analysis of terms within the document. A user should then collate and prepare those keywords in the same format as the `covid_keys` data, which is also accessible through the `opitools` package. The `covid_keys` data shows keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data.
 
 ```r
 
