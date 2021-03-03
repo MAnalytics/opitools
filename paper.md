@@ -3,10 +3,8 @@ title: "R-Opitools – An Opinion Analytical Tool for Big Social Media Data"
 date: "2nd March 2021"
 bibliography: paper.bib
 affiliations:
-- index: 1  
   name: Crime and Well-being Big Data Centre, Manchester Metropolitan University
 authors:
-- affiliation: 1
   name: Monsuru Adepeju
   orcid: 0000-0002-9006-4934
 tags:
@@ -14,7 +12,7 @@ tags:
 - sentiment analysis
 - opinion analysis
 - neighbourhood policing
-- COVID1-19 pandemic
+- COVID-19 pandemic
 
 ---
 
