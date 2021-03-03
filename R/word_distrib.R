@@ -146,6 +146,10 @@ word_distrib <- function(textdoc){
 
   get_x <- as.numeric(get_x[!is.na(get_x)])
 
+  #modify the last label
+  get_x <-c(get_x[1:(length(get_x)-1)],round((get_x[length(get_x)] +
+           get_x[(length(get_x)-1)])/2, digits=0))
+
 
   lpt <- ggplot(freq_by_rank, aes(rank, term_freq,
                                   color="Log(freq) vs. Log(r)")) +
