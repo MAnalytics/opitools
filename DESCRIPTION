@@ -9,7 +9,7 @@ Description: This tool analyzes the opinions inherent in a text document
   opinion expressed with respect to another subject (B) have on 
   subject A. This package is specifically designed for application 
   to social media datasets, such as Twitter and Facebook. The utility of 
-  the package has been demonstrated in Adepeju, M. and Jimoh, F. (2021) 
+  the package has been demonstrated in Adepeju and Jimoh (2021) 
   <doi:10.31235/osf.io/c32qh> in the assessment of impacts of COVID-19 
   pandemic on public opinions concerning neighborhood policing across 
   England and Wales.
