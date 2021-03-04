@@ -68,7 +68,6 @@ OSD <- score$OSD
 #text records were not classified
 
 #Bind a fictitious indicator column
-set.seed(1000)
 osd_data2 <- data.frame(cbind(OSD,
            keywords = sample(c("present","absent"), nrow(OSD),
            replace=TRUE, c(0.35, 0.65))))
