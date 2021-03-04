@@ -209,6 +209,7 @@ for(i in seq_len(length(keywords))){
   
   tweets_g1 <- NULL
 
+  #actual download codes
   tweets_g1 <- search_tweets(q=keywords[i],  n=17500, type="recent", include_rts=TRUE, 
                              token = token, lang="en",geocode='53.805,-4.242,350mi')
   
@@ -230,7 +231,7 @@ write_as_csv(all_Tweets, "tweets.csv", na="NA", fileEncoding = "UTF-8")
 
 # Exploration of a text document
 
-Following the data download, a user may wish to explore the distribution of the words (terms) within the text document. For example, "What is the nature of word usage in a Twitter text document compared to a typical natural language document?" This question can be answered by comparing the log frequency plot of the document with the Zipf’s distribution [@Zipf1936] – the famous frequency distribution that models a natural language document. By Zipf’s distribution, we expect the frequency of a word contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function can be used to generate a plot (e.g Figure `r fig$ref("figs1")`) showing the comparison.   
+Following the data download, a user may wish to explore the characteristics of the word usage within the text document. "How is the pattern of word usage of a social media text document compared with a typical natural language document?" This research question can be answered by examining the log rank-frequency, i.e. the Zipf’s distribution [@Zipf1936]) plot of the document. By the Zipf’s distribution, we expect the frequency of a word contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function of `opitools` can be used to generate Zipf's distribution plot (e.g Figure `r fig$ref("figs1")`).   
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
