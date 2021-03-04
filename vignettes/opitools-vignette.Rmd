@@ -253,11 +253,12 @@ plt = word_distrib(textdoc = tweets_dat)
 knitr::include_graphics("zipf.png")
 ```
 
-For a natural language text, the relationship between the rank and the frequency should have a negative slope with all points falling on a straight line. Any deviation from the straight line can be attributable to imperfection of the text document. An example of such imperfection is the presence of strange terms in the document. From Figure `r fig$ref("figs1")` we divide the graph into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an ideal Zipf's distribution), we can see what the slope of the upper section is quite different from the rest of the graph. The deviation at the high rank is quite unusual because a corpus of English language often contains enough of common words, such as 'the', 'of', and 'at', in order to obey the Zipf's law. This deviation only suggests a significant use of a wide range of abbreviation instead of these common words. Apart from the small deviation at the upper section of the graph, we can state that the law holds within most parts of the Twitter text document.
+For a natural language text, the Zipf's distribution plot has a negative slope with all points falling on a straight line. Any deviation from this ideal trend line can be attributed to imperfections in the word usage. For example, the presence of a wide range of strange terms or made-up words can cause an imperfection of the text document. From Figure `r fig$ref("figs1")` the graph can be divided into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an the ideal Zipf's distribution), we can see what the slope of the upper section is quite different from the middle and the lower sections of the graph. The deviation at the high rank indicate an imperfection because a corpus of English language would generally contain adequate number of common words, such as 'the', 'of', and 'at', in order to ensure alignment on a straight line. For social media data, this deviation can suggests a significant use of a wide range of abbreviation of common words, e.g. using "&" or "nd" instead of the word "and". Apart from the small deviation at the upper section of the graph, we can state that the law holds within most parts of our Twitter text document.
+
 
 # Impact Analysis
 
-The Twitter data (above) relates to the tweets containing police-related search words (e.g. policing, law enforcement, etc), and are downloaded during the era of COVID-19 pandemic.  We will like to assess the impacts of COVID-19 pandemic (as a secondary subject B) on the original theme of the data, i.e. `policing during pandemic`. We need to first identify keywords that have been used to reference COVID-19 pandemic in the text data. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using the wordcloud.
+Now, in order to assess the impacts of COVID-19 pandemic (a secondary subject) on the main subject of the text document, i.e. neighbourhood policing, We need to first identify keywords that relate to the former. A user can employ any relevant analytical approach in order to identify such keywords. An example of a tool that can be used is the `wordcloud`, which may be used to reveal important words from within a text document.
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
@@ -299,7 +300,7 @@ wordcloud2(data=doc_words[1:1000,], size = 0.7, shape = 'pentagon')
 knitr::include_graphics("wordcloud.png")
 ```
 
-From the wordcloud (i.e. `r fig$ref("figs2")`), the size of the words represent their respective frequencies across the document. This graphic reveals keywords that signify various secondary subjects that are discussed in relation to the policing. Some of the keywords relating to the COVID-19 pandemic are highlighted in red. A user can then collate and prepare those keywords in the `covid_keys` data supplied with the `opitools` package. Let us access the terms:
+From the  `wordcloud` (i.e. `r fig$ref("figs2")`), the size of the words represent their respective frequencies (importance) across the document. Keywords relating to the COVID-19 pandemic are circled in red. In similar fashion, a user can identify keywords that relate to several other subjects that may have impacted neighbourhood policing during the data period. A list of `COVID-19 pandemic` related keywords are supplied with the `opitools` package. They can be assessed by typing: 
 
 
 ```r
@@ -326,10 +327,11 @@ From the wordcloud (i.e. `r fig$ref("figs2")`), the size of the words represent 
 
 ```
 
-Now, the impact analysis can be performed as follos: 
+The impact analysis can be performed as follows: 
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
+# call data
 data(tweets)
 
 # Get an n x 1 text document
@@ -343,7 +345,7 @@ output <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 1,
                        
 ```
 
-To print result: 
+To print results: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 output
@@ -372,7 +374,7 @@ output
 #> [1] "(S_beat + 1)/(nsim + 1)"
 ```
 
-* The description of output variables is as follows:
+* The descriptions of output variables are as follow:
 
   + `test` - title of the analysis
 
@@ -389,7 +391,7 @@ output
   + `plot` - plot showing Percentage proportion of classes
 
 
-The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning neighbourhood policing, as indicated by the opinion scores -28.23 and a `pvalue` of 0.01. To display the graphics showing the proportion of sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
+The output shows that COVID-19 pandemic has had a significant impacts on the public opinion concerning neighbourhood policing. This is indicated by the opinion scores -28.23 and a `pvalue` of 0.01. To display the graphics showing the proportion of various sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
 
 ```{r figs3, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs3", "Percentage proportion of classes")}
 knitr::include_graphics("likert.png")
@@ -399,7 +401,9 @@ knitr::include_graphics("likert.png")
 
 ## Using a user-defined opinion score function
 
-As the definition of opinion score function may vary from one application domain to another, a user is allowed to specify a pre-defined opinion function score. For instance, [@Razorfish2019] defines opinion score towards a product brand in terms of `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Thus, the analysis can be re-run with this user-defined opinion score function, as follows: 
+As the definition of opinion score function may vary from one application field to another, a user can specify a pre-defined opinion score function. For instance, [@Razorfish2019] defines opinion score of a product brand as `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Using a user-define function, the analysis can be re-run as follows: 
+
+First define the function: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
@@ -411,7 +415,7 @@ myfun <- function(P, N, O){
 
 ```
 
-Re-run analysis
+Re-run impact analysis
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
@@ -420,7 +424,8 @@ results <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 5,
                        quiet=TRUE)
 ```
 
-To print result: 
+
+Print results: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
@@ -451,12 +456,12 @@ print(results)
 
 ```
 
-Based on the user defined score function, the observed opinion score is estimated as -0.234, while the `pvalue` is equal to 1 (non-significance). This implies that the outcome of whether a subject B has had a significant impact on the primary subject A is also dependent on the opinion score function specified.
+Based on the user defined opinion score function, the new opinion score is estimated as -0.234, while the `pvalue` now equals to 1 (non-significant). This implies that the outcome of whether a secondary subject has had a significant impact on the primary subject is also dependent on the opinion score function specified.
 
 
 # Conclusion
 
-The `opitools` package has been developed in order to aid the replication of the study [@Adepeju2021], in which we demonstrated the use of the package for exploring public opinion on policing during the pandemic. The utility of the functions in this package are not limited to law enforcement(s), but rather can be applicable to exploring public opinions on any public organization more generally. This package is being updated on a regular basis to add more functionalities. 
+The `opitools` package has been developed in order to aid the replication of the study [@Adepeju2021] for other application fields. In essence, the utility of the functions contained in this package is not limited to law enforcement(s) and public health, but rather can be applicable to several other public services more generally. This package is being updated on a regular basis to add more functionalities. 
 
 We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly. 
 
