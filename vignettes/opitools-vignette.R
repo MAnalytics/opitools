@@ -76,6 +76,7 @@ library(opitools) #for impact analysis
 #  
 #    tweets_g1 <- NULL
 #  
+#    #actual download codes
 #    tweets_g1 <- search_tweets(q=keywords[i],  n=17500, type="recent", include_rts=TRUE,
 #                               token = token, lang="en",geocode='53.805,-4.242,350mi')
 #  
@@ -152,6 +153,7 @@ knitr::include_graphics("wordcloud.png")
 
 ## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
 #  
+#  # call data
 #  data(tweets)
 #  
 #  # Get an n x 1 text document
