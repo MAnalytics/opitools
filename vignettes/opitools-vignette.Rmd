@@ -14,7 +14,6 @@ output:
   rmarkdown::html_vignette
   
 #output:
-  #rmarkdown::html_vignette
   #pdf_document: default
   
 #dev: png
