@@ -135,7 +135,7 @@ The `opitools` is an opinion analytical toolset designed for assessing cross-imp
 
 # Downloading Twitter data
 
-The `rtweet` R-package [@Kearney2019] is one of the packages that provide access to the Twitter API for data download. The code section below can be used to download tweets for a pre-defined geographical coverage (lat:'53.805,long:-4.242,radius: 350mi') for the last seven days (free download). We will be downloading tweets relating to 'neighbourhood policing'. Thus, I define the search words as {"`police`", "`policing`", "`law enforcement`"} Note: A user need to first secure access to Twitter developer platform (from [here](https://developer.twitter.com/en/apply-for-access)), then follow instructions on this [page](https://developer.twitter.com/en/docs/twitter-api/getting-started/guide) on how to obtain a set of tokens (keys) required to connect to the Twitter API.
+The `rtweet` R-package [@Kearney2019] is used to download Twitter data. The package provides access to  Twitter API for data download. The code section below can be used to download tweets for a pre-defined geographical coverage (lat:'53.805,long:-4.242,radius: 350mi') for the last seven days (free). We downloaded tweets relating to 'neighbourhood policing', by searching for any tweets which include any of the keywords; {"`police`", "`policing`", "`law enforcement`"}. Note: A user needs to first secure access to Twitter developer platform (from [here](https://developer.twitter.com/en/apply-for-access)), then follow the instructions on this [page](https://developer.twitter.com/en/docs/twitter-api/getting-started/guide) on how to obtain a set of tokens (keys) required to actually connect to the Twitter API.
 
 ### Working directory
 
