@@ -45,7 +45,6 @@
 #' #text records were not classified
 #'
 #' #Bind a fictitious indicator column
-#' set.seed(1000)
 #' osd_data2 <- data.frame(cbind(OSD,
 #'            keywords = sample(c("present","absent"), nrow(OSD),
 #'            replace=TRUE, c(0.35, 0.65))))
@@ -148,7 +147,7 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
 
 
       if(nsim == 1){
-        set.seed(len_excl_neutral)
+        #set.seed(len_excl_neutral)
         new_ex_class_sent <- sample(p1_prob$sentiment,
           length_present_group, replace=TRUE, prob = p1_prob$prob2)
       }
@@ -156,7 +155,7 @@ opi_sim <- function(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE){
       if(nsim > 1){
       #generate samples of present class using the prob of absent class
         if(m == 1){
-          set.seed(len_excl_neutral)
+          #set.seed(len_excl_neutral)
           new_ex_class_sent <- sample(p1_prob$sentiment,
             length_present_group, replace=TRUE, prob = p1_prob$prob2)
         }
