@@ -29,7 +29,7 @@ abstract: The lack of tools for analyzing cross-impacts of different subjects on
 
 
 vignette: >
-  %\VignetteIndexEntry{A guide to using 'opitools' package for opinion and impacts analysis}
+  %\VignetteIndexEntry{A guide to using 'opitools' package for opinion and its impacts analysis}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
