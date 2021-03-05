@@ -1,7 +1,7 @@
 Package: opitools
 Type: Package
 Title: A Tool for Analyzing Opinions in a Text Document
-Version: 1.0.2
+Version: 1.0.3
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
 Description: This tool analyzes the opinions inherent in a text document
