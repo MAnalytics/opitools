@@ -1,5 +1,5 @@
 ---
-title: "Assessing the impacts of COVID-19 pandemic on public opinion concerning policing using Twitter data - A demonstration using `'Opitools'` package"
+title: "Assessing the impacts of COVID-19 pandemic on public opinion concerning neighbourhood policing using Twitter data - A demonstration using `'Opitools'` package"
 
 author: |
   | `Author:`
