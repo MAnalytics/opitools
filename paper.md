@@ -31,7 +31,7 @@ Given a text document comprising individual record texts, such as tweets or Face
 
 # Key Functionalities
 
-In order to perform the impact analysis using the `opitools` package, a user needs to utilize the `opi_impact()` function.The function draws from two other supporting functions, `opi_score()` and `opi_sim()`, to compute the observed score and its expectations, respectively. In addition to four different opinion score functions defined in the package, a `'fun'` parameter is defined in the `opi_impact()` function to allow a user to integrate their own pre-defined function of opinion score. This provision is to allow `opitools` package to be applicable to a wide range of application domains. Lastly, the key output from the `opi_impact()` function includes a summary statistic describing the level of impacts that a defined subject `B` has exerted on the observed opinion score concerning the main subject `A`.
+In order to perform the impact analysis using the `opitools` package, a user needs to utilize the `opi_impact()` function.The function draws from two other supporting functions, `opi_score()` and `opi_sim()`, to compute the observed score and its expectations, respectively. In addition to four different opinion score functions defined in the package, a `'fun'` parameter is defined in the `opi_impact()` function to allow a user to integrate their own pre-defined function of opinion score. This provision is to enable `opitools` package to be applicable to a wide range of application domains. Lastly, the key output from the `opi_impact()` function includes a summary statistic describing the level of impacts that a defined subject `B` has exerted on the observed opinion score concerning the main subject `A`.
 
 
 # Acknowledgment
