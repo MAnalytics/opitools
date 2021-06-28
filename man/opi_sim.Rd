@@ -2,7 +2,7 @@
 % Please edit documentation in R/opi_sim.R
 \name{opi_sim}
 \alias{opi_sim}
-\title{To simulate the opinion expectation distribution
+\title{Simulates the opinion expectation distribution
 of a text document.}
 \usage{
 opi_sim(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE)
@@ -42,9 +42,7 @@ Returns a list of expected opinion scores with length equal
 to the number of simulation (\code{nsim}) specified.
 }
 \description{
-Given a text document concerning two identified
-subjects (primary subject \code{A} and secondary subject \code{B}),
-this function simulates the expectation distribution of the
+This function simulates the expectation distribution of the
 observed opinion score (computed using the \code{opi_score} function).
 The resulting tidy-format dataframe is described as the
 \verb{expected sentiment document (ESD)} (Adepeju and Jimoh, 2021).

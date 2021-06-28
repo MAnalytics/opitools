@@ -2,8 +2,8 @@
 % Please edit documentation in R/opi_impact.R
 \name{opi_impact}
 \alias{opi_impact}
-\title{Impact analysis of subject B on the opinion expressed
-concerning subject A in a text document}
+\title{Statistical assessment of
+impacts of a specified theme from a document.}
 \usage{
 opi_impact(textdoc, sec_keywords=NULL, metric = 1,
 fun = NULL, nsim = 99, alternative="two.sided",
@@ -58,18 +58,15 @@ of a secondary subject \code{B} on the opinion concerning the
 primary subject \code{A}.
 }
 \description{
-This function assesses the impacts of a subject
-B (a secondary subject) on the opinion concerning subject A
-(the primary subject) in a text document. Keywords relating
-to the secondary subject, can be identified  using any
-analytical techniques, such as the frequency analysis.
-The keywords should then be collated provide as input into
-this function (see below). The subject A (primary subject)
-is usually the main theme of the text document. For instance,
-by downloading Twitter data that include a set of related
-hashtags; e.g. ’#police’, ’#policing’ and/or ’#law enforcement’,
-then "Police or Policing" forms the primary subject of the
-downloaded text document.
+This function assesses the impacts of a theme
+(or subject) on the overall opinion computed for a text
+document. The text records relating to the theme in question
+should be identified and provided as input
+to this function. The identification can be
+done by using keywords relating to the subject
+(see \code{word_importance} function).
+The keywords should then be collated and provided as input
+to this function (see below).
 }
 \details{
 This function calculates the statistical
