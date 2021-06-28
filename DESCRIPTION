@@ -4,12 +4,14 @@ Title: A Tool for Analyzing Opinions in a Text Document
 Version: 1.0.3
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
-Description: This tool analyzes the opinions inherent in a text document
-  relating to a specific subject (A), and assesses the impacts that 
-  opinion expressed with respect to another subject (B) have on 
-  subject A. This package is specifically designed for application 
-  to social media datasets, such as Twitter and Facebook. The utility of 
-  the package has been demonstrated in Adepeju and Jimoh (2021) 
+Description: This tool is designed for analyzing the opinions 
+  inherent in a digital text document. Given a text document, this 
+  package allows a user to assess to what extent an identified theme
+  or subject within the document has impacted the overall opinion 
+  expressed by the document. This package can be applied to a wide 
+  variety of digital text documents, including electronic articles,
+  social media text contents, etc. The utility of the `Opitools` 
+  has been demonstrated in Adepeju and Jimoh (2021) 
   <doi:10.31235/osf.io/c32qh> in the assessment of impacts of COVID-19 
   pandemic on public opinions concerning neighborhood policing across 
   England and Wales.
@@ -31,9 +33,13 @@ Imports:
   purrr,
   tidyr,
   likert,
+  tm,
+  wordcloud2,
+  forcats,
   cowplot
 RoxygenNote: 7.1.1
 Suggests:
   knitr,
-  rmarkdown
+  rmarkdown,
+  testthat
 VignetteBuilder: knitr
