@@ -3,7 +3,7 @@
 \docType{data}
 \name{policing_otd}
 \alias{policing_otd}
-\title{Fake Twitter posts on police/policing 1}
+\title{Fake Twitter posts on police/policing}
 \format{
 A dataframe containing one variable
 \itemize{

@@ -80,6 +80,7 @@ in which their expected scores are than the observed score (See
 further details in Adepeju and Jimoh, 2021).
 }
 \examples{
+#Application 1: Law Enforcement
 #test document: 'policing_otd'
 #list of keywords: 'covid_keys'
 
@@ -87,7 +88,6 @@ output <- opi_impact(textdoc = policing_otd,
           sec_keywords=covid_keys, metric = 1,
           fun = NULL, nsim = 99, alternative="two.sided",
           quiet=TRUE)
-
 #check output variables
 print(output)
 
