@@ -1,6 +1,6 @@
-#' @title Word Distribution
+#' @title Words Distribution
 #' @description This function examines whether the distribution
-#' of word frequency in a text document follows the Zipf distribution
+#' of word frequencies in a text document follows the Zipf distribution
 #' (Zipf 1934). The Zipf's distribution is considered the ideal
 #' distribution of a perfect natural language text.
 #' @param textdoc \code{n} x \code{1} list (dataframe)
