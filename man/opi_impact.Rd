@@ -94,6 +94,28 @@ print(output)
 #to access the pvalue
 output$pvalue
 
+#' #Application 2: Marketing
+#list of keywords 1: 'facility_keys'
+#list of keywords 2: 'signage_keys'
+
+#Accessing facility-related keywords
+output <- opi_impact(textdoc = reviews_otd,
+          sec_keywords=facility_keys, metric = 1,
+          fun = NULL, nsim = 99, alternative="two.sided",
+          quiet=TRUE)
+
+#Accessing signage-related keywords
+output <- opi_impact(textdoc = reviews_otd,
+          sec_keywords=signage_keys, metric = 1,
+          fun = NULL, nsim = 99, alternative="two.sided",
+          quiet=TRUE)
+
+#check output variables
+print(output)
+
+#to access the pvalue
+output$pvalue
+
 }
 \references{
 (1) Adepeju, M. and Jimoh, F. (2021). An Analytical
