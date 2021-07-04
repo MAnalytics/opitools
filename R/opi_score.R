@@ -1,5 +1,5 @@
-#' @title Opinion score (of the main subject matter) of a text document
-#' @description Given a text document (concerning a subject A),
+#' @title Opinion score of a text document
+#' @description Given a text document,
 #' this function computes the overall opinion score based on the
 #' proportion of text records classified as expressing positive,
 #' negative or a neutral sentiment about the subject.
