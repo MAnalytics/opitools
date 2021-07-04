@@ -1,8 +1,6 @@
-#' @title To simulate the opinion expectation distribution
+#' @title Simulates the opinion expectation distribution
 #' of a text document.
-#' @description Given a text document concerning two identified
-#' subjects (primary subject `A` and secondary subject `B`),
-#' this function simulates the expectation distribution of the
+#' @description This function simulates the expectation distribution of the
 #' observed opinion score (computed using the `opi_score` function).
 #' The resulting tidy-format dataframe is described as the
 #' `expected sentiment document (ESD)` (Adepeju and Jimoh, 2021).
