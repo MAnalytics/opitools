@@ -29,6 +29,9 @@ fig <- local({
 ## ---- include=TRUE, message=FALSE, eval=TRUE----------------------------------
 
 library(opitools) #for impact analysis
+require(knitr)
+library(kableExtra)
+library(dplyr)
 #library(rtweet) #for data download
 #library(twitteR) #for setting up Twitter authorization
 #library(wordcloud2)
@@ -37,63 +40,39 @@ library(opitools) #for impact analysis
 #library(dplyr)
 
 
-## ---- message=FALSE, eval=FALSE-----------------------------------------------
-#  
-#  #Run function
-#  waitFun <- function(x){
-#    p1 <- proc.time()
-#    Sys.sleep(x)
-#    proc.time() - p1
-#  }
-#  
-#  #specify tokens and authorize
-#  #Note: replace asterisk with real keys
-#  
-#  consumer_key <- '*******************************'
-#  consumer_secret <- '*******************************'
-#  access_token <- '*******************************'
-#  access_secret <- '*******************************'
-#  
-#  setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
-#  
-#  token <- create_token(
-#    app = "AppName", #App name
-#    consumer_key = consumer_key,
-#    consumer_secret = consumer_secret)
-#  
+## ---- echo=FALSE, include=FALSE-----------------------------------------------
+col1 <- c("1", "2")
+col2 <- c("`word_distrib`","`word_importance`")
+col3 <- c("`Words Distribution`","`Highlights of importance of words (terms) embedded in a text document`")
+col4 <- c("This function examines whether the distribution of word frequencies in a text document follows the Zipf distribution (Zipf 1934). The Zipf's distribution is considered the ideal distribution of a perfect natural language text", "Produces a word cloud which represents the level of importance of each word (across different text groups) within a text document, according to a specified measure.")
+tble1 <- data.frame(col1, col2, col3, col4)
+tble1 <- tble1
 
-## ---- message=FALSE, eval=FALSE-----------------------------------------------
-#  
-#  #Define the keywords for subject A
-#  keywords <- c("police", "policing", "law enforcement")
-#  
-#  #tweets holder
-#  all_Tweets <- NULL
-#  
-#  #Loop through each keyword and wait for 15 minutes
-#  #and row-bind the results
-#  for(i in seq_len(length(keywords))){
-#  
-#    tweets_g1 <- NULL
-#  
-#    #actual download codes
-#    tweets_g1 <- search_tweets(q=keywords[i],  n=17500, type="recent", include_rts=TRUE,
-#                               token = token, lang="en",geocode='53.805,-4.242,350mi')
-#  
-#    if(nrow(tweets_g1)!=0){
-#      tweets_g1 <- tweets_g1 %>% dplyr::mutate(class=keywords[i])
-#      all_Tweets <- rbind(all_Tweets, tweets_g1)
-#    }
-#  
-#    flush.console()
-#    print(paste(nrow(tweets_g1), nrow(tweets_g1), sep="||"))
-#    print("waiting for 15.5 minutes")
-#    waitFun(960)
-#  }
-#  
-#  #save the output
-#  write_as_csv(all_Tweets, "tweets.csv", na="NA", fileEncoding = "UTF-8")
-#  
+## ----table1, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)------
+knitr::kable(tble1, caption = "Table 1. `Real-life example datasets`", col.names = c("SN","Data Description","Application Domains","Source")) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "8em", background = "white") %>%
+  column_spec(3, width = "12em", background = "white") %>%
+  column_spec(4, width = "16em", background = "white")#%>%
+  #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
+
+## ---- echo=FALSE, include=FALSE-----------------------------------------------
+col1 <- c("1", "2")
+col2 <- c("`word_distrib`","`word_importance`")
+col3 <- c("`Words Distribution`","`Highlights of importance of words (terms) embedded in a text document`")
+col4 <- c("This function examines whether the distribution of word frequencies in a text document follows the Zipf distribution (Zipf 1934). The Zipf's distribution is considered the ideal distribution of a perfect natural language text", "Produces a word cloud which represents the level of importance of each word (across different text groups) within a text document, according to a specified measure.")
+tble2 <- data.frame(col1, col2, col3, col4)
+tble2 <- tble2
+
+## ----table2, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)------
+knitr::kable(tble2, caption = "Table 2. `Exploratory` functions", col.names = c("SN","Function","Title","Description")) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "8em", background = "white") %>%
+  column_spec(3, width = "12em", background = "white") %>%
+  column_spec(4, width = "16em", background = "white")#%>%
+  #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 
 ## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
 #  
@@ -112,6 +91,25 @@ library(opitools) #for impact analysis
 
 ## ----figs1, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs1", "Data freq. plot vs. Zipf's distribution")----
 knitr::include_graphics("zipf.png")
+
+## ---- echo=FALSE, include=FALSE-----------------------------------------------
+col1 <- c("3", "4", "5")
+col2 <- c("`opi_score`","`opi_sim`", "`opi_impact`")
+col3 <- c("`Opinion score of a text document`",
+          "`Simulates the opinion expectation distribution of a text document`",
+          "`Statistical assessment of impacts of a specified theme (or subject) from a document`")
+col4 <- c("Given a text document, this function computes the overall opinion score based on the proportion of text records classified as expressing positive, negative or a neutral sentiment about the subject.",  "This function simulates the expectation distribution of the observed opinion score (computed using the `opi_score` function).",  "This function assesses the impacts of a theme (or subject) on the overall opinion computed for a text document. The text records relating to the theme in question should be identified and provided as input to this function")
+tble3 <- data.frame(col1, col2, col3, col4)
+tble3<- tble3
+
+## ----table3, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)------
+knitr::kable(tble3, caption = "Table 3. `Impact Analytical` function", col.names = c("SN","Function","Title","Description")) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "8em", background = "white") %>%
+  column_spec(3, width = "12em", background = "white") %>%
+  column_spec(4, width = "16em", background = "white")#%>%
+  #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 
 ## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
 #  
