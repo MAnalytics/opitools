@@ -1,17 +1,14 @@
-#' @title Impact analysis of subject B on the opinion expressed
-#' concerning subject A in a text document
-#' @description This function assesses the impacts of a subject
-#' B (a secondary subject) on the opinion concerning subject A
-#' (the primary subject) in a text document. Keywords relating
-#' to the secondary subject, can be identified  using any
-#' analytical techniques, such as the frequency analysis.
-#' The keywords should then be collated provide as input into
-#' this function (see below). The subject A (primary subject)
-#' is usually the main theme of the text document. For instance,
-#' by downloading Twitter data that include a set of related
-#' hashtags; e.g. ’#police’, ’#policing’ and/or ’#law enforcement’,
-#' then "Police or Policing" forms the primary subject of the
-#' downloaded text document.
+#' @title Statistical assessment of
+#' impacts of a specified theme from a document.
+#' @description This function assesses the impacts of a theme
+#' (or subject) on the overall opinion computed for a text
+#' document. The text records relating to the theme in question
+#' should be identified and provided as input
+#' to this function. The identification can be
+#' done by using keywords relating to the subject
+#' (see `word_importance` function).
+#' The keywords should then be collated and provided as input
+#' to this function (see below).
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records.
@@ -51,19 +48,74 @@
 #' fun = NULL, nsim = 99, alternative="two.sided",
 #' quiet=TRUE)
 #' @examples
-#' #test document: 'policing_otd'
-#' #list of keywords: 'covid_keys'
+#' # Demonstration of `Opitools` in two application
+#' # domains, namely; law enforcement and Transport.
 #'
+#' #1. Application in law enforcement domain
+#' #`test document` -> 'policing_otd': individual
+#' #tweets relating to police performances during
+#' #COVID-19 pandemic.
+#' #`keywords` -> 'covid_keys': keywords relating
+#' #to covid-19 pandemic
+#' #RQ1: "Has the COVID-19 pandemic impacted the public
+#' #opinion on neighourhood policing in a significant
+#' #way?"
+#' #execute function
 #' output <- opi_impact(textdoc = policing_otd,
 #'           sec_keywords=covid_keys, metric = 1,
 #'           fun = NULL, nsim = 99, alternative="two.sided",
 #'           quiet=TRUE)
 #'
-#' #check output variables
+#' #To print results
 #' print(output)
 #'
-#' #to access the pvalue
+#' #Checking the pvalue in order to answer RQ1
 #' output$pvalue
+#'
+#' #2a. Application in transport domain
+#' #`test document` -> 'reviews_otd': individual
+#' #reviews by customers who have used Piccadilly
+#' #training station in Manchester, UK.
+#' #`keywords` -> 'facility_keys':list of facilities
+#' #at the train station.
+#' #RQ2a: "Do the facilities present at the Piccadilly
+#' #train station influenced customers opinion on the
+#' #services rendered at the station?
+#'
+#' ##execute function
+#' output <- opi_impact(textdoc = reviews_otd,
+#'           sec_keywords=facility_keys, metric = 1,
+#'           fun = NULL, nsim = 99, alternative="two.sided",
+#'           quiet=TRUE)
+#'
+#' #To print results
+#' print(output)
+#'
+#' #Checking the pvalue in order to answer RQ2a
+#' output$pvalue
+#'
+#'#' #2b. Application in transport domain
+#' #`test document` -> 'reviews_otd': individual
+#' #reviews by customers who have used Piccadilly
+#' #training station in Manchester, UK.
+#' #`keywords` -> 'signage_keys':keys relating signages
+#' #at a train station.
+#' #RQ2b: "Do the signages at the Piccadilly
+#' #train station influenced customers opinion on the
+#' #services rendered at the station?
+#'
+#' ##execute function
+#' output <- opi_impact(textdoc = reviews_otd,
+#'           sec_keywords=signage_keys, metric = 1,
+#'           fun = NULL, nsim = 99, alternative="two.sided",
+#'           quiet=TRUE)
+#'
+#' #To print results
+#' print(output)
+#'
+#' #Checking the pvalue in order to answer RQ2b
+#' output$pvalue
+#'
 #'
 #' @details This function calculates the statistical
 #' significance value (\code{p-value}) of an opinion score
