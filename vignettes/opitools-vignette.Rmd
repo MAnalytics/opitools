@@ -209,7 +209,7 @@ knitr::kable(tble2, caption = "Table 2. `Exploratory` functions", col.names = c(
   #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
 
-
+## Assessing word distribution
 
 Following the data download, a user may wish to explore the characteristics of the word usage within the text document. "How is the pattern of word usage of a social media text document compared with a typical natural language document?" This research question can be answered by examining the log rank-frequency, i.e. the Zipf’s distribution [@Zipf1936]) plot of the document. By the Zipf’s distribution, we expect the frequency of a word contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function of `opitools` can be used to generate Zipf's distribution plot (e.g Figure `r fig$ref("figs1")`).   
 
@@ -235,6 +235,9 @@ knitr::include_graphics("zipf.png")
 
 For a natural language text, the Zipf's distribution plot has a negative slope with all points falling on a straight line. Any deviation from this ideal trend line can be attributed to imperfections in the word usage. For example, the presence of a wide range of strange terms or made-up words can cause an imperfection of the text document. From Figure `r fig$ref("figs1")` the graph can be divided into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an the ideal Zipf's distribution), we can see what the slope of the upper section is quite different from the middle and the lower sections of the graph. The deviation at the high rank indicate an imperfection because a corpus of English language would generally contain adequate number of common words, such as 'the', 'of', and 'at', in order to ensure alignment on a straight line. For social media data, this deviation can suggests a significant use of a wide range of abbreviation of common words, e.g. using "&" or "nd" instead of the word "and". Apart from the small deviation at the upper section of the graph, we can state that the law holds within most parts of our Twitter text document.
 
+## Identifying important words
+
+sfsdfdsf
 
 # Impact Analysis
 
