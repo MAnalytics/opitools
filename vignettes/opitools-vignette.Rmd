@@ -164,7 +164,7 @@ In order to demonstrate the potentials of `opitools` for application in a wide v
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_otd`","`reviews_otd`","`debate_otd`")
-col3 <- c("`Twitter posts`","`Customer reviews`", "`debate comments`")
+col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
 col4 <- c("A text document (an OTD) containing twitter posts on police/policing", "A text document (an OTD) containing the  customer reviews of the Piccadilly train station (Manchester) downloaded from the www.tripadvisor.co.uk'. The reviews cover from July 2016 to March 2021.","...")
 col5 <- c("Twitter.com", "www.tripadvisor.co.uk","https://www.youtube.com/watch?v=855Am6ovK7s")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
@@ -174,7 +174,7 @@ tble1 <- tble1
 
 
 ```{r table1, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)}
-knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN","Data","Description","Details", "Data Source")) %>%
+knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN","Data","Application","Details", "Data Source")) %>%
   kable_styling(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "8em", background = "white") %>%
