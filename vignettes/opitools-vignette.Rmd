@@ -157,21 +157,24 @@ library(dplyr)
 
 ```
 
-# Real-life example datasets
+# Example datasets
 
-In order to demonstrate the potentials of `opitools` for application across a wide variety of domains, the following example datasets are collected for the demonstration:
+In order to demonstrate the potentials of `opitools` for application in a wide variety of domains, the following example datasets are presented:
 
 ```{r, echo=FALSE, include=FALSE}
-col1 <- c("1", "2")
-col2 <- c("`word_distrib`","`word_importance`")
-col3 <- c("`Words Distribution`","`Highlights of importance of words (terms) embedded in a text document`")
-col4 <- c("This function examines whether the distribution of word frequencies in a text document follows the Zipf distribution (Zipf 1934). The Zipf's distribution is considered the ideal distribution of a perfect natural language text", "Produces a word cloud which represents the level of importance of each word (across different text groups) within a text document, according to a specified measure.")
-tble1 <- data.frame(col1, col2, col3, col4)
+col1 <- c("1", "2", "3")
+col2 <- c("`policing_otd`","`reviews_otd`","`debate_otd`")
+col3 <- c("`Twitter posts`","`Customer reviews`", "`debate comments`")
+col4 <- c("A text document (an OTD) containing twitter posts on police/policing", "A text document (an OTD) containing the  customer reviews of the Piccadilly train station (Manchester) downloaded from the www.tripadvisor.co.uk'. The reviews cover from July 2016 to March 2021.","...")
+col5 <- c("Twitter.com", "www.tripadvisor.co.uk","https://www.youtube.com/watch?v=855Am6ovK7s")
+tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
 ```
 
+
+
 ```{r table1, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)}
-knitr::kable(tble1, caption = "Table 1. `Real-life example datasets`", col.names = c("SN","Data Description","Application Domains","Source")) %>%
+knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN","Data","Description","Details", "Data Source")) %>%
   kable_styling(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "8em", background = "white") %>%
