@@ -183,6 +183,8 @@ knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN",
   #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
 
+The `policing_otd` includes individual tweets concerning neighbourhood policing within a defined geographical area. The `reviews_otd` includes the reviews of Piccadilly train station in Manchester (UK) by the customers. The reviews covers July 2016 to March 2021. Lastly, the `debate_otd` contains individual comments on the first US presidential debate between Hillary Clinton and Donald Trump in September 2016.   
+
 
 # Exploration of a text document
 
