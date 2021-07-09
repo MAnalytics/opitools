@@ -11,7 +11,7 @@ date: |
   | ``r Sys.Date()``
 
 output:
-  rmarkdown::html_vignette
+  html_vignette
   
 #output:
   #pdf_document: default
@@ -128,7 +128,7 @@ fig <- local({
 
 # Introduction
 
-The development of `'opitools'` is instigated by the lack of tools for analyzing how a theme or subject within a text document may have impacted the overall opinion expressed by a given text document. The functions in the package can be categorized into two groups, namely (1) exploratory functions - for exploring the characteristics of words (terms) in a document, e.g. the distribution and the words importance, and (2) impact analytical functions - for carrying out the impact analysis of a document. In this vignette, the potentials of `opitools` for considerably wide applications is demonstrated by applying the package to a number of significantly different subject areas, such as the law enforcement [@Adepeju2021], politics, entertainment and marketing. 
+The development of `'opitools'` is instigated by the lack of tools for analyzing the extent to which a selected theme or subject from a digital text document (DTD) may have impacted the overall opinion expressed in the DTD. The functions in the package can be categorized into two groups, namely (1) exploratory functions - for exploring the characteristics of words (terms) in a document, e.g. the distribution and the words importance, and (2) impact analytical functions - for carrying out the impact analysis of a document. In this vignette, the potentials of `opitools` for considerably wide applications is demonstrated by applying the package to a number of significantly different subject areas, such as the law enforcement [@Adepeju2021], politics, entertainment and marketing. 
 
 
 ### Setting the Working directory
