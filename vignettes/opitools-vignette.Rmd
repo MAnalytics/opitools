@@ -164,10 +164,10 @@ In order to demonstrate the utility of `opitools` for application in a wide vari
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2", "3")
-col2 <- c("`policing_otd`","`reviews_otd`","`debate_otd`")
+col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
 col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
-col4 <- c("A text document (an OTD) containing twitter posts on police/policing", "A text document (an OTD) containing the  customer reviews of the Piccadilly train station (Manchester) downloaded from the www.tripadvisor.co.uk'. The reviews cover from July 2016 to March 2021.","...")
-col5 <- c("Twitter.com", "www.tripadvisor.co.uk","https://www.youtube.com/watch?v=855Am6ovK7s")
+col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021."," A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
+col5 <- c("Twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
 ```
