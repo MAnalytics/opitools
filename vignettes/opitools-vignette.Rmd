@@ -167,7 +167,7 @@ col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
 col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
 col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021."," A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
-col5 <- c("Twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
+col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
 ```
@@ -183,19 +183,21 @@ knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN",
   column_spec(4, width = "16em", background = "white")#%>%
   #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
+ 
 
-The `policing_otd` includes individual tweets concerning neighbourhood policing within a defined geographical area. The `reviews_otd` includes the reviews of Piccadilly train station in Manchester (UK) by the customers. The reviews covers July 2016 to March 2021. Lastly, the `debate_otd` contains individual comments on the first US presidential debate between Hillary Clinton and Donald Trump in September 2016.   
+# Functions
 
+The function in `'opitools'` can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis. 
 
-# Exploration of a text document
+### Exploratory function
 
-Table 2 shows the list of exploratory functions, while Table 3 shows the list of impact analytical functions in the `opitools` package.
+Table 2 shows two exploratory functions embedded in `'opitools'`, namely `'word_distrib'` and `'word_importance'`. Details as follow:
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2")
 col2 <- c("`word_distrib`","`word_importance`")
-col3 <- c("`Words Distribution`","`Highlights of importance of words (terms) embedded in a text document`")
-col4 <- c("This function examines whether the distribution of word frequencies in a text document follows the Zipf distribution (Zipf 1934). The Zipf's distribution is considered the ideal distribution of a perfect natural language text", "Produces a word cloud which represents the level of importance of each word (across different text groups) within a text document, according to a specified measure.")
+col3 <- c("`Words Distribution`","`Importance of words (terms) embedded in a text document`")
+col4 <- c("Examines the extent to which words in a DTD follow the Zipf's distribution (Zipf 1934). The Zipf's distribution  models the ideal natural language text", "Produces a table or graphic that highlights the importance of individual words(terms) in a DTD.")
 tble2 <- data.frame(col1, col2, col3, col4)
 tble2 <- tble2
 ```
@@ -210,23 +212,25 @@ knitr::kable(tble2, caption = "Table 2. `Exploratory` functions", col.names = c(
   #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
 
-## Assessing word distribution
 
-Following the data download, a user may wish to explore the characteristics of the word usage within the text document. "How is the pattern of word usage of a social media text document compared with a typical natural language document?" This research question can be answered by examining the log rank-frequency, i.e. the Zipf’s distribution [@Zipf1936]) plot of the document. By the Zipf’s distribution, we expect the frequency of a word contained in the document to be inversely proportional to its rank in a frequency table. The `word_distrb` function of `opitools` can be used to generate Zipf's distribution plot (e.g Figure `r fig$ref("figs1")`).   
+### Example data exploration
+
+Below the use of `'word_distrib'` and `'word_importance'` is demonstrated on our example datasets. The `'word_distrib'` can be used to answer the question: "How close to an ideal natural language is the content of a DTD?". In other words, does the word usage in a DTD follow a normal natural language? The Zipf's distribution [@Zipf1936] is considered the model of an ideal natural language. The `'word_distrib'` function helps to model a DTD in terms of a Zipf's distribution by examining the log rank-frequency of the DTD. In the model, we expect the frequency of each word to be inversely proportional to its rank in a frequency table (see Figure `r fig$ref("figs1")`). Using a randomised Twitter data (embedded in the package), 
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
-#using a randomised Twitter data from 'opitools'
+# Load data
+data(tweets)
 
-#data(tweets)
-
+# Get the texts
 tweets_dat <- as.data.frame(tweets[,1])
 
+# Run function
 plt = word_distrib(textdoc = tweets_dat)
 
-#to show the plot, type:
+#Show Zipf's distribution:
 
-#>plt$plot
+plt$plot
 
 ```
 
@@ -238,7 +242,10 @@ For a natural language text, the Zipf's distribution plot has a negative slope w
 
 ## Identifying important words
 
-sfsdfdsf
+### Analytical functions
+
+, while Table 3 shows the list of impact analytical functions in the `'opitools'` package.
+
 
 # Impact Analysis
 
