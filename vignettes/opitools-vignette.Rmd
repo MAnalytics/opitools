@@ -160,7 +160,7 @@ library(dplyr)
 
 # Example datasets
 
-In order to demonstrate the potentials of `opitools` for application in a wide variety of domains, the following example datasets are presented:
+In order to demonstrate the utility of `opitools` for application in a wide variety of domains, the following example datasets are used:
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2", "3")
