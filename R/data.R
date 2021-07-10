@@ -40,7 +40,7 @@
 #' \itemize{
 #'   \item text: individual text records
 #'     }
-"policing_otd"
+"policing_dtd"
 
 #' Fake Twitter posts on police/policing 2
 #'
@@ -90,5 +90,5 @@
 #' \itemize{
 #'   \item text: individual text records
 #'     }
-"reviews_otd"
+"reviews_dtd"
 
