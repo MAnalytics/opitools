@@ -25,7 +25,7 @@ always_allow_html: yes
 #fig_caption: yes
 bibliography: references.bib
 
-abstract: The development of `'opitools'` is instigated by the lack of tools for analyzing how a theme or subject within a text document may have impacted the overall opinion expressed by a given text document. The package functions can be grouped into two, namely (1) exploratory functions - for exploring the characteristics of word (terms) in a document, such as the distribution and word importance, and (2) impact analytical functions - for carrying out the impact analysis. In this vignette, the utility of each of the functions contained in the package is demonstrated, with applications to real-life datasets. The outcomes of the demonstrations show that `opitools` can help a user in identifying the most important issues or subjects that may be driving the opinions expressed in a text document.
+abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records towards the completion of opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, transport and political domains.
 
 vignette: >
   %\VignetteIndexEntry{A guide to using 'opitools' package for opinion and its impacts analysis}
@@ -126,9 +126,10 @@ fig <- local({
 
 
 
+
 # Introduction
 
-The development of `'opitools'` is instigated by the lack of tools for analyzing the extent to which a selected theme or subject from a digital text document (DTD) may have impacted the overall opinion expressed in the DTD. The functions in the package can be categorized into two groups, namely (1) exploratory functions - for exploring the characteristics of words (terms) in a document, e.g. the distribution and the words importance, and (2) impact analytical functions - for carrying out the impact analysis of a document. In this vignette, the potentials of `opitools` for considerably wide applications is demonstrated by applying the package to a number of significantly different subject areas, such as the law enforcement [@Adepeju2021], politics, entertainment and marketing. 
+The development of `'opitools'` is instigated by the lack of tools for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. word importance and statistical distribution, and (2) analytical - for computing metrics in an impact analysis. The application of `opitools` across widely distinct domains, including law enforcement, transport and politics, is shown demonstrated in this vignette.  
 
 
 ### Setting the Working directory
