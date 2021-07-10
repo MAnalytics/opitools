@@ -129,7 +129,7 @@ fig <- local({
 
 # Introduction
 
-The development of `'opitools'` is instigated by the lack of tools for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. word importance and statistical distribution, and (2) analytical - for computing metrics in an impact analysis. The application of `opitools` across widely distinct domains, including law enforcement, transport and politics, is shown demonstrated in this vignette.  
+The development of `'opitools'` is to address the lack of tools for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis. The potential of `opitools` for application to a wide variety of domains is demonstrated in this vignette with examples from the law enforcement, transport and politics.
 
 
 ### Setting the Working directory
