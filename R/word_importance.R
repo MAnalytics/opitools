@@ -1,5 +1,5 @@
-#' @title Highlights of importance of words
-#' (terms) embedded in a text document
+#' @title Importance of words (terms) embedded
+#' in a text document
 #' @description Produces a word cloud which represents the
 #' level of importance of each word (across different text groups)
 #' within a text document,
