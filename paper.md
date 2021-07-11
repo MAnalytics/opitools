@@ -28,7 +28,7 @@ Given a text document comprising individual record text records, the goal is to 
 
 # Key Functionalities
 
-The key function of `Opitools` is the `opi_impact()` which draws from two supporting functions, `opi_score()` and `opi_sim()`, to compute the observed score and its expectations, respectively. Four different opinion score functions are embedded in the package for user selection, with a `'fun'` parameter to allow a user-defined score function. These provisions enable is to enable the uptake of `opitools` package in a wide variety of application domains.
+The key function of `Opitools` is the `opi_impact()` which draws from two supporting functions, `opi_score()` and `opi_sim()`, to compute the observed opinion score and its expectations, respectively. Four different opinion score functions are embedded in the package for user selection, with a `'fun'` parameter to allow a user-defined score function. These provisions enable is to enable the uptake of `opitools` package in a wide variety of application domains.
 
 # Acknowledgment
 
