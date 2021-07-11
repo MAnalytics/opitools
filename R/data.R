@@ -70,14 +70,15 @@
 
 #' Keywords relating to facilities at train stations
 #'
-#' List of facilities at the Piccadilly Train
+#' List of words relating to refreshments that can
+#' be found at the Piccadilly Train
 #' Station (Manchester)
 #'
 #' @format A dataframe containing one variable:
 #' \itemize{
 #'   \item keys: list of keywords
 #'     }
-"facility_keys"
+"refreshment_keys"
 
 #' Customer reviews from tripadvisor website
 #'
