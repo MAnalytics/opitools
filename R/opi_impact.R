@@ -14,7 +14,8 @@
 #' number of individual records.
 #' @param sec_keywords (a list) A one-column dataframe (of any
 #' number of length) containing a list of keywords relating
-#' to the secondary subject (subject \code{B}).
+#' to the theme or secondary subject to be investigated.
+#' The keywords can also be defined as a vector of characters.
 #' @param metric (an integer) Specify the metric to utilize
 #' for the calculation of opinion score. Default: \code{1}.
 #' See detailed documentation
