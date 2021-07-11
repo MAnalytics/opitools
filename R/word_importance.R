@@ -24,7 +24,7 @@
 #' @param words_to_filter A pre-defined vector of words (terms) to
 #' filter out from the DTD prior to highlighting words importance.
 #' default: \code{NULL}. This parameter helps to eliminate
-#' unnecessary words that may be too dominant in the results.
+#' non-necessary words that may be too dominant in the results.
 #' @usage word_importance(textdoc, metric= "tf", n_top=5,
 #' words_to_filter=c("police","policing"))
 #' @examples
