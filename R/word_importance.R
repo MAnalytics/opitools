@@ -23,7 +23,7 @@
 #' of the output. Default value: \code{5}.
 #' @usage word_importance(textdoc, metric= "tf", n_top=5)
 #' @examples
-#' output <- word_importance(textdoc = policing_otd, metric= "tf",
+#' output <- word_importance(textdoc = policing_dtd, metric= "tf",
 #' n_top=5)
 #' @details The function determines the most important words
 #' across various grouping of a text document. The measure
