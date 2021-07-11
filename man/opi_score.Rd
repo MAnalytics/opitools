@@ -64,7 +64,7 @@ text document. We deploy a lexicon-based approach
 \examples{
 # Use police/pandemic posts on Twitter
 # Experiment with a standard metric (e.g. metric 1)
-score <- opi_score(textdoc = policing_otd, metric = 1, fun = NULL)
+score <- opi_score(textdoc = policing_dtd, metric = 1, fun = NULL)
 #print result details
 print(score)
 #preview results
@@ -81,7 +81,7 @@ return(score)
 }
 
 #Run analysis
-score <- opi_score(textdoc = policing_otd, metric = 5, fun = myfun)
+score <- opi_score(textdoc = policing_dtd, metric = 5, fun = myfun)
 #preview results
 print(score)
 
