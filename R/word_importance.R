@@ -21,10 +21,17 @@
 #' @param n_top [integer] number of most-important words
 #' to display (per group) in the textual representation
 #' of the output. Default value: \code{5}.
-#' @usage word_importance(textdoc, metric= "tf", n_top=5)
+#' @param words_to_filter A pre-defined vector of words (terms) to
+#' filter out from the DTD prior to highlighting words importance.
+#' default: \code{NULL}. This parameter helps to eliminate
+#' unnecessary words that may be too dominant in the results.
+#' @usage word_importance(textdoc, metric= "tf", n_top=5,
+#' words_to_filter=c("police","policing"))
 #' @examples
+#' #words to filter out
+#' wf <- c("police","policing")
 #' output <- word_importance(textdoc = policing_dtd, metric= "tf",
-#' n_top=5)
+#' n_top=5, words_to_filter= wf)
 #' @details The function determines the most important words
 #' across various grouping of a text document. The measure
 #' options include the `tf` and `tf-idf`. The idea of `tf`
@@ -54,7 +61,8 @@
 #'
 #' @export
 
-word_importance <- function(textdoc, metric = "tf", n_top=5){
+word_importance <- function(textdoc, metric = "tf", n_top=5,
+                            words_to_filter=NULL){
 
   output <- list()
 
@@ -144,7 +152,8 @@ word_importance <- function(textdoc, metric = "tf", n_top=5){
     #paste(text, collapse = " ")
     summarise(text2 = paste(text, collapse=" "))%>%
     rename(text=text2)%>%
-    unnest_tokens(word, text) #%>%
+    unnest_tokens(word, text) %>%
+    dplyr::filter(!word %in% words_to_filter)
 
   #removing stopwords
   tokenize_series <- tokenize_series[!tokenize_series$word %in% stopwords("english"),]
