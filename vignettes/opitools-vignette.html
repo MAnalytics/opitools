@@ -616,18 +616,19 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#Load datasets</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a>dat1 &lt;-<span class="st"> </span><span class="kw">data</span>(<span class="st">&quot;policing_dtd&quot;</span>)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>dat2 &lt;-<span class="st"> </span><span class="kw">data</span>(<span class="st">&quot;reviews_dtd&quot;</span>)</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#dat3 &lt;- data(&quot;debate_dtd&quot;)</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">data</span>(<span class="st">&quot;policing_dtd&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">data</span>(<span class="st">&quot;reviews_dtd&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">data</span>(<span class="st">&quot;debate_dtd&quot;</span>)</span>
 <span id="cb4-7"><a href="#cb4-7"></a></span>
-<span id="cb4-8"><a href="#cb4-8"></a>output1 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> policing_otd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>output2 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> reviews_otd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>)</span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#output3 &lt;- word_importance(textdoc = debate_otd, metric= &quot;tf&quot;, n_top=5)</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#Combining the output and display</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a></span>
-<span id="cb4-14"><a href="#cb4-14"></a>output1</span>
-<span id="cb4-15"><a href="#cb4-15"></a>output2</span></code></pre></div>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a>output1 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> policing_dtd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>output2 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> reviews_dtd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>)</span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#output3 &lt;- word_importance(textdoc = debate_otd, metric= &quot;tf&quot;, n_top=5)</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#Combining the output and display</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a>output1</span>
+<span id="cb4-16"><a href="#cb4-16"></a>output2</span></code></pre></div>
 </div>
 <div id="identifying-important-words" class="section level2">
 <h2>Identifying important words</h2>

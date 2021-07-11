@@ -98,12 +98,13 @@ knitr::include_graphics("zipf.png")
 #  
 #  #Load datasets
 #  
-#  dat1 <- data("policing_dtd")
-#  dat2 <- data("reviews_dtd")
-#  #dat3 <- data("debate_dtd")
+#  data("policing_dtd")
+#  data("reviews_dtd")
+#  data("debate_dtd")
 #  
-#  output1 <- word_importance(textdoc = policing_otd, metric= "tf", n_top=5)
-#  output2 <- word_importance(textdoc = reviews_otd, metric= "tf", n_top=5)
+#  
+#  output1 <- word_importance(textdoc = policing_dtd, metric= "tf", n_top=5)
+#  output2 <- word_importance(textdoc = reviews_dtd, metric= "tf", n_top=5)
 #  #output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5)
 #  
 #  #Combining the output and display
