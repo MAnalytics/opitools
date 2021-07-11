@@ -1,5 +1,5 @@
 ---
-title: "An Opinion Analytical Tool for Big Text Document - A demonstration"
+title: "An Opinion Analytical Tool for Big Text Document - A User Guide"
 
 author: |
   | `Author:`
@@ -488,7 +488,7 @@ Results:
 
 The results indicate a non-significant impacts.
 
-Thirdly, using the `'debate_dtd'` datasets, we can examine how each candidate has impacted the overall opinion on the debate. First, using the democratic candicate, Hillary Clinton: 
+Lastly, using the `'debate_dtd'` datasets, we can examine how each candidate has impacted the overall opinion on the debate. First, using the democratic candicate, Hillary Clinton: 
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
