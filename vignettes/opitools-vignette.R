@@ -32,6 +32,7 @@ library(opitools) #for impact analysis
 require(knitr)
 library(kableExtra)
 library(dplyr)
+library(cowplot)
 #library(rtweet) #for data download
 #library(twitteR) #for setting up Twitter authorization
 #library(wordcloud2)
@@ -94,23 +95,28 @@ knitr::kable(tble2, caption = "Table 2. `Exploratory` functions", col.names = c(
 ## ----figs1, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs1", "Data freq. plot vs. Zipf's distribution")----
 knitr::include_graphics("zipf.png")
 
-## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
-#  
-#  #Load datasets
-#  
-#  data("policing_dtd")
-#  data("reviews_dtd")
-#  data("debate_dtd")
-#  
-#  
-#  output1 <- word_importance(textdoc = policing_dtd, metric= "tf", n_top=5)
-#  output2 <- word_importance(textdoc = reviews_dtd, metric= "tf", n_top=5)
-#  #output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5)
-#  
-#  #Combining the output and display
-#  
-#  output1
-#  output2
+## ---- message=FALSE, include = TRUE, eval=TRUE--------------------------------
+
+#Load datasets
+
+data("policing_dtd")
+data("reviews_dtd")
+data("debate_dtd")
+
+
+p1 <- word_importance(textdoc = policing_dtd, metric= "tf", n_top=5,
+                           words_to_filter=c("police","policing"))
+
+#Note: 'words_to_filter' parameter is used to eliminate non-necessary words that 
+#may be too dominant in the DTD.
+
+p2 <- word_importance(textdoc = reviews_dtd, metric= "tf", n_top=5, 
+                           words_to_filter=c("station", "manchester","train")) 
+
+#output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5)
+
+p1
+p2
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("3", "4", "5")

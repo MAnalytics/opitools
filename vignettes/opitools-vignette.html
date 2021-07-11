@@ -442,12 +442,13 @@ h3 { /* Header 3 */
 <span id="cb2-3"><a href="#cb2-3"></a><span class="kw">require</span>(knitr)</span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="kw">library</span>(kableExtra)</span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#library(rtweet) #for data download</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#library(twitteR) #for setting up Twitter authorization</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#library(wordcloud2)</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#library(tibble)</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#library(tm)</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#library(dplyr)</span></span></code></pre></div>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">library</span>(cowplot)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#library(rtweet) #for data download</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#library(twitteR) #for setting up Twitter authorization</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#library(wordcloud2)</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#library(tibble)</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#library(tm)</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#library(dplyr)</span></span></code></pre></div>
 </div>
 </div>
 <div id="example-datasets" class="section level1">
@@ -619,16 +620,62 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 <span id="cb4-4"><a href="#cb4-4"></a><span class="kw">data</span>(<span class="st">&quot;policing_dtd&quot;</span>)</span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="kw">data</span>(<span class="st">&quot;reviews_dtd&quot;</span>)</span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="kw">data</span>(<span class="st">&quot;debate_dtd&quot;</span>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; Warning in data(&quot;debate_dtd&quot;): data set &#39;debate_dtd&#39; not found</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a>output1 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> policing_dtd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>)</span>
-<span id="cb4-10"><a href="#cb4-10"></a>output2 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> reviews_dtd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>)</span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#output3 &lt;- word_importance(textdoc = debate_otd, metric= &quot;tf&quot;, n_top=5)</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>p1 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> policing_dtd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>                           <span class="dt">words_to_filter=</span><span class="kw">c</span>(<span class="st">&quot;police&quot;</span>,<span class="st">&quot;policing&quot;</span>))</span>
 <span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#Combining the output and display</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a>output1</span>
-<span id="cb4-16"><a href="#cb4-16"></a>output2</span></code></pre></div>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#Note: &#39;words_to_filter&#39; parameter is used to eliminate non-necessary words that </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#may be too dominant in the DTD.</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a>p2 &lt;-<span class="st"> </span><span class="kw">word_importance</span>(<span class="dt">textdoc =</span> reviews_dtd, <span class="dt">metric=</span> <span class="st">&quot;tf&quot;</span>, <span class="dt">n_top=</span><span class="dv">5</span>, </span>
+<span id="cb4-17"><a href="#cb4-17"></a>                           <span class="dt">words_to_filter=</span><span class="kw">c</span>(<span class="st">&quot;station&quot;</span>, <span class="st">&quot;manchester&quot;</span>,<span class="st">&quot;train&quot;</span>)) </span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#output3 &lt;- word_importance(textdoc = debate_otd, metric= &quot;tf&quot;, n_top=5)</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a></span>
+<span id="cb4-21"><a href="#cb4-21"></a>p1</span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; $metric</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; [1] &quot;term frequency&quot;</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; </span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; $table</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; # A tibble: 1,060 x 2</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt;    word      freq</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt;  1 s           13</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt;  2 u           13</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt;  3 people      10</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt;  4 officers     9</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt;  5 t            9</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="co">#&gt;  6 just         8</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="co">#&gt;  7 need         8</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="co">#&gt;  8 see          8</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="co">#&gt;  9 amp          7</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="co">#&gt; 10 can          7</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="co">#&gt; # ... with 1,050 more rows</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="co">#&gt; </span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="co">#&gt; $plot</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a>p2</span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="co">#&gt; $metric</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="co">#&gt; [1] &quot;term frequency&quot;</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="co">#&gt; </span></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="co">#&gt; $table</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a><span class="co">#&gt; # A tibble: 2,109 x 2</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="co">#&gt;    word        freq</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a><span class="co">#&gt;    &lt;chr&gt;      &lt;int&gt;</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a><span class="co">#&gt;  1 shops        125</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="co">#&gt;  2 good         119</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="co">#&gt;  3 easy         112</span></span>
+<span id="cb4-53"><a href="#cb4-53"></a><span class="co">#&gt;  4 staff        109</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a><span class="co">#&gt;  5 busy          93</span></span>
+<span id="cb4-55"><a href="#cb4-55"></a><span class="co">#&gt;  6 get           89</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a><span class="co">#&gt;  7 plenty        78</span></span>
+<span id="cb4-57"><a href="#cb4-57"></a><span class="co">#&gt;  8 well          74</span></span>
+<span id="cb4-58"><a href="#cb4-58"></a><span class="co">#&gt;  9 piccadilly    73</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a><span class="co">#&gt; 10 places        71</span></span>
+<span id="cb4-60"><a href="#cb4-60"></a><span class="co">#&gt; # ... with 2,099 more rows</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a><span class="co">#&gt; </span></span>
+<span id="cb4-62"><a href="#cb4-62"></a><span class="co">#&gt; $plot</span></span></code></pre></div>
 </div>
 <div id="identifying-important-words" class="section level2">
 <h2>Identifying important words</h2>
