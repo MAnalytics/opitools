@@ -330,29 +330,29 @@ To print results:
 
 > output1
 
-#$test
-#[1] "Test of significance (Randomization testing)"
+$test
+[1] "Test of significance (Randomization testing)"
 
-#$criterion
-#[1] "two.sided"
+$criterion
+[1] "two.sided"
 
-#$exp_summary
-#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-# -8.240  -5.880  -5.880  -4.837  -3.530  -1.180 
+$exp_summary
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -8.240  -5.880  -5.880  -4.837  -3.530  -1.180 
 
-#$p_table
+$p_table
 
-#|observed_score |S_beat |nsim |pvalue |signif |
-#|:--------------|:------|:----|:------|:------|
-#|-5.88          |51     |99   |0.52   |'      |
+|observed_score |S_beat |nsim |pvalue |signif |
+|:--------------|:------|:----|:------|:------|
+|-5.88          |51     |99   |0.52   |'      |
 
-#$p_key
-#[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+$p_key
+[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
 
-#$p_formula
-#[1] "(S_beat + 1)/(nsim + 1)"
+$p_formula
+[1] "(S_beat + 1)/(nsim + 1)"
 
-#$plot
+$plot
 ```
 
 * The descriptions of output variables are as follow:
@@ -408,27 +408,27 @@ Printing the results:
 
 > output2
 
-#$test
-#[1] "Test of significance (Randomization testing)"
+$test
+[1] "Test of significance (Randomization testing)"
 
-#$criterion
-#[1] "two.sided"
+$criterion
+[1] "two.sided"
 
-#$exp_summary
-#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#  53.38   58.90   60.40   60.37   62.41   67.42 
+$exp_summary
+  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+ 53.38   58.90   60.40   60.37   62.41   67.42
 
-#$p_table
+$p_table
 
-#|observed_score |S_beat |nsim |pvalue |signif |
-#|:--------------|:------|:----|:------|:------|
-#|67.92          |0      |99   |0.01   |***    |
+|observed_score |S_beat |nsim |pvalue |signif |
+|:--------------|:------|:----|:------|:------|
+|67.92          |0      |99   |0.01   |***    |
 
-#$p_key
-#[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+$p_key
+[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
 
-#$p_formula
-#[1] "(S_beat + 1)/(nsim + 1)"
+$p_formula
+[1] "(S_beat + 1)/(nsim + 1)"
 
 $plot
 
@@ -460,29 +460,29 @@ Results:
 
 > output3
 
-#$test
-#[1] "Test of significance (Randomization testing)"
+$test
+[1] "Test of significance (Randomization testing)"
 
-#$criterion
-#[1] "two.sided"
+$criterion
+[1] "two.sided"
 
-#$exp_summary
-#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#  58.90   64.41   65.91   65.66   66.92   69.92 
+$exp_summary
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  58.90   64.41   65.91   65.66   66.92   69.92 
 
-#$p_table
+$p_table
 
-#|observed_score |S_beat |nsim |pvalue |signif |
-#|:--------------|:------|:----|:------|:------|
-#|67.92          |9      |99   |0.1    |'      |
+|observed_score |S_beat |nsim |pvalue |signif |
+|:--------------|:------|:----|:------|:------|
+|67.92          |9      |99   |0.1    |'      |
 
-#$p_key
-#[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+$p_key
+[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
 
-#$p_formula
-#[1] "(S_beat + 1)/(nsim + 1)"
+$p_formula
+[1] "(S_beat + 1)/(nsim + 1)"
 
-#$plot
+$plot
 
 ```
 
@@ -497,7 +497,7 @@ Lastly, using the `'debate_dtd'` datasets, we can examine how each candidate has
 # Load DTD
 data(debate_dtd)
 
-# The theme keyword can also be specified as a vector of characters, such as: 
+# The theme keyword can also be specified as a vector of characters, e.g.: 
 keys <- c("Clinton", "Hillary")
 
 # Run the analysis
