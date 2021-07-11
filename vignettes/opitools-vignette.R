@@ -41,15 +41,16 @@ library(dplyr)
 
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
-col1 <- c("1", "2")
-col2 <- c("`word_distrib`","`word_importance`")
-col3 <- c("`Words Distribution`","`Highlights of importance of words (terms) embedded in a text document`")
-col4 <- c("This function examines whether the distribution of word frequencies in a text document follows the Zipf distribution (Zipf 1934). The Zipf's distribution is considered the ideal distribution of a perfect natural language text", "Produces a word cloud which represents the level of importance of each word (across different text groups) within a text document, according to a specified measure.")
-tble1 <- data.frame(col1, col2, col3, col4)
+col1 <- c("1", "2", "3")
+col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
+col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
+col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021."," A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
+col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
+tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
 
 ## ----table1, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)------
-knitr::kable(tble1, caption = "Table 1. `Real-life example datasets`", col.names = c("SN","Data Description","Application Domains","Source")) %>%
+knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN","Data","Application","Details", "Data Source")) %>%
   kable_styling(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "8em", background = "white") %>%
@@ -60,8 +61,8 @@ knitr::kable(tble1, caption = "Table 1. `Real-life example datasets`", col.names
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("1", "2")
 col2 <- c("`word_distrib`","`word_importance`")
-col3 <- c("`Words Distribution`","`Highlights of importance of words (terms) embedded in a text document`")
-col4 <- c("This function examines whether the distribution of word frequencies in a text document follows the Zipf distribution (Zipf 1934). The Zipf's distribution is considered the ideal distribution of a perfect natural language text", "Produces a word cloud which represents the level of importance of each word (across different text groups) within a text document, according to a specified measure.")
+col3 <- c("`Words Distribution`","`Importance of words (terms) embedded in a text document`")
+col4 <- c("Examines the extent to which words in a DTD follow the Zipf's distribution (Zipf 1934). The Zipf's distribution  models the ideal natural language text", "Produces a table or graphic that highlights the importance of individual words(terms) in a DTD.")
 tble2 <- data.frame(col1, col2, col3, col4)
 tble2 <- tble2
 
@@ -76,21 +77,39 @@ knitr::kable(tble2, caption = "Table 2. `Exploratory` functions", col.names = c(
 
 ## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
 #  
-#  #using a randomised Twitter data from 'opitools'
+#  # Load data
+#  data(tweets)
 #  
-#  #data(tweets)
-#  
+#  # Get the texts
 #  tweets_dat <- as.data.frame(tweets[,1])
 #  
+#  # Run function
 #  plt = word_distrib(textdoc = tweets_dat)
 #  
-#  #to show the plot, type:
+#  #Show Zipf's distribution:
 #  
-#  #>plt$plot
+#  plt$plot
 #  
 
 ## ----figs1, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs1", "Data freq. plot vs. Zipf's distribution")----
 knitr::include_graphics("zipf.png")
+
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  #Load datasets
+#  
+#  dat1 <- data("policing_dtd")
+#  dat2 <- data("reviews_dtd")
+#  #dat3 <- data("debate_dtd")
+#  
+#  output1 <- word_importance(textdoc = policing_otd, metric= "tf", n_top=5)
+#  output2 <- word_importance(textdoc = reviews_otd, metric= "tf", n_top=5)
+#  #output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5)
+#  
+#  #Combining the output and display
+#  
+#  output1
+#  output2
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("3", "4", "5")
