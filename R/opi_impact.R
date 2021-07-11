@@ -48,11 +48,11 @@
 #' fun = NULL, nsim = 99, alternative="two.sided",
 #' quiet=TRUE)
 #' @examples
-#' # Demonstration of `Opitools` in two application
-#' # domains, namely; law enforcement and Transport.
+#' # Demonstration of `Opitools` in three application
+#' # domains, namely; law enforcement, Transport and Politics.
 #'
 #' #1. Application in law enforcement domain
-#' #`test document` -> 'policing_otd': individual
+#' #`test document` -> 'policing_dtd': individual
 #' #tweets relating to police performances during
 #' #COVID-19 pandemic.
 #' #`keywords` -> 'covid_keys': keywords relating
@@ -61,7 +61,7 @@
 #' #opinion on neighourhood policing in a significant
 #' #way?"
 #' #execute function
-#' output <- opi_impact(textdoc = policing_otd,
+#' output <- opi_impact(textdoc = policing_dtd,
 #'           sec_keywords=covid_keys, metric = 1,
 #'           fun = NULL, nsim = 99, alternative="two.sided",
 #'           quiet=TRUE)
@@ -73,7 +73,7 @@
 #' output$pvalue
 #'
 #' #2a. Application in transport domain
-#' #`test document` -> 'reviews_otd': individual
+#' #`test document` -> 'reviews_dtd': individual
 #' #reviews by customers who have used Piccadilly
 #' #training station in Manchester, UK.
 #' #`keywords` -> 'facility_keys':list of facilities
@@ -83,7 +83,7 @@
 #' #services rendered at the station?
 #'
 #' ##execute function
-#' output <- opi_impact(textdoc = reviews_otd,
+#' output <- opi_impact(textdoc = reviews_dtd,
 #'           sec_keywords=facility_keys, metric = 1,
 #'           fun = NULL, nsim = 99, alternative="two.sided",
 #'           quiet=TRUE)
@@ -95,7 +95,7 @@
 #' output$pvalue
 #'
 #'#' #2b. Application in transport domain
-#' #`test document` -> 'reviews_otd': individual
+#' #`test document` -> 'reviews_dtd': individual
 #' #reviews by customers who have used Piccadilly
 #' #training station in Manchester, UK.
 #' #`keywords` -> 'signage_keys':keys relating signages
@@ -105,7 +105,7 @@
 #' #services rendered at the station?
 #'
 #' ##execute function
-#' output <- opi_impact(textdoc = reviews_otd,
+#' output <- opi_impact(textdoc = reviews_dtd,
 #'           sec_keywords=signage_keys, metric = 1,
 #'           fun = NULL, nsim = 99, alternative="two.sided",
 #'           quiet=TRUE)
