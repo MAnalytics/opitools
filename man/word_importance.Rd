@@ -5,7 +5,8 @@
 \title{Importance of words (terms) embedded
 in a text document}
 \usage{
-word_importance(textdoc, metric= "tf", n_top=5)
+word_importance(textdoc, metric= "tf", n_top=5,
+words_to_filter=c("police","policing"))
 }
 \arguments{
 \item{textdoc}{An \code{n} x \code{1} list (dataframe) of
@@ -27,6 +28,10 @@ representing \verb{term frequency inverse document frequency}
 \item{n_top}{\link{integer} number of most-important words
 to display (per group) in the textual representation
 of the output. Default value: \code{5}.}
+
+\item{words_to_filter}{A pre-defined vector of words (terms) to
+filter out from the DTD prior to highlighting words importance.
+default: \code{NULL}.}
 }
 \value{
 Graphical representation of words importance
@@ -54,8 +59,10 @@ are not used very much, but appear across
 many groups in the document.
 }
 \examples{
+#define words (if any) to filter out
+wf <- c("police","policing")
 output <- word_importance(textdoc = policing_dtd, metric= "tf",
-n_top=5)
+n_top=5, words_to_filter= wf)
 }
 \references{
 Silge, J. and Robinson, D. (2016) tidytext:
