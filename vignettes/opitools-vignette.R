@@ -45,7 +45,7 @@ library(cowplot)
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
 col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
-col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021."," A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
+col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
@@ -95,28 +95,34 @@ knitr::kable(tble2, caption = "Table 2. `Exploratory` functions", col.names = c(
 ## ----figs1, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs1", "Data freq. plot vs. Zipf's distribution")----
 knitr::include_graphics("zipf.png")
 
-## ---- message=FALSE, include = TRUE, eval=TRUE--------------------------------
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  #Load datasets
+#  
+#  data("policing_dtd")
+#  data("reviews_dtd")
+#  data("debate_dtd")
+#  
+#  
+#  p1 <- word_importance(textdoc = policing_dtd, metric= "tf", n_top=5,
+#                             words_to_filter=c("police","policing"))
+#  
+#  #Note: 'words_to_filter' parameter is used to eliminate non-necessary words that
+#  #may be too dominant in the DTD.
+#  
+#  p2 <- word_importance(textdoc = reviews_dtd, metric= "tf", n_top=5,
+#                             words_to_filter=c("station", "manchester","train"))
+#  
+#  p3 <- word_importance(textdoc = debate_dtd, metric= "tf", n_top=5,
+#                             words_to_filter=NULL)
+#  #output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5
+#  p1$plot
+#  p2$plot
+#  p3$plot
+#  
 
-#Load datasets
-
-data("policing_dtd")
-data("reviews_dtd")
-data("debate_dtd")
-
-
-p1 <- word_importance(textdoc = policing_dtd, metric= "tf", n_top=5,
-                           words_to_filter=c("police","policing"))
-
-#Note: 'words_to_filter' parameter is used to eliminate non-necessary words that 
-#may be too dominant in the DTD.
-
-p2 <- word_importance(textdoc = reviews_dtd, metric= "tf", n_top=5, 
-                           words_to_filter=c("station", "manchester","train")) 
-
-#output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5)
-
-p1
-p2
+## ----figs2, echo=FALSE, fig.width=3,fig.height=4,fig.align="center", fig.cap=fig$cap("figs2", "Highlighting words importance from a DTD")----
+knitr::include_graphics("wordcloud.png")
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("3", "4", "5")
@@ -139,85 +145,177 @@ knitr::kable(tble3, caption = "Table 3. `Impact Analytical` function", col.names
 
 ## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
 #  
-#  dat <- list(tweets_dat)
+#  #Application: Law enforcement
 #  
-#  series <- tibble()
+#  # Load DTD
+#  data(policing_dtd)
 #  
-#  #tokenize document
-#  series <- tibble(text = as.character(unlist(dat)))%>%
-#    unnest_tokens(word, text)%>% #tokenize
-#    dplyr::select(everything())
-#  
-#  #removing stopwords
-#  tokenize_series <- series[!series$word %in% stopwords("english"),]
-#  
-#  #compute term frequencies
-#  doc_words <- tokenize_series %>%
-#    dplyr::count(word, sort = TRUE) %>%
-#    dplyr::ungroup() %>%
-#    dplyr::mutate(len=nchar(word)) %>%
-#    #remove words with character length <= 2
-#    dplyr::filter(len > 2)%>%
-#    data.frame() %>%
-#    dplyr::rename(freq=n)%>%
-#    dplyr::select(-c(len))%>%
-#    #removing the words, '' & '' because of
-#    #their dominance
-#    dplyr::filter(!word %in% c("police", "policing"))
-#  
-#  
-#  row.names(doc_words) <- doc_words$word
-#  
-#  #use only the top 1000 words
-#  wordcloud2(data=doc_words[1:1000,], size = 0.7, shape = 'pentagon')
-#  
-
-## ----figs2, echo=FALSE, fig.width=3,fig.height=4,fig.align="center", fig.cap=fig$cap("figs2", "Detecting important words from within the document")----
-knitr::include_graphics("wordcloud.png")
-
-## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
-#  
-#  # call data
-#  data(tweets)
-#  
-#  # Get an n x 1 text document
-#  tweets_dat <- as.data.frame(tweets[,1])
+#  # Load theme keywords
+#  data(covid_keys)
 #  
 #  # Run the analysis
-#  
-#  output <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 1,
+#  output1 <- opi_impact(policing_dtd, sec_keywords=covid_keys, metric = 1,
 #                         fun = NULL, nsim = 99, alternative="two.sided",
 #                         quiet=TRUE)
+#  print(output1)
 #  
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
-#  output
 #  
-#  #> $test
-#  #> [1] "Test of significance (Randomization testing)"
-#  #>
-#  #> $criterion
-#  #> [1] "two.sided"
-#  #>
-#  #> $exp_summary
-#  #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#  #>  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26
-#  #>
-#  #> $p_table
-#  #>
-#  #>
-#  #> observed_score   S_beat   nsim   pvalue   signif
-#  #> ---------------  -------  -----  -------  -------
-#  #> -28.23           0        99     0.01     ***
-#  #>
-#  #> $p_key
-#  #> [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-#  #>
-#  #> $p_formula
-#  #> [1] "(S_beat + 1)/(nsim + 1)"
+#  > output1
+#  
+#  $test
+#  [1] "Test of significance (Randomization testing)"
+#  
+#  $criterion
+#  [1] "two.sided"
+#  
+#  $exp_summary
+#     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#   -8.240  -5.880  -5.880  -4.837  -3.530  -1.180
+#  
+#  $p_table
+#  
+#  |observed_score |S_beat |nsim |pvalue |signif |
+#  |:--------------|:------|:----|:------|:------|
+#  |-5.88          |51     |99   |0.52   |'      |
+#  
+#  $p_key
+#  [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+#  
+#  $p_formula
+#  [1] "(S_beat + 1)/(nsim + 1)"
+#  
+#  $plot
 
 ## ----figs3, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs3", "Percentage proportion of classes")----
 knitr::include_graphics("likert.png")
+
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  #Application: Transport
+#  
+#  # Load DTD
+#  data(reviews_dtd)
+#  
+#  # Load theme keywords
+#  data(refreshment_keys)
+#  
+#  # Run the analysis
+#  output2 <- opi_impact(reviews_dtd, sec_keywords=refreshment_keys, metric = 1,
+#                         fun = NULL, nsim = 99, alternative="two.sided",
+#                         quiet=TRUE)
+#  print(output2)
+#  
+
+## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
+#  
+#  > output2
+#  
+#  $test
+#  [1] "Test of significance (Randomization testing)"
+#  
+#  $criterion
+#  [1] "two.sided"
+#  
+#  $exp_summary
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#   53.38   58.90   60.40   60.37   62.41   67.42
+#  
+#  $p_table
+#  
+#  |observed_score |S_beat |nsim |pvalue |signif |
+#  |:--------------|:------|:----|:------|:------|
+#  |67.92          |0      |99   |0.01   |***    |
+#  
+#  $p_key
+#  [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+#  
+#  $p_formula
+#  [1] "(S_beat + 1)/(nsim + 1)"
+#  
+#  $plot
+#  
+
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  #Application: Transport
+#  
+#  # Load DTD
+#  data(reviews_dtd)
+#  
+#  # Load theme keywords
+#  data(signage_keys)
+#  
+#  # Run the analysis
+#  output3 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
+#                         fun = NULL, nsim = 99, alternative="two.sided",
+#                         quiet=TRUE)
+#  print(output3)
+#  
+
+## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
+#  
+#  > output3
+#  
+#  $test
+#  [1] "Test of significance (Randomization testing)"
+#  
+#  $criterion
+#  [1] "two.sided"
+#  
+#  $exp_summary
+#     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#    58.90   64.41   65.91   65.66   66.92   69.92
+#  
+#  $p_table
+#  
+#  |observed_score |S_beat |nsim |pvalue |signif |
+#  |:--------------|:------|:----|:------|:------|
+#  |67.92          |9      |99   |0.1    |'      |
+#  
+#  $p_key
+#  [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+#  
+#  $p_formula
+#  [1] "(S_beat + 1)/(nsim + 1)"
+#  
+#  $plot
+#  
+
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  #Application: Politics
+#  
+#  # Load DTD
+#  data(debate_dtd)
+#  
+#  # The theme keyword can also be specified as a vector of characters, e.g.:
+#  keys <- c("Clinton", "Hillary")
+#  
+#  # Run the analysis
+#  output4 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
+#                         fun = NULL, nsim = 99, alternative="two.sided",
+#                         quiet=TRUE)
+#  print(output4)
+#  
+
+## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
+#  
+#  #Application: Politics
+#  
+#  # Load DTD
+#  data(debate_dtd)
+#  
+#  # The theme keyword can also be specified as a vector of characters, such as:
+#  keys <- c("Donald", "Trump")
+#  
+#  # Run the analysis
+#  output5 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
+#                         fun = NULL, nsim = 99, alternative="two.sided",
+#                         quiet=TRUE)
+#  print(output5)
+#  
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
@@ -230,35 +328,17 @@ knitr::include_graphics("likert.png")
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
-#  results <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 5,
+#  output6 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
 #                         fun = myfun, nsim = 99, alternative="two.sided",
 #                         quiet=TRUE)
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
-#  print(results)
+#  > output6
 #  
 #  #> $test
 #  #> [1] "Test of significance (Randomization testing)"
 #  #>
-#  #> $criterion
-#  #> [1] "two.sided"
-#  #>
-#  #> $exp_summary
-#  #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#  #>  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26
-#  #>
-#  #> $p_table
-#  #>
-#  #>
-#  #> observed_score       S_beat   nsim   pvalue   signif
-#  #> -------------------  -------  -----  -------  -------
-#  #> -0.234129692832764   99       99     1        NA
-#  #>
-#  #> $p_key
-#  #> [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-#  #>
-#  #> $p_formula
-#  #> [1] "(S_beat + 1)/(nsim + 1)"
+#  
 #  
 

@@ -167,7 +167,7 @@ In order to demonstrate the utility of `opitools` for application in a wide vari
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
 col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
-col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021."," A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
+col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
@@ -261,10 +261,12 @@ p1 <- word_importance(textdoc = policing_dtd, metric= "tf", n_top=5,
 p2 <- word_importance(textdoc = reviews_dtd, metric= "tf", n_top=5, 
                            words_to_filter=c("station", "manchester","train")) 
 
-#output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5)
-
+p3 <- word_importance(textdoc = debate_dtd, metric= "tf", n_top=5, 
+                           words_to_filter=NULL) 
+#output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5
 p1$plot
 p2$plot
+p3$plot
 
 ```
 
@@ -372,7 +374,7 @@ $plot
   + `plot` - plot showing Percentage proportion of classes
 
 
-The output shows that COVID-19 pandemic has not had significant impacts on the public opinion concerning neighbourhood policing. This is indicated by a non-significant pvalue `0.52`. 
+The output shows an overall negative opinion of the public on the neighbourhood policing, and that COVID-19 pandemic has not had a significant impacts (pvalue = 0.52) on the those opinion expressed by the general public. 
 
 To display the graphics showing the proportion of various sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
 
@@ -434,7 +436,7 @@ $plot
 
 ```
 
-From the above, the pvalue = 0.01 indicate significant impacts of refreshment items and outlets on the overall opinion of the train station. The observed score of `67.92` indicate a generally positive reviews by the customers. Similarly, using the same data, we can examine the impacts of signages around the station on the overall customer reviews, as follow:
+From the above, the results (S=67.92, pvalue = 0.01) show an overall positive customer's opinions on the train station or services, with the refreshments items around the station contributing significantly towards those opinions. Similarly, using the same data, we can examine the impacts of signages around the station on the overall customer reviews, as follow:
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
@@ -486,7 +488,7 @@ $plot
 
 ```
 
-The results indicate a non-significant impacts.
+The results (S=67.92, p=0.1) indicate an overall positive customer's opinions on the train station or services, but the signages have not contributed significantly towards those opinions.
 
 Lastly, using the `'debate_dtd'` datasets, we can examine how each candidate has impacted the overall opinion on the debate. First, using the democratic candicate, Hillary Clinton: 
 
