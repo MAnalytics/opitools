@@ -327,7 +327,8 @@ print(output1)
 To print results: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
-output
+
+> output1
 
 #$test
 #[1] "Test of significance (Randomization testing)"
@@ -371,17 +372,174 @@ output
   + `plot` - plot showing Percentage proportion of classes
 
 
-The output shows that COVID-19 pandemic has not had significant impacts on the public opinion concerning neighbourhood policing. This is indicated by a non-significant pvalue `0.52`. To display the graphics showing the proportion of various sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
+The output shows that COVID-19 pandemic has not had significant impacts on the public opinion concerning neighbourhood policing. This is indicated by a non-significant pvalue `0.52`. 
+
+To display the graphics showing the proportion of various sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
 
 ```{r figs3, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs3", "Percentage proportion of classes")}
 knitr::include_graphics("likert.png")
 ```
 
+Using the customers' reviews data and examining whether the refreshment items in and around the train station have significant impacts on the overall customers' opinion of the train services? 
 
 
-## Using a user-defined opinion score function
+```{r, message=FALSE, include = TRUE, eval=FALSE}
 
-As the definition of opinion score function may vary from one application field to another, a user can specify a pre-defined opinion score function. For instance, [@Razorfish2019] defines opinion score of a product brand as `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Using a user-define function, the analysis can be re-run as follows: 
+#Application: Transport
+
+# Load DTD
+data(reviews_dtd)
+
+# Load theme keywords
+data(refreshment_keys)
+
+# Run the analysis
+output2 <- opi_impact(reviews_dtd, sec_keywords=refreshment_keys, metric = 1,
+                       fun = NULL, nsim = 99, alternative="two.sided",
+                       quiet=TRUE)
+print(output2)
+
+```
+
+
+Printing the results:
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+
+> output2
+
+#$test
+#[1] "Test of significance (Randomization testing)"
+
+#$criterion
+#[1] "two.sided"
+
+#$exp_summary
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#  53.38   58.90   60.40   60.37   62.41   67.42 
+
+#$p_table
+
+#|observed_score |S_beat |nsim |pvalue |signif |
+#|:--------------|:------|:----|:------|:------|
+#|67.92          |0      |99   |0.01   |***    |
+
+#$p_key
+#[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+
+#$p_formula
+#[1] "(S_beat + 1)/(nsim + 1)"
+
+$plot
+
+```
+
+From the above, the pvalue = 0.01 indicate significant impacts of refreshment items and outlets on the overall opinion of the train station. The observed score of `67.92` indicate a generally positive reviews by the customers. Similarly, using the same data, we can examine the impacts of signages around the station on the overall customer reviews, as follow:
+
+```{r, message=FALSE, include = TRUE, eval=FALSE}
+
+#Application: Transport
+
+# Load DTD
+data(reviews_dtd)
+
+# Load theme keywords
+data(signage_keys)
+
+# Run the analysis
+output3 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
+                       fun = NULL, nsim = 99, alternative="two.sided",
+                       quiet=TRUE)
+print(output3)
+
+```
+
+Results:
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+
+> output3
+
+#$test
+#[1] "Test of significance (Randomization testing)"
+
+#$criterion
+#[1] "two.sided"
+
+#$exp_summary
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#  58.90   64.41   65.91   65.66   66.92   69.92 
+
+#$p_table
+
+#|observed_score |S_beat |nsim |pvalue |signif |
+#|:--------------|:------|:----|:------|:------|
+#|67.92          |9      |99   |0.1    |'      |
+
+#$p_key
+#[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+
+#$p_formula
+#[1] "(S_beat + 1)/(nsim + 1)"
+
+#$plot
+
+```
+
+The results indicate a non-significant impacts.
+
+Thirdly, using the `'debate_dtd'` datasets, we can examine how each candidate has impacted the overall opinion on the debate. First, using the democratic candicate, Hillary Clinton: 
+
+```{r, message=FALSE, include = TRUE, eval=FALSE}
+
+#Application: Politics
+
+# Load DTD
+data(debate_dtd)
+
+# The theme keyword can also be specified as a vector of characters, such as: 
+keys <- c("Clinton", "Hillary")
+
+# Run the analysis
+output4 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
+                       fun = NULL, nsim = 99, alternative="two.sided",
+                       quiet=TRUE)
+print(output4)
+
+```
+
+Results:
+
+
+The results show a .....
+
+```{r, message=FALSE, include = TRUE, eval=FALSE}
+
+#Application: Politics
+
+# Load DTD
+data(debate_dtd)
+
+# The theme keyword can also be specified as a vector of characters, such as: 
+keys <- c("Donald", "Trump")
+
+# Run the analysis
+output5 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
+                       fun = NULL, nsim = 99, alternative="two.sided",
+                       quiet=TRUE)
+print(output5)
+
+```
+
+Results:
+
+
+The results show a .....
+
+
+### Using a user-defined opinion score function
+
+As the definition of opinion score function may vary from one application domain to another, a user can specify a pre-defined opinion score function. For instance, [@Razorfish2019] defines opinion score of a product brand as `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Using a user-define function, the analysis can be re-run as follows: 
 
 First define the function: 
 
@@ -395,46 +553,33 @@ myfun <- function(P, N, O){
 
 ```
 
-Re-run impact analysis
+The last example analysis can be re-run using the above user-defined opinion score as follows:
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-results <- opi_impact(tweets_dat, sec_keywords=covid_keys, metric = 5,
+output6 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
                        fun = myfun, nsim = 99, alternative="two.sided",
                        quiet=TRUE)
 ```
-
 
 Print results: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-print(results)
+> output6
 
 #> $test
 #> [1] "Test of significance (Randomization testing)"
 #> 
-#> $criterion
-#> [1] "two.sided"
-#> 
-#> $exp_summary
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  -27.80  -26.52  -26.10  -26.13  -25.75  -24.26 
-#> 
-#> $p_table
-#> 
-#> 
-#> observed_score       S_beat   nsim   pvalue   signif 
-#> -------------------  -------  -----  -------  -------
-#> -0.234129692832764   99       99     1        NA     
-#> 
-#> $p_key
-#> [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-#> 
-#> $p_formula
-#> [1] "(S_beat + 1)/(nsim + 1)"
+
 
 ```
+
+Results:
+
+
+The results show a .....
+
 
 Based on the user defined opinion score function, the new opinion score is estimated as -0.234, while the `pvalue` now equals to 1 (non-significant). This implies that the outcome of whether a secondary subject has had a significant impact on the primary subject is also dependent on the opinion score function specified.
 
