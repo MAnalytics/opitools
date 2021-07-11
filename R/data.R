@@ -93,3 +93,15 @@
 #'     }
 "reviews_dtd"
 
+#' Comments on a political debate video
+#'
+#' A DTD containing individual comments on the video
+#' showing the debate between two US presidential
+#' nominees (Donald Trump and Hillary Clinton)
+#' in Sept. 2016. (Credit: NBC News).
+#'
+#' @format A dataframe containing one variable
+#' \itemize{
+#'   \item text: individual text records
+#'     }
+"debate_dtd"
