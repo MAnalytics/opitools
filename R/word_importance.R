@@ -14,7 +14,7 @@
 #' For an \code{n} x \code{1} dataframe, an arbitrary grouping is
 #' automatically imposed.
 #' @param metric (character) The measure for determining the level of
-#' importance of a word. Options include \code{'tf'}
+#' importance of each word within the text document. Options include \code{'tf'}
 #' representing `term frequency` and \code{'tf-idf'}
 #' representing `term frequency inverse document frequency`
 #' (Silge & Robinson, 2016).
