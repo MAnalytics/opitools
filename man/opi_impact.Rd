@@ -80,41 +80,74 @@ in which their expected scores are than the observed score (See
 further details in Adepeju and Jimoh, 2021).
 }
 \examples{
-#Application 1: Law Enforcement
-#test document: 'policing_otd'
-#list of keywords: 'covid_keys'
+# Demonstration of `Opitools` in three application
+# domains, namely; law enforcement, Transport and Politics.
 
-output <- opi_impact(textdoc = policing_otd,
+#1. Application in law enforcement domain
+#`test document` -> 'policing_dtd': individual
+#tweets relating to police performances during
+#COVID-19 pandemic.
+#`keywords` -> 'covid_keys': keywords relating
+#to covid-19 pandemic
+#RQ1: "Has the COVID-19 pandemic impacted the public
+#opinion on neighourhood policing in a significant
+#way?"
+#execute function
+output <- opi_impact(textdoc = policing_dtd,
           sec_keywords=covid_keys, metric = 1,
           fun = NULL, nsim = 99, alternative="two.sided",
           quiet=TRUE)
-#check output variables
+
+#To print results
 print(output)
 
-#to access the pvalue
+#Checking the pvalue in order to answer RQ1
 output$pvalue
 
-#' #Application 2: Marketing
-#list of keywords 1: 'facility_keys'
-#list of keywords 2: 'signage_keys'
+#2a. Application in transport domain
+#`test document` -> 'reviews_dtd': individual
+#reviews by customers who have used Piccadilly
+#training station in Manchester, UK.
+#`keywords` -> 'facility_keys':list of facilities
+#at the train station.
+#RQ2a: "Do the facilities present at the Piccadilly
+#train station influenced customers opinion on the
+#services rendered at the station?
 
-#Accessing facility-related keywords
-output <- opi_impact(textdoc = reviews_otd,
+##execute function
+output <- opi_impact(textdoc = reviews_dtd,
           sec_keywords=facility_keys, metric = 1,
           fun = NULL, nsim = 99, alternative="two.sided",
           quiet=TRUE)
 
-#Accessing signage-related keywords
-output <- opi_impact(textdoc = reviews_otd,
+#To print results
+print(output)
+
+#Checking the pvalue in order to answer RQ2a
+output$pvalue
+
+#' #2b. Application in transport domain
+#`test document` -> 'reviews_dtd': individual
+#reviews by customers who have used Piccadilly
+#training station in Manchester, UK.
+#`keywords` -> 'signage_keys':keys relating signages
+#at a train station.
+#RQ2b: "Do the signages at the Piccadilly
+#train station influenced customers opinion on the
+#services rendered at the station?
+
+##execute function
+output <- opi_impact(textdoc = reviews_dtd,
           sec_keywords=signage_keys, metric = 1,
           fun = NULL, nsim = 99, alternative="two.sided",
           quiet=TRUE)
 
-#check output variables
+#To print results
 print(output)
 
-#to access the pvalue
+#Checking the pvalue in order to answer RQ2b
 output$pvalue
+
 
 }
 \references{

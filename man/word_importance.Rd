@@ -2,8 +2,8 @@
 % Please edit documentation in R/word_importance.R
 \name{word_importance}
 \alias{word_importance}
-\title{Highlights of importance of words
-(terms) embedded in a text document}
+\title{Importance of words (terms) embedded
+in a text document}
 \usage{
 word_importance(textdoc, metric= "tf", n_top=5)
 }
@@ -19,7 +19,7 @@ For an \code{n} x \code{1} dataframe, an arbitrary grouping is
 automatically imposed.}
 
 \item{metric}{(character) The measure for determining the level of
-importance of a word. Options include \code{'tf'}
+importance of each word within the text document. Options include \code{'tf'}
 representing \verb{term frequency} and \code{'tf-idf'}
 representing \verb{term frequency inverse document frequency}
 (Silge & Robinson, 2016).}
@@ -54,7 +54,7 @@ are not used very much, but appear across
 many groups in the document.
 }
 \examples{
-output <- word_importance(textdoc = policing_otd, metric= "tf",
+output <- word_importance(textdoc = policing_dtd, metric= "tf",
 n_top=5)
 }
 \references{
