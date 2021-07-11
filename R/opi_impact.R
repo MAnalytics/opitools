@@ -78,13 +78,13 @@
 #' #training station in Manchester, UK.
 #' #`keywords` -> 'facility_keys':list of facilities
 #' #at the train station.
-#' #RQ2a: "Do the facilities present at the Piccadilly
-#' #train station influenced customers opinion on the
-#' #services rendered at the station?
+#' #RQ2a: "Do the refreshment outlets that are present at the
+#' #Piccadilly train station influence customers opinion of the
+#' #train services?
 #'
 #' ##execute function
 #' output <- opi_impact(textdoc = reviews_dtd,
-#'           sec_keywords=facility_keys, metric = 1,
+#'           sec_keywords=refreshment_keys, metric = 1,
 #'           fun = NULL, nsim = 99, alternative="two.sided",
 #'           quiet=TRUE)
 #'
