@@ -25,7 +25,7 @@ always_allow_html: yes
 #fig_caption: yes
 bibliography: references.bib
 
-abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records towards the completion of opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, transport and political domains.
+abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records towards the completion of opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing and political domains.
 
 vignette: >
   %\VignetteIndexEntry{A guide to using 'opitools' package for opinion and its impacts analysis}
@@ -472,12 +472,12 @@ $exp_summary
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   58.90   64.41   65.91   65.66   66.92   69.92 
 
-$p_table
+$p_table.1    |'      |
+
 
 |observed_score |S_beat |nsim |pvalue |signif |
 |:--------------|:------|:----|:------|:------|
-|67.92          |9      |99   |0.1    |'      |
-
+|67.92          |9      |99   |0
 $p_key
 [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
 
@@ -490,30 +490,8 @@ $plot
 
 The results (S=67.92, p=0.1) indicate an overall positive customer's opinions on the train station or services, but the signages have not contributed significantly towards those opinions.
 
-Lastly, using the `'debate_dtd'` datasets, we can examine how each candidate has impacted the overall opinion on the debate. First, using the democratic candicate, Hillary Clinton: 
+Lastly, using the `'debate_dtd'` datasets, we can examine how each candidate has impacted the overall opinion on the debate. First, using the democratic candidate, Hillary Clinton: 
 
-```{r, message=FALSE, include = TRUE, eval=FALSE}
-
-#Application: Politics
-
-# Load DTD
-data(debate_dtd)
-
-# The theme keyword can also be specified as a vector of characters, e.g.: 
-keys <- c("Clinton", "Hillary")
-
-# Run the analysis
-output4 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
-                       fun = NULL, nsim = 99, alternative="two.sided",
-                       quiet=TRUE)
-print(output4)
-
-```
-
-Results:
-
-
-The results show a .....
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
@@ -526,14 +504,43 @@ data(debate_dtd)
 keys <- c("Donald", "Trump")
 
 # Run the analysis
-output5 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
+output4 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        quiet=TRUE)
-print(output5)
+print(output4)
 
 ```
 
 Results:
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+
+$test
+[1] "Test of significance (Randomization testing)"
+
+$criterion
+[1] "two.sided"
+
+$exp_summary
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  -6.58   -3.68   -2.34   -2.49   -1.45    2.34 
+
+$p_table
+
+
+|observed_score |S_beat |nsim |pvalue |signif |
+|:--------------|:------|:----|:------|:------|
+|-0.33          |92     |99   |0.93   |'      |
+
+$p_key
+[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
+
+$p_formula
+[1] "(S_beat + 1)/(nsim + 1)"
+
+$plot
+
+```
 
 
 The results show a .....

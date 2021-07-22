@@ -294,7 +294,7 @@ knitr::include_graphics("likert.png")
 #  keys <- c("Clinton", "Hillary")
 #  
 #  # Run the analysis
-#  output4 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
+#  output4 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
 #                         fun = NULL, nsim = 99, alternative="two.sided",
 #                         quiet=TRUE)
 #  print(output4)
