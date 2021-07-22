@@ -155,7 +155,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   keywords <- text <- ID <- sentiment<-flush.console <-
     desc <- asterisk <- comb <- NULL
 
-  if(!is.na(sec_keywords)){
+  if(!is.null(sec_keywords)){
     sec_keywords <- data.frame(sec_keywords)
   }
 
