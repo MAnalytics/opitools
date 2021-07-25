@@ -93,12 +93,15 @@
 #'     }
 "reviews_dtd"
 
-#' Comments on a political debate video
+#' Comments on a video of a political debate.
 #'
-#' A DTD containing individual comments on the video
-#' showing the debate between two US presidential
+#' A DTD containing individual comments on a video
+#' showing the first debate between two US presidential
 #' nominees (Donald Trump and Hillary Clinton)
 #' in Sept. 2016. (Credit: NBC News).
+#'
+#' The comments are limited to the first 24hrs. All Comments
+#' which include the names of both candidates are dropped.
 #'
 #' @format A dataframe containing one variable
 #' \itemize{
