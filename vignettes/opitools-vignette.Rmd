@@ -129,7 +129,7 @@ fig <- local({
 
 # Introduction
 
-The development of `'opitools'` is to address the lack of tools for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis. The potential of `opitools` for application to a wide variety of domains is demonstrated in this vignette with examples from the law enforcement, transport and politics.
+The development of `'opitools'` is to address the lack of tools for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis. The potential of `opitools` for application to a wide variety of domains is demonstrated in this vignette with examples from the law enforcement, marketing and politics.
 
 
 ### Setting the Working directory
@@ -166,7 +166,7 @@ In order to demonstrate the utility of `opitools` for application in a wide vari
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
-col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
+col3 <- c("`Law Enforcement`","`Marketing`", "`Politics`")
 col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
@@ -382,179 +382,50 @@ To display the graphics showing the proportion of various sentiment classes (as 
 knitr::include_graphics("likert.png")
 ```
 
-Using the customers' reviews data and examining whether the refreshment items in and around the train station have significant impacts on the overall customers' opinion of the train services? 
+Table 4 summarizes the results of impact analysis using the example datasets in Table 1 for different research questions (RQs). The application in law enforcement (as conducted above) is entered as the first record of the table.  For demonstration, we employed the same score function (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`) in each application, where P and N represent positive and negative sentiments, respectively. See the documentation for details.
 
-
-```{r, message=FALSE, include = TRUE, eval=FALSE}
-
-#Application: Transport
-
-# Load DTD
-data(reviews_dtd)
-
-# Load theme keywords
-data(refreshment_keys)
-
-# Run the analysis
-output2 <- opi_impact(reviews_dtd, sec_keywords=refreshment_keys, metric = 1,
-                       fun = NULL, nsim = 99, alternative="two.sided",
-                       quiet=TRUE)
-print(output2)
-
+```{r, echo=FALSE, include=FALSE}
+col1 <- c("1", "2a", "2b","3")
+col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton ) impacts the viewers' opinion of the debate?")
+col3 <- c("`policing_dtd`","`reviews_dtd`", "`reviews_dtd`", "`debate_dtd`")
+col4 <- c("`covid_keys`","`refreshment_keys`", "`signage_keys`", "direct input")
+col5 <- c("two.sided", "two.sided", "two.sided", "two.sided")
+col6 <- c("(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100")
+col7 <- c("-5.88", "67.92", "67.92", "-0.33")
+col8 <- c("0.52", "0.01", "0.1", "0.93")
+tble4 <- data.frame(col1, col2, col3, col4, col5, col6, col7, col8)
+tble4 <- tble4
 ```
 
 
-Printing the results:
-
-```{r, echo=TRUE, message=FALSE, eval=FALSE}
-
-> output2
-
-$test
-[1] "Test of significance (Randomization testing)"
-
-$criterion
-[1] "two.sided"
-
-$exp_summary
-  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
- 53.38   58.90   60.40   60.37   62.41   67.42
-
-$p_table
-
-|observed_score |S_beat |nsim |pvalue |signif |
-|:--------------|:------|:----|:------|:------|
-|67.92          |0      |99   |0.01   |***    |
-
-$p_key
-[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-
-$p_formula
-[1] "(S_beat + 1)/(nsim + 1)"
-
-$plot
-
+```{r table4, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)}
+knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.","RQs","Primary data","sec_keywords","criterion", "Score function", "Observed score (S)", "p-value")) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "26em", background = "white") %>%
+  column_spec(3, width = "8em", background = "white") %>%
+  column_spec(4, width = "8em", background = "white") %>%
+  column_spec(5, width = "8em", background = "white") %>%
+  column_spec(6, width = "8em", background = "white") %>%
+  column_spec(7, width = "8em", background = "white")%>%
+  column_spec(8, width = "8em", background = "white")#%>%
+  #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
-
-From the above, the results (S=67.92, pvalue = 0.01) show an overall positive customer's opinions on the train station or services, with the refreshments items around the station contributing significantly towards those opinions. Similarly, using the same data, we can examine the impacts of signages around the station on the overall customer reviews, as follow:
-
-```{r, message=FALSE, include = TRUE, eval=FALSE}
-
-#Application: Transport
-
-# Load DTD
-data(reviews_dtd)
-
-# Load theme keywords
-data(signage_keys)
-
-# Run the analysis
-output3 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
-                       fun = NULL, nsim = 99, alternative="two.sided",
-                       quiet=TRUE)
-print(output3)
-
-```
-
-Results:
-
-```{r, echo=TRUE, message=FALSE, eval=FALSE}
-
-> output3
-
-$test
-[1] "Test of significance (Randomization testing)"
-
-$criterion
-[1] "two.sided"
-
-$exp_summary
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  58.90   64.41   65.91   65.66   66.92   69.92 
-
-$p_table.1    |'      |
-
-
-|observed_score |S_beat |nsim |pvalue |signif |
-|:--------------|:------|:----|:------|:------|
-|67.92          |9      |99   |0
-$p_key
-[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-
-$p_formula
-[1] "(S_beat + 1)/(nsim + 1)"
-
-$plot
-
-```
-
-The results (S=67.92, p=0.1) indicate an overall positive customer's opinions on the train station or services, but the signages have not contributed significantly towards those opinions.
-
-Lastly, using the `'debate_dtd'` datasets, we can examine how each candidate has impacted the overall opinion on the debate. First, using the democratic candidate, Hillary Clinton: 
-
-
-```{r, message=FALSE, include = TRUE, eval=FALSE}
-
-#Application: Politics
-
-# Load DTD
-data(debate_dtd)
-
-# The theme keyword can also be specified as a vector of characters, such as: 
-keys <- c("Donald", "Trump")
-
-# Run the analysis
-output4 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
-                       fun = NULL, nsim = 99, alternative="two.sided",
-                       quiet=TRUE)
-print(output4)
-
-```
-
-Results:
-
-```{r, echo=TRUE, message=FALSE, eval=FALSE}
-
-$test
-[1] "Test of significance (Randomization testing)"
-
-$criterion
-[1] "two.sided"
-
-$exp_summary
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  -6.58   -3.68   -2.34   -2.49   -1.45    2.34 
-
-$p_table
-
-
-|observed_score |S_beat |nsim |pvalue |signif |
-|:--------------|:------|:----|:------|:------|
-|-0.33          |92     |99   |0.93   |'      |
-
-$p_key
-[1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-
-$p_formula
-[1] "(S_beat + 1)/(nsim + 1)"
-
-$plot
-
-```
-
-
-The results show a .....
-
+ 
+In the marketing application (2a & 2b), we tested the impacts of two themes, namely; refreshment outlets and the signages, on the customers' opinions of the train services. The statistics (S=67.92, pvalue = 0.01) show an overall positive customers' opinions of the train station or services, with the refreshments outlets in and around the station contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages in and around the station have no significant influence (p=0.1) on the positive review of the train service. The last application attempts to identify factors that may have contributed to viewers opinion of a political debate. The statistics (S=-0.33, pvalue = 0.93) show that viewers have a negative opinion on the debate, but their views on the democratic candidate (Hillary Clinton) is not a factor that contributes significantly to the overall negative opinion of the debate.
 
 ### Using a user-defined opinion score function
 
-As the definition of opinion score function may vary from one application domain to another, a user can specify a pre-defined opinion score function. For instance, [@Razorfish2019] defines opinion score of a product brand as `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Using a user-define function, the analysis can be re-run as follows: 
+An pinion score function may be defined in a variety of ways depending on the application domain. For instance, [@Razorfish2019] defines opinion score of a product brand as `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Thus, a user ought to be able to plug in their own opinion score function into the `opi_impact` function. Employing the stated example function, we can plug in the function and re-run the analysis as follows: 
 
-First define the function: 
+(a) Define the user-defined function: 
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-#define opinion score function
+#The equation
+Score = (P + O - N)/(P + O + N)
+
+#Corresponding function
 myfun <- function(P, N, O){
    score <- (P + O - N)/(P + O + N)
    return(score)
@@ -562,40 +433,19 @@ myfun <- function(P, N, O){
 
 ```
 
-The last example analysis can be re-run using the above user-defined opinion score as follows:
+(b) Integrate the function and run analysis
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-output6 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
+output <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
                        fun = myfun, nsim = 99, alternative="two.sided",
                        quiet=TRUE)
 ```
 
-Print results: 
-
-```{r, echo=TRUE, message=FALSE, eval=FALSE}
-
-> output6
-
-#> $test
-#> [1] "Test of significance (Randomization testing)"
-#> 
-
-
-```
-
-Results:
-
-
-The results show a .....
-
-
-Based on the user defined opinion score function, the new opinion score is estimated as -0.234, while the `pvalue` now equals to 1 (non-significant). This implies that the outcome of whether a secondary subject has had a significant impact on the primary subject is also dependent on the opinion score function specified.
-
 
 # Conclusion
 
-The `opitools` package has been developed in order to aid the replication of the study [@Adepeju2021] for other application fields. In essence, the utility of the functions contained in this package is not limited to law enforcement(s) and public health, but rather can be applicable to several other public services more generally. This package is being updated on a regular basis to add more functionalities. 
+The `opitools` package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in [@Adepeju2021] in its application in law enforcement. domain. Further, this vignette demonstrates the potentials of the package for application across a wide variety of areas, including marketing and politics. This package is being updated on a regular basis to add more functionalities. 
 
 We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly. 
 
