@@ -6,7 +6,7 @@
 #' \itemize{
 #'   \item keys: list of keywords
 #'     }
-"covid_keys"
+"covid_theme"
 
 
 #' Observed sentiment document (OSD).
@@ -28,10 +28,10 @@
 "osd_data"
 
 
-#' Fake Twitter posts on police/policing
+#' Twitter posts on police/policing
 #'
 #' A text document (an DTD) containing twitter posts
-#' (for an anonymous geographical location 1) on police/policing.
+#' (for an anonymous geographical location 'A') on police/policing.
 #' The DTD also includes
 #' posts that express sentiments on policing in relation to
 #' the COVID-19 pandemic (Secondary subject B)
@@ -66,7 +66,7 @@
 #' \itemize{
 #'   \item keys: list of keywords
 #'     }
-"signage_keys"
+"signage_theme"
 
 #' Keywords relating to facilities at train stations
 #'
@@ -78,7 +78,7 @@
 #' \itemize{
 #'   \item keys: list of keywords
 #'     }
-"refreshment_keys"
+"refreshment_theme"
 
 #' Customer reviews from tripadvisor website
 #'
