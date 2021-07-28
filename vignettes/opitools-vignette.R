@@ -44,7 +44,7 @@ library(cowplot)
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
-col3 <- c("`Law Enforcement`","`Transport`", "`Politics`")
+col3 <- c("`Law Enforcement`","`Marketing`", "`Politics`")
 col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
@@ -61,7 +61,7 @@ knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN",
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("1", "2")
-col2 <- c("`word_distrib`","`word_importance`")
+col2 <- c("`word_distrib`","`word_imp`")
 col3 <- c("`Words Distribution`","`Importance of words (terms) embedded in a text document`")
 col4 <- c("Examines the extent to which words in a DTD follow the Zipf's distribution (Zipf 1934). The Zipf's distribution  models the ideal natural language text", "Produces a table or graphic that highlights the importance of individual words(terms) in a DTD.")
 tble2 <- data.frame(col1, col2, col3, col4)
@@ -104,18 +104,18 @@ knitr::include_graphics("zipf.png")
 #  data("debate_dtd")
 #  
 #  
-#  p1 <- word_importance(textdoc = policing_dtd, metric= "tf", n_top=5,
+#  p1 <- word_imp(textdoc = policing_dtd, metric= "tf", n_top=5,
 #                             words_to_filter=c("police","policing"))
 #  
 #  #Note: 'words_to_filter' parameter is used to eliminate non-necessary words that
 #  #may be too dominant in the DTD.
 #  
-#  p2 <- word_importance(textdoc = reviews_dtd, metric= "tf", n_top=5,
+#  p2 <- word_imp(textdoc = reviews_dtd, metric= "tf", n_top=5,
 #                             words_to_filter=c("station", "manchester","train"))
 #  
-#  p3 <- word_importance(textdoc = debate_dtd, metric= "tf", n_top=5,
+#  p3 <- word_imp(textdoc = debate_dtd, metric= "tf", n_top=5,
 #                             words_to_filter=NULL)
-#  #output3 <- word_importance(textdoc = debate_otd, metric= "tf", n_top=5
+#  #output3 <- word_imp(textdoc = debate_otd, metric= "tf", n_top=5
 #  p1$plot
 #  p2$plot
 #  p3$plot
@@ -191,135 +191,37 @@ knitr::kable(tble3, caption = "Table 3. `Impact Analytical` function", col.names
 ## ----figs3, echo=FALSE, fig.width=5,fig.height=6,fig.align="center", fig.cap=fig$cap("figs3", "Percentage proportion of classes")----
 knitr::include_graphics("likert.png")
 
-## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
-#  
-#  #Application: Transport
-#  
-#  # Load DTD
-#  data(reviews_dtd)
-#  
-#  # Load theme keywords
-#  data(refreshment_keys)
-#  
-#  # Run the analysis
-#  output2 <- opi_impact(reviews_dtd, sec_keywords=refreshment_keys, metric = 1,
-#                         fun = NULL, nsim = 99, alternative="two.sided",
-#                         quiet=TRUE)
-#  print(output2)
-#  
+## ---- echo=FALSE, include=FALSE-----------------------------------------------
+col1 <- c("1", "2a", "2b","3")
+col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton ) impacts the viewers' opinion of the debate?")
+col3 <- c("`policing_dtd`","`reviews_dtd`", "`reviews_dtd`", "`debate_dtd`")
+col4 <- c("`covid_keys`","`refreshment_keys`", "`signage_keys`", "direct input")
+col5 <- c("two.sided", "two.sided", "two.sided", "two.sided")
+col6 <- c("(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100")
+col7 <- c("-5.88", "67.92", "67.92", "-0.33")
+col8 <- c("0.52", "0.01", "0.1", "0.93")
+tble4 <- data.frame(col1, col2, col3, col4, col5, col6, col7, col8)
+tble4 <- tble4
+
+## ----table4, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)------
+knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.","RQs","Primary data","sec_keywords","criterion", "Score function", "Observed score (S)", "p-value")) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "26em", background = "white") %>%
+  column_spec(3, width = "8em", background = "white") %>%
+  column_spec(4, width = "8em", background = "white") %>%
+  column_spec(5, width = "8em", background = "white") %>%
+  column_spec(6, width = "8em", background = "white") %>%
+  column_spec(7, width = "8em", background = "white")%>%
+  column_spec(8, width = "8em", background = "white")#%>%
+  #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
-#  > output2
+#  #The equation
+#  Score = (P + O - N)/(P + O + N)
 #  
-#  $test
-#  [1] "Test of significance (Randomization testing)"
-#  
-#  $criterion
-#  [1] "two.sided"
-#  
-#  $exp_summary
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#   53.38   58.90   60.40   60.37   62.41   67.42
-#  
-#  $p_table
-#  
-#  |observed_score |S_beat |nsim |pvalue |signif |
-#  |:--------------|:------|:----|:------|:------|
-#  |67.92          |0      |99   |0.01   |***    |
-#  
-#  $p_key
-#  [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-#  
-#  $p_formula
-#  [1] "(S_beat + 1)/(nsim + 1)"
-#  
-#  $plot
-#  
-
-## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
-#  
-#  #Application: Transport
-#  
-#  # Load DTD
-#  data(reviews_dtd)
-#  
-#  # Load theme keywords
-#  data(signage_keys)
-#  
-#  # Run the analysis
-#  output3 <- opi_impact(reviews_dtd, sec_keywords=signage_keys, metric = 1,
-#                         fun = NULL, nsim = 99, alternative="two.sided",
-#                         quiet=TRUE)
-#  print(output3)
-#  
-
-## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
-#  
-#  > output3
-#  
-#  $test
-#  [1] "Test of significance (Randomization testing)"
-#  
-#  $criterion
-#  [1] "two.sided"
-#  
-#  $exp_summary
-#     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#    58.90   64.41   65.91   65.66   66.92   69.92
-#  
-#  $p_table
-#  
-#  |observed_score |S_beat |nsim |pvalue |signif |
-#  |:--------------|:------|:----|:------|:------|
-#  |67.92          |9      |99   |0.1    |'      |
-#  
-#  $p_key
-#  [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
-#  
-#  $p_formula
-#  [1] "(S_beat + 1)/(nsim + 1)"
-#  
-#  $plot
-#  
-
-## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
-#  
-#  #Application: Politics
-#  
-#  # Load DTD
-#  data(debate_dtd)
-#  
-#  # The theme keyword can also be specified as a vector of characters, e.g.:
-#  keys <- c("Clinton", "Hillary")
-#  
-#  # Run the analysis
-#  output4 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
-#                         fun = NULL, nsim = 99, alternative="two.sided",
-#                         quiet=TRUE)
-#  print(output4)
-#  
-
-## ---- message=FALSE, include = TRUE, eval=FALSE-------------------------------
-#  
-#  #Application: Politics
-#  
-#  # Load DTD
-#  data(debate_dtd)
-#  
-#  # The theme keyword can also be specified as a vector of characters, such as:
-#  keys <- c("Donald", "Trump")
-#  
-#  # Run the analysis
-#  output5 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 1,
-#                         fun = NULL, nsim = 99, alternative="two.sided",
-#                         quiet=TRUE)
-#  print(output5)
-#  
-
-## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
-#  
-#  #define opinion score function
+#  #Corresponding function
 #  myfun <- function(P, N, O){
 #     score <- (P + O - N)/(P + O + N)
 #     return(score)
@@ -328,17 +230,7 @@ knitr::include_graphics("likert.png")
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
-#  output6 <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
+#  output <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
 #                         fun = myfun, nsim = 99, alternative="two.sided",
 #                         quiet=TRUE)
-
-## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
-#  
-#  > output6
-#  
-#  #> $test
-#  #> [1] "Test of significance (Randomization testing)"
-#  #>
-#  
-#  
 
