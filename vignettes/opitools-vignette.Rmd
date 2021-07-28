@@ -25,7 +25,7 @@ always_allow_html: yes
 #fig_caption: yes
 bibliography: references.bib
 
-abstract: The development of `'opitools'` is inspired by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing and politics.
+abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing and politics.
 
 vignette: >
   %\VignetteIndexEntry{A guide to using 'opitools' package for opinion and its impacts analysis}
@@ -323,10 +323,10 @@ The impact analysis can be performed as follows:
 data(policing_dtd)
 
 #Load theme keywords
-data(covid_keys)
+data(covid_theme)
 
 # Run the analysis
-output1 <- opi_impact(policing_dtd, sec_keywords=covid_keys, metric = 1,
+output1 <- opi_impact(policing_dtd, theme_keys=covid_theme, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        quiet=TRUE)
 print(output1)
@@ -395,7 +395,7 @@ Table 4 summarizes the results of impact analysis using all the example datasets
 col1 <- c("1", "2a", "2b","3")
 col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets/items impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton) affects viewers' opinion of the presidential debate?")
 col3 <- c("`policing_dtd`","`reviews_dtd`", "`reviews_dtd`", "`debate_dtd`")
-col4 <- c("`covid_keys`","`refreshment_keys`", "`signage_keys`", "direct input")
+col4 <- c("`covid_theme`","`refreshment_theme`", "`signage_theme`", "direct input")
 col5 <- c("two.sided", "two.sided", "two.sided", "two.sided")
 col6 <- c("(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100")
 col7 <- c("-5.88", "67.92", "67.92", "-0.33")
@@ -406,7 +406,7 @@ tble4 <- tble4
 
 
 ```{r table4, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)}
-knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.","RQs","Primary data","sec_keywords","criterion", "Score function", "Observed score (S)", "p-value")) %>%
+knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.","RQs","Primary data","theme_keys","criterion", "Score function", "Observed score (S)", "p-value")) %>%
   kable_styling(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "26em", background = "white") %>%
@@ -446,7 +446,7 @@ myfun <- function(P, N, O){
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
-output <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
+output <- opi_impact(debate_dtd, theme_keys=keys, metric = 5,
                        fun = myfun, nsim = 99, alternative="two.sided",
                        quiet=TRUE)
 ```

@@ -27,25 +27,18 @@ fig <- local({
 #  setwd(WORKING_DIR)
 
 ## ---- include=TRUE, message=FALSE, eval=TRUE----------------------------------
-
 library(opitools) #for impact analysis
-require(knitr)
-library(kableExtra)
-library(dplyr)
-library(cowplot)
-#library(rtweet) #for data download
-#library(twitteR) #for setting up Twitter authorization
-#library(wordcloud2)
-#library(tibble)
-#library(tm)
-#library(dplyr)
+require(knitr) #for rendering the vignette
+library(kableExtra) #for designing tables
+library(dplyr) #for data analysis
+library(cowplot) #for plot design
 
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
 col3 <- c("`Law Enforcement`","`Marketing`", "`Politics`")
-col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
+col4 <- c("A digital text document (DTD) containing twitter posts, within a geographical neighbourhood, on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
@@ -63,7 +56,7 @@ knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN",
 col1 <- c("1", "2")
 col2 <- c("`word_distrib`","`word_imp`")
 col3 <- c("`Words Distribution`","`Importance of words (terms) embedded in a text document`")
-col4 <- c("Examines the extent to which words in a DTD follow the Zipf's distribution (Zipf 1934). The Zipf's distribution  models the ideal natural language text", "Produces a table or graphic that highlights the importance of individual words(terms) in a DTD.")
+col4 <- c("Examines the extent to which the terms (words) in a DTD follow the Zipf's distribution (Zipf 1934) - the ideal natural language model", "Produces a table or graphic that highlights the importance of individual terms (or words) in a DTD.")
 tble2 <- data.frame(col1, col2, col3, col4)
 tble2 <- tble2
 
@@ -141,9 +134,9 @@ knitr::include_graphics("wordcloud.png")
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("3", "4", "5")
 col2 <- c("`opi_score`","`opi_sim`", "`opi_impact`")
-col3 <- c("`Opinion score of a text document`",
+col3 <- c("`Computes the overall opinion score of a text document`",
           "`Simulates the opinion expectation distribution of a text document`",
-          "`Statistical assessment of impacts of a specified theme (or subject) from a document`")
+          "`Computes the statistical significance of impacts of a specified/selected theme (or subject) on the overall opinion score of a document`")
 col4 <- c("Given a text document, this function computes the overall opinion score based on the proportion of text records classified as expressing positive, negative or a neutral sentiment about the subject.",  "This function simulates the expectation distribution of the observed opinion score (computed using the `opi_score` function).",  "This function assesses the impacts of a theme (or subject) on the overall opinion computed for a text document. The text records relating to the theme in question should be identified and provided as input to this function")
 tble3 <- data.frame(col1, col2, col3, col4)
 tble3<- tble3
@@ -161,14 +154,14 @@ knitr::kable(tble3, caption = "Table 3. `Impact Analytical` function", col.names
 #  
 #  #Application: Law enforcement
 #  
-#  # Load DTD
+#  #Load DTD
 #  data(policing_dtd)
 #  
-#  # Load theme keywords
-#  data(covid_keys)
+#  #Load theme keywords
+#  data(covid_theme)
 #  
 #  # Run the analysis
-#  output1 <- opi_impact(policing_dtd, sec_keywords=covid_keys, metric = 1,
+#  output1 <- opi_impact(policing_dtd, theme_keys=covid_theme, metric = 1,
 #                         fun = NULL, nsim = 99, alternative="two.sided",
 #                         quiet=TRUE)
 #  print(output1)
@@ -207,9 +200,9 @@ knitr::include_graphics("likert.png")
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("1", "2a", "2b","3")
-col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton ) impacts the viewers' opinion of the debate?")
+col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets/items impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton) affects viewers' opinion of the presidential debate?")
 col3 <- c("`policing_dtd`","`reviews_dtd`", "`reviews_dtd`", "`debate_dtd`")
-col4 <- c("`covid_keys`","`refreshment_keys`", "`signage_keys`", "direct input")
+col4 <- c("`covid_theme`","`refreshment_theme`", "`signage_theme`", "direct input")
 col5 <- c("two.sided", "two.sided", "two.sided", "two.sided")
 col6 <- c("(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100")
 col7 <- c("-5.88", "67.92", "67.92", "-0.33")
@@ -218,7 +211,7 @@ tble4 <- data.frame(col1, col2, col3, col4, col5, col6, col7, col8)
 tble4 <- tble4
 
 ## ----table4, results='asis', echo=FALSE, tidy.opts=list(width.cutoff=50)------
-knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.","RQs","Primary data","sec_keywords","criterion", "Score function", "Observed score (S)", "p-value")) %>%
+knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.","RQs","Primary data","theme_keys","criterion", "Score function", "Observed score (S)", "p-value")) %>%
   kable_styling(full_width = F) %>%
   column_spec(1, bold = T, border_right = T) %>%
   column_spec(2, width = "26em", background = "white") %>%
@@ -244,7 +237,7 @@ knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.",
 
 ## ---- echo=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
-#  output <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
+#  output <- opi_impact(debate_dtd, theme_keys=keys, metric = 5,
 #                         fun = myfun, nsim = 99, alternative="two.sided",
 #                         quiet=TRUE)
 

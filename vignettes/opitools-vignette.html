@@ -12,7 +12,7 @@
 
 
 
-<title>An Opinion Analytical Tool for Big Text Document - A User Guide</title>
+<title>An Opinion Analytical Tool for Big Digital Text Document - A User Guide</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -578,7 +578,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">An Opinion Analytical Tool for Big Text Document - A User Guide</h1>
+<h1 class="title toc-ignore">An Opinion Analytical Tool for Big Digital Text Document - A User Guide</h1>
 <h4 class="author"><div class="line-block"><code>Author:</code><br />
 <code>Adepeju, M.</code><br />
 <code>Big Data Centre, Manchester Metropolitan University, Manchester, M15 6BH</code></div></h4>
@@ -586,7 +586,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <code>2021-07-28</code></div></h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-The development of <code>&#39;opitools&#39;</code> is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records towards the completion of opinion impact analysis of a digital text document (DTD). The utility of <code>Opitools</code> is demonstrated with examples from the law enforcement, marketing and political domains.
+The development of <code>&#39;opitools&#39;</code> is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of <code>Opitools</code> is demonstrated with examples from the law enforcement, marketing and politics.
 </div>
 
 
@@ -659,37 +659,30 @@ h3 { /* Header 3 */
 </style>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The development of <code>&#39;opitools&#39;</code> is to address the lack of tools for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis. The potential of <code>opitools</code> for application to a wide variety of domains is demonstrated in this vignette with examples from the law enforcement, marketing and politics.</p>
-<div id="setting-the-working-directory" class="section level3">
-<h3>Setting the Working directory</h3>
+<p>The <code>&#39;opitools&#39;</code> provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of <code>opitools</code> for application across a wide variety of domains is demonstrated with examples from the <code>law enforcement</code> to examine the impacts of covid-19 on the citizens’ opinion of their neighbourhood policing; from <code>marketing</code> to examine what features in and around a train station influence customers reviews of the train services; from <code>politics</code> to examine the extent to which a political candidate drives viewers opinion of a political debate.</p>
+<div id="set-the-working-directory" class="section level3">
+<h3>Set the Working directory</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>WORKING_DIR &lt;-<span class="st"> &#39;C:/R/Github/JGIS_Policing_COVID-19&#39;</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="co">#setting working directory</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="kw">setwd</span>(WORKING_DIR)</span></code></pre></div>
 </div>
-<div id="installing-libraries" class="section level3">
-<h3>Installing libraries</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(opitools) <span class="co">#for impact analysis</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">require</span>(knitr)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; Warning: package &#39;knitr&#39; was built under R version 4.0.5</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">library</span>(kableExtra)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; Warning: package &#39;kableExtra&#39; was built under R version 4.0.5</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; Warning: package &#39;dplyr&#39; was built under R version 4.0.5</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="kw">library</span>(cowplot)</span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; Warning: package &#39;cowplot&#39; was built under R version 4.0.5</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#library(rtweet) #for data download</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#library(twitteR) #for setting up Twitter authorization</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#library(wordcloud2)</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#library(tibble)</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#library(tm)</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#library(dplyr)</span></span></code></pre></div>
+<div id="instal-libraries" class="section level3">
+<h3>Instal libraries</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(opitools) <span class="co">#for impact analysis</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">require</span>(knitr) <span class="co">#for rendering the vignette</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; Warning: package &#39;knitr&#39; was built under R version 4.0.5</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">library</span>(kableExtra) <span class="co">#for designing tables</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; Warning: package &#39;kableExtra&#39; was built under R version 4.0.5</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">library</span>(dplyr) <span class="co">#for data analysis</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; Warning: package &#39;dplyr&#39; was built under R version 4.0.5</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">library</span>(cowplot) <span class="co">#for plot design</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; Warning: package &#39;cowplot&#39; was built under R version 4.0.5</span></span></code></pre></div>
 </div>
 </div>
 <div id="example-datasets" class="section level1">
 <h1>Example datasets</h1>
-<p>In order to demonstrate the utility of <code>opitools</code> for application in a wide variety of domains, the following example datasets are used:</p>
+<p>The following datasets will be employed in our demonstration. The datasets are automatically installed upon the installation of <code>Opitools</code>.</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 1. <code>Example datasets</code>
@@ -725,7 +718,7 @@ Data Source
 <code>Law Enforcement</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
-A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic
+A digital text document (DTD) containing twitter posts, within a geographical neighbourhood, on police/policing during the 2020 COVID-19 pandemic
 </td>
 <td style="text-align:left;">
 www.twitter.com
@@ -742,7 +735,7 @@ www.twitter.com
 <code>Marketing</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
-A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk’. The records cover from July 2016 to March 2021.
+A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.
 </td>
 <td style="text-align:left;">
 www.tripadvisor.co.uk
@@ -759,7 +752,7 @@ www.tripadvisor.co.uk
 <code>Politics</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
-A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).
+A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).
 </td>
 <td style="text-align:left;">
 www.youtube.com
@@ -770,10 +763,10 @@ www.youtube.com
 </div>
 <div id="functions" class="section level1">
 <h1>Functions</h1>
-<p>The function in <code>&#39;opitools&#39;</code> can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis.</p>
+<p>The function in <code>&#39;opitools&#39;</code> can be categorized into two groups, namely (1) exploratory - for exploring terms or words in a text document, and (2) analytical - for computing metrics for the impact analysis.</p>
 <div id="exploratory-function" class="section level3">
 <h3>Exploratory function</h3>
-<p>Table 2 shows two exploratory functions embedded in <code>&#39;opitools&#39;</code>, namely <code>&#39;word_distrib&#39;</code> and <code>&#39;word_imp&#39;</code>. Details as follow:</p>
+<p>Table 2 shows two key exploratory functions embedded in <code>&#39;opitools&#39;</code>, namely <code>&#39;word_distrib&#39;</code> and <code>&#39;word_imp&#39;</code>. Details as follow:</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 2. <code>Exploratory</code> functions
@@ -806,7 +799,7 @@ Description
 <code>Words Distribution</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
-Examines the extent to which words in a DTD follow the Zipf’s distribution (Zipf 1934). The Zipf’s distribution models the ideal natural language text
+Examines the extent to which the terms (words) in a DTD follow the Zipf’s distribution (Zipf 1934) - the ideal natural language model
 </td>
 </tr>
 <tr>
@@ -820,7 +813,7 @@ Examines the extent to which words in a DTD follow the Zipf’s distribution (Zi
 <code>Importance of words (terms) embedded in a text document</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
-Produces a table or graphic that highlights the importance of individual words(terms) in a DTD.
+Produces a table or graphic that highlights the importance of individual terms (or words) in a DTD.
 </td>
 </tr>
 </tbody>
@@ -828,7 +821,7 @@ Produces a table or graphic that highlights the importance of individual words(t
 </div>
 <div id="example-data-exploration" class="section level3">
 <h3>Example data exploration</h3>
-<p>Below, the use of <code>&#39;word_distrib&#39;</code> and <code>&#39;word_imp&#39;</code> functions is demonstrated with the example datasets <code>&#39;tweets&#39;</code> (see documentations). The <code>&#39;word_distrib&#39;</code> can be used to answer the question: “To what extent is a given DTD close an ideal natural language text?”. In other words, does the word usage in a DTD follow the ideal natural language modelled by the Zipf’s distribution <span class="citation">(Zipf 1936)</span>? The <code>&#39;word_distrib&#39;</code> function models a DTD in terms of a Zipf’s distribution by examining the log rank-frequency of the terms. In the model, we expect the frequency of each word to be inversely proportional to its rank in a frequency table. Using a randomised Twitter data (embedded in the package),</p>
+<p>Below, the use of <code>&#39;word_distrib&#39;</code> and <code>&#39;word_imp&#39;</code> functions is demonstrated with the example datasets <code>&#39;tweets&#39;</code> (see documentations). The <code>&#39;word_distrib&#39;</code> can be used to answer a RQ such as; “How similar is a given DTD to the ideal natural language text?”. In other words, does the word usage in a DTD follow the ideal natural language usage represeted by the Zipf’s distribution <span class="citation">(Zipf 1936)</span>? Basically, the function examines the log rank-frequency of the terms across the document. The level of similarity is examined by the extent to which the frequency of each term is inversely proportional to their rank in a frequency table. Using a randomized Twitter data (embedded in the package),</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co"># Load data</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="kw">data</span>(tweets)</span>
@@ -848,8 +841,8 @@ Produces a table or graphic that highlights the importance of individual words(t
 Figure 1: Data freq. plot vs. Zipf’s distribution
 </p>
 </div>
-<p>For a natural language text, the Zipf’s distribution plot has a negative slope with all points falling on a straight line. Any variance from this ideal trend line can be attributed to imperfections in the word usage. For example, the presence of a wide range of strange terms or made-up words can cause an imperfection of the text document. From Figure 1 the graph can be divided into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an ideal Zipf’s distribution), we can see what the slope of the upper section is quite different from the middle and the lower sections of the graph. The variance at the high rank indicates an imperfection because a corpus of English language would generally contain adequate number of common words, such as ‘the’, ‘of’, and ‘at’, and thus ensure alignment on a straight line. For Twitter data, this variance suggests a significant use of abbreviation of common words, such as using “&amp;” or “nd” instead of the word “and”. Apart from the small variance at the upper section of the graph, we can state that the law holds within most parts of the Twitter data.</p>
-<p>The second exploratory function <code>&#39;word_imp&#39;</code> can be used to highlight the level of importance of each word in a DTD. The highlighted words can then be used to identify different themes (or subjects) that are inherent within or related to the DTD in question. Two metrics, namely (i) <code>&#39;term frequency (tf)&#39;</code> and <code>term frequency inverse document frequency (tf-idf)</code> <span class="citation">(Silge and Robinson 2016)</span> are provided in the function. In Figure 2, results 1, 2 and 3 are generated from the function using the datasets; <code>policing_dtd</code>, <code>reviews_dtd</code> and <code>debate_dtd</code>, respectively. The results setting the parameter <code>metric</code> as <code>&#39;tf&#39;</code> and <code>&#39;tf_idf&#39;</code> are labeled as A and B, respectively. The function draws from <code>wordcloud2</code> package in R <span class="citation">(Lang and Chien 2018)</span>, in order to render the graphics as shown in Figure 2.</p>
+<p>For a natural language text, the Zipf’s distribution plot has a negative slope with each term falling on a straight line. Any variance from this (ideal) trend can be attributed to imperfections in the term usage. For example, the presence of strange terms or ‘made-up’ words can cause a deviation from the ideal trend. The result of our example dataaset is shown in Figure 1. The graph can be divided into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an ideal Zipf’s distribution), we can see what the slope of the upper section is quite different from the middle and the lower sections of the graph. The variance at the high rank terms (usually, common terms, such as ‘the’, ‘of’, and ‘at’,) indicates an imperfection because of lack of perfect alignment with the straight line. For Twitter data, this variance suggests a significant use of abbreviated terms, such as using “&amp;” or “nd” instead of the term “<code>and</code>”. Apart from the small variance at the upper section of the graph, we can state that the law holds within most parts of the document.</p>
+<p>The second exploratory function <code>&#39;word_imp&#39;</code> can be used to highlight the importance of each terms in a DTD. The level of importance can then be used to identify different themes (or subjects) from the DTD. Two measures, namely (i) <code>&#39;term frequency (tf)&#39;</code> and <code>term frequency inverse document frequency (tf-idf)</code> <span class="citation">(Silge and Robinson 2016)</span> can be used to highlight the importance of terms in a DTD. In Figure 2, results 1, 2 and 3 are generated from the datasets; <code>policing_dtd</code>, <code>reviews_dtd</code> and <code>debate_dtd</code>, respectively. The results of the measures <code>&#39;tf&#39;</code> and <code>&#39;tf_idf&#39;</code> for each data sample are labeled as A and B, respectively. The function draws from <code>wordcloud2</code> package in R <span class="citation">(Lang and Chien 2018)</span>, in order to highlight words importance as shown in Figure 2.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#Load datasets</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -893,11 +886,12 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 Figure 2: Highlighting words importance from a DTD
 </p>
 </div>
-<p>In Figure 2, the size of a word represents its level of importance according to the selected metric (i.e. ‘tf’ or ‘tf-idf’). From each graphic, a user can easily identify related words that denote certain themes or subjects within the document. In Figure 1A, words such as lockdown, infect and covid, refers to the pandemic-related sentiment under which the policing were operating as at the time the tweets were posted. Does the pandemic has significant impacts on the public opinion of the police activities? Figure 1B shows that the word importance may vary significantly by the metric. In Figure 2A, we see that related words, such as restaurant, shops, food and coffee, denoting refreshment outlets, are important to the customers. Do these refreshment outlets impact the overall customers’ opinion of the train services?. Similarly, related words such as board, map and display, denoting signages may have influenced customers opinion of the station?.</p>
+<p>In Figure 2, the size of a word represents its level of importance according to a selected metric (i.e. ‘tf’ or ‘tf-idf’). From each representation, a user can easily identify (related) words that denote certain themes or subjects within the document. In Figure 1A, words such as ‘lockdown’, ‘infect’ and ‘covid’, refer to the sentiments relating to the pandemic under which the police were operating as at the time tweets were posted. “Does the pandemic has any significant impacts on the public opinion of the police activities during the period?”. This is an example of the RQs that can be investigated using <code>Opitools</code>. On the other hand, Figure 1B shows that the word importance may vary significantly by the choice of the measure between ‘tf’ and ‘tf-idf’. Figure 1B shows that a significant amount of the most important words using <code>tf-idf</code> are distinct from those ones resulting from using <code>tf</code>.</p>
+<p>In Figure 2A, we see that related words, such as ‘restaurant’, ‘shops’, ‘food’ and ‘coffee’, denoting <code>refreshment items</code>, are highlighted as been the most important to the customers. “<code>Do these refreshment items impact the overall customers&#39; opinion of the train services?</code>”. Similarly, related words such as ‘board’, ‘map’ and ‘display’, denoting <code>signages</code> around the station may have influenced customers opinion of the station.</p>
 </div>
 <div id="analytical-functions" class="section level3">
 <h3>Analytical functions</h3>
-<p>Table 3 shows the list of impact analytical functions in the <code>&#39;opitools&#39;</code> package.</p>
+<p>Table 3 shows the list of analytical functions of the <code>&#39;Opitools&#39;</code> package.</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 3. <code>Impact Analytical</code> function
@@ -927,7 +921,7 @@ Description
 <code>opi_score</code>
 </td>
 <td style="text-align:left;width: 12em; background-color: white !important;">
-<code>Opinion score of a text document</code>
+<code>Computes the overall opinion score of a text document</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
 Given a text document, this function computes the overall opinion score based on the proportion of text records classified as expressing positive, negative or a neutral sentiment about the subject.
@@ -955,7 +949,7 @@ This function simulates the expectation distribution of the observed opinion sco
 <code>opi_impact</code>
 </td>
 <td style="text-align:left;width: 12em; background-color: white !important;">
-<code>Statistical assessment of impacts of a specified theme (or subject) from a document</code>
+<code>Computes the statistical significance of impacts of a specified/selected theme (or subject) on the overall opinion score of a document</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
 This function assesses the impacts of a theme (or subject) on the overall opinion computed for a text document. The text records relating to the theme in question should be identified and provided as input to this function
@@ -963,19 +957,19 @@ This function assesses the impacts of a theme (or subject) on the overall opinio
 </tr>
 </tbody>
 </table>
-<p>The key analytical function is the <code>opi_impact()</code> which draws from <code>opi_score()</code> and <code>opi_sim()</code> to compute the observed opinion score and its expectations, respectively. The observed opinion score is compared with the expectation in order to derive the statistical significance of the impacts. The aforementioned questions can be answered by running the following codes:</p>
+<p>The key analytical function is the <code>opi_impact()</code> which draws from <code>opi_score()</code> and <code>opi_sim()</code> to compute the observed opinion score and the expectations, respectively. The observed opinion score is compared with the expectation in order to derive the statistical significance of impacts of a specified/selected theme. Using the example dataset <code>policing_dtd</code>:</p>
 <p>The impact analysis can be performed as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="co">#Application: Law enforcement</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Load DTD</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#Load DTD</span></span>
 <span id="cb5-5"><a href="#cb5-5"></a><span class="kw">data</span>(policing_dtd)</span>
 <span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># Load theme keywords</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="kw">data</span>(covid_keys)</span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#Load theme keywords</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="kw">data</span>(covid_theme)</span>
 <span id="cb5-9"><a href="#cb5-9"></a></span>
 <span id="cb5-10"><a href="#cb5-10"></a><span class="co"># Run the analysis</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a>output1 &lt;-<span class="st"> </span><span class="kw">opi_impact</span>(policing_dtd, <span class="dt">sec_keywords=</span>covid_keys, <span class="dt">metric =</span> <span class="dv">1</span>,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>output1 &lt;-<span class="st"> </span><span class="kw">opi_impact</span>(policing_dtd, <span class="dt">theme_keys=</span>covid_theme, <span class="dt">metric =</span> <span class="dv">1</span>,</span>
 <span id="cb5-12"><a href="#cb5-12"></a>                       <span class="dt">fun =</span> <span class="ot">NULL</span>, <span class="dt">nsim =</span> <span class="dv">99</span>, <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>,</span>
 <span id="cb5-13"><a href="#cb5-13"></a>                       <span class="dt">quiet=</span><span class="ot">TRUE</span>)</span>
 <span id="cb5-14"><a href="#cb5-14"></a><span class="kw">print</span>(output1)</span></code></pre></div>
@@ -1018,7 +1012,7 @@ This function assesses the impacts of a theme (or subject) on the overall opinio
 <li><p><code>plot</code> - plot showing Percentage proportion of classes</p></li>
 </ul></li>
 </ul>
-<p>The output shows an overall negative opinion of the public on the neighbourhood policing, and that COVID-19 pandemic has not had a significant impacts (pvalue = 0.52) on the those opinion expressed by the general public.</p>
+<p>The output shows an overall negative opinion (<code>-5.88</code>) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (<code>pvalue</code> = 0.52) on the opinion expressed by the public.</p>
 <p>To display the graphics showing the proportion of various sentiment classes (as in Figure ), type <code>output$plot</code> in the console.</p>
 <div class="figure" style="text-align: center">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAxAAAAFLCAMAAABx8ZrSAAABqlBMVEUAAAAAACcAACsAADsAAE4AAFUAJGsAJycAJ3YAK1UAK4AASI4ATJkATp0AVYAAVaodJGsdbbEnAAAnAE4nJ3YndsQrAAArACsrAFUrKwArK1UrK4ArVaorgIArgNQ5AEc5kdVNTU1NTWtNTYhNa4hNa6ZNiMROAABOADtOAE5OTidOnetVAABVACtVAFVVKwBVKytVK4BVVStVVVVVqv9WtdVatKxrTU1rTWtrTYhra6ZrpuFzJgBzJiZzSABz2dV2JDt2JwB2Jyd2xOuAKwCAKyuAK1WAVQCAgCuAgFWAqoCA1KqA1P+ITU2ITWuITYiIa02IxP+PbSSPtWuP2dWdTgCd2Xed2bKd6+uma02ma2uma4imxKam4f+qVQCqVSuq1ICq1P+q/6qq/9Sq//+stWus2Y6s2dXEdifEiE3ExHbE4abE6+vE///UgCvU/9TU///Ys2Xhpmvh4abh///lmUzlv3Pl5b/l5eXrnU7rxHbrxMTr2Xfr2ZTr2bLr653r68Tr6+vy8vL/qlX/xIj/1ID/1Kr/1NT/4ab//6r//8T//9T//+H///8tSN+eAAAACXBIWXMAAA7DAAAOwwHHb6hkAAASSUlEQVR4nO2dj3scVRWG1ygKSC0qhCoSCQiiLUUkIgVF0aIIBYxSAbURtViqTSwI8kNFSrrSNt3/2Xtn7uzeE/ZkdrI758yU932aTDI7+fbO5HtzZ3Z5mMEIAMYMvAcA0CUQAiADIQAyEAIgAyEAMhACIGNOIS40pPEPmIV1eGiDRYZ9Ug5a0zCEaDUNIfoWhhCtpiFE38IQotU0hOhbGEK0moYQfQtDiFbTEKJvYQjRahpC9C0MIVpNQ4i+hSFEq2kI0bcwhGg1DSH6FoYQraYhRN/CEKLVNIToWxhCtJqGEH0LQ4hW0xCib2EI0WoaQvQtDCFaTUOIvoUhRKtpCNG3MIRoNQ0h+haGEK2mIUTfwhCi1TSE6FsYQrSahhB9C0OIVtMQom9hCNFqGkL0LQwhWk1DiL6FIUSraQjRtzCEaDUNIfoWhhCtpiFE38IQotU0hOhbWBeEeL1DvN9Z3gmcKXk40PSI7/kbmBuEQAhrEMIkDCEk3rXXQQiTMISQeNdeByFMwhBC4l17HYQwCUMIiXftdRDCJAwhJN6110EIkzCEkHjXXgchTMIQQuJdex2EMAlDCIl37XUQwiQMISTetddBCJMwhJB4114HIUzCEELiXXsdhDAJQwiJd+11EMIkDCEk3rXXQQiTMISQeNdeByFMwhBC4l17HYQwCUMIiXftdRDCJAwhJN6110EIkzCEkHjXXgchTMIQQuJdex2EMAlDCIl37XUQwiQMISTetddBCJMwhJB4114HIUzCEELiXXsdhDAJQwiJd+11EMIkDCEk3rXXQQiTMISQeNdeByFMwhBC4l17HYQwCUMIiXftdRDCJAwhJN6110EIkzCEkHjXXgchTMIQQuJdex2EMAlDCIl37XUQwiQMISTetddBCJMwhJB4114HIUzCEELiXXsdhDAJQwiJd+11EMIkDCEk3rXXQQiTMISQeNdeByFMwhBC4l17HYQwCUMIiXftdRDCJAwhJN6110EIkzCEkHjXXgchTMIQQuJdex2EMAlDCIl37XUQwiQMISTetddBCJMwhJB4114HIUzCEELiXXsdhDAJQwiJd+11EMIkDCEk3rXXQQiTMISQeNdeByFMwhBC4l17HYQwCUMIiXftdRDCJAwhJN6110EIkzCEkHjXXgchTMIQQuJdex2EMAlDCIl37XUQwiQMISTetddBCJMwhJB4114HIUzCEELiXXsdhDAJQwiJd+11EMIkDCEk3rXXQQiTMISQeNdeByFMwhBC4l17HYQwCUMIiXftdRDCJAwhJN6110EIkzCEkHjXXgchTMIQQuJdex2EMAlDCIl37XUQwiQMISTetddBCJMwhJB4114HIUzCEELiXXsdhDAJQwiJd+11EMIkDCEk3rXXQQiTMISQeNdeByFMwhBC4l17HYQwCUMIiXftdRDCJAwhJN6110EIkzCEkHjXXgchTMIQQuJdex2EMAlDCIl37XUQwiRsViEuHdtECFcQwiSsfSFODgaHi8+feemDJwYHLlx47QBCNOTf9734/ts/GNx05syvPo8QjcOKCk7Kt/f29UJceXb1rlNRiEvfX11dH40urq7evTle1Anx7vXnPvjJT8O/+PWBsPzvt15CiGb8+5uffvH9t256+4ff+8vXf4QQTcPePXAhlG5Svr23rxXi6svro4v3/OPY5pXnTsWJ4srzm6M37h2lRS1bK/FjeOh0+Hr74M6TJzZWdm/iLUGOd/en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" alt="Figure 3: Percentage proportion of classes" width="784" />
@@ -1026,7 +1020,7 @@ This function assesses the impacts of a theme (or subject) on the overall opinio
 Figure 3: Percentage proportion of classes
 </p>
 </div>
-<p>Table 4 summarizes the results of impact analysis using the example datasets in Table 1 for different research questions (RQs). The application in law enforcement (as conducted above) is entered as the first record of the table. For demonstration, we employed the same score function (<code>metric = 1</code>, i.e. <code>polarity score = (P - N)/(P + N)*100</code>) in each application, where P and N represent positive and negative sentiments, respectively. See the documentation for details.</p>
+<p>Table 4 summarizes the results of impact analysis using all the example datasets in Table 1 with their respective research questions (RQs). The outputs from the law enforcement application (as in above) is entered as the first record of the table. In each example, we employed the same score function (<code>metric = 1</code>, i.e. <code>polarity score = (P - N)/(P + N)*100</code>), where <code>P</code> and <code>N</code> represent <code>positive</code> and <code>negative</code> sentiments, respectively. See the documentation for details.</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 4. <code>Impact analysis</code>
@@ -1043,7 +1037,7 @@ RQs
 Primary data
 </th>
 <th style="text-align:left;">
-sec_keywords
+theme_keys
 </th>
 <th style="text-align:left;">
 criterion
@@ -1071,7 +1065,7 @@ Does COVID-19 pandemic influence public opinion on neighourhood policing?
 <code>policing_dtd</code>
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
-<code>covid_keys</code>
+<code>covid_theme</code>
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 two.sided
@@ -1091,13 +1085,13 @@ two.sided
 2a
 </td>
 <td style="text-align:left;width: 26em; background-color: white !important;">
-Do the refreshment outlets impact customers’ opinion of the Piccadilly train services?
+Do the refreshment outlets/items impact customers’ opinion of the Piccadilly train services?
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 <code>reviews_dtd</code>
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
-<code>refreshment_keys</code>
+<code>refreshment_theme</code>
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 two.sided
@@ -1123,7 +1117,7 @@ Do the signages influence customers’ opinion of the Piccadilly train services?
 <code>reviews_dtd</code>
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
-<code>signage_keys</code>
+<code>signage_theme</code>
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 two.sided
@@ -1143,7 +1137,7 @@ two.sided
 3
 </td>
 <td style="text-align:left;width: 26em; background-color: white !important;">
-How does the democratic candidate (Hillary Clinton ) impacts the viewers’ opinion of the debate?
+How does the democratic candidate (Hillary Clinton) affects viewers’ opinion of the presidential debate?
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 <code>debate_dtd</code>
@@ -1166,11 +1160,12 @@ two.sided
 </tr>
 </tbody>
 </table>
-<p>In the marketing application (2a &amp; 2b), we tested the impacts of two themes, namely; refreshment outlets and the signages, on the customers’ opinions of the train services. The statistics (S=67.92, pvalue = 0.01) show an overall positive customers’ opinions of the train station or services, with the refreshments outlets in and around the station contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages in and around the station have no significant influence (p=0.1) on the positive review of the train service. The last application attempts to identify factors that may have contributed to viewers opinion of a political debate. The statistics (S=-0.33, pvalue = 0.93) show that viewers have a negative opinion on the debate, but their views on the democratic candidate (Hillary Clinton) is not a factor that contributes significantly to the overall negative opinion of the debate.</p>
+<p>In the marketing application (2a &amp; 2b), we tested the impacts of two themes, namely; <code>refreshment items/outlets</code> and the <code>signages</code>, on the customers’ opinions of the train services. The statistics (<code>S=67.92, pvalue = 0.01</code>) show an overall positive customers’ opinions of the train station or services, with the refreshments items/outlets (in and around the station) contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages (in and around the station) have no significant influence (p=0.1) on the positive review of the train service.</p>
+<p>The last application (politics) attempts to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (<code>S=-0.33, pvalue = 0.93</code>) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.</p>
 </div>
 <div id="using-a-user-defined-opinion-score-function" class="section level3">
 <h3>Using a user-defined opinion score function</h3>
-<p>An pinion score function may be defined in a variety of ways depending on the application domain. For instance, <span class="citation">(Razorfish 2009)</span> defines opinion score of a product brand as <code>score = (P + O - N)/(P + O + N)</code>, where <code>P</code>, <code>O</code>, and <code>N</code>, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Thus, a user ought to be able to plug in their own opinion score function into the <code>opi_impact</code> function. Employing the stated example function, we can plug in the function and re-run the analysis as follows:</p>
+<p>An opinion score function may be defined in a variety of ways depending on the application domain. For instance, <span class="citation">(Razorfish 2009)</span> defines customers’ opinion score of a product brand as <code>score = (P + O - N)/(P + O + N)</code>, where <code>P</code>, <code>O</code>, and <code>N</code>, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. In order for a user to be able to plug-in their own opinion score function, we provided the parameter <code>fun</code> in the <code>opi_impact</code> function. This allow users to integrate new functions and test new theories. Employing the example function, we can re-run the analysis as follows:</p>
 <ol style="list-style-type: lower-alpha">
 <li>Define the user-defined function:</li>
 </ol>
@@ -1187,14 +1182,14 @@ two.sided
 <li>Integrate the function and run analysis</li>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2"></a>output &lt;-<span class="st"> </span><span class="kw">opi_impact</span>(debate_dtd, <span class="dt">sec_keywords=</span>keys, <span class="dt">metric =</span> <span class="dv">5</span>,</span>
+<span id="cb8-2"><a href="#cb8-2"></a>output &lt;-<span class="st"> </span><span class="kw">opi_impact</span>(debate_dtd, <span class="dt">theme_keys=</span>keys, <span class="dt">metric =</span> <span class="dv">5</span>,</span>
 <span id="cb8-3"><a href="#cb8-3"></a>                       <span class="dt">fun =</span> myfun, <span class="dt">nsim =</span> <span class="dv">99</span>, <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>,</span>
 <span id="cb8-4"><a href="#cb8-4"></a>                       <span class="dt">quiet=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
-<p>The <code>opitools</code> package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in <span class="citation">(Adepeju and Jimoh 2021)</span> in its application in law enforcement. domain. Further, this vignette demonstrates the potentials of the package for application across a wide variety of areas, including marketing and politics. This package is being updated on a regular basis to add more functionalities.</p>
+<p>The <code>opitools</code> package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in <span class="citation">(Adepeju and Jimoh 2021)</span> in its application in law enforcement domain. In addition, this vignette demonstrates the potentials of the package for application across a wide variety of areas, with examples from marketing and political domains. This package is being updated on a regular basis to add more functionalities.</p>
 <p>We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
