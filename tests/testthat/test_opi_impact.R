@@ -21,49 +21,49 @@ keywords3 <- data.frame(keys=c("love")) #exist in doc
 #checking that error msg outputs are correct
 test_that("print out correct error msgs", {
 
-  expect_error(opi_impact(doc, sec_keywords=NULL, metric = 1,
+  expect_error(opi_impact(doc, theme_keys=NULL, metric = 1,
      fun = NULL, nsim = 98,
      prints_text(paste("Number of simulation (nsim)",
      "is too small!!", sep=" "))))
 
-  expect_error(opi_impact(doc, sec_keywords=NULL, metric = 1,
+  expect_error(opi_impact(doc, theme_keys=NULL, metric = 1,
      fun = NULL, nsim = 999999,
      prints_text(paste("Consider specifying a smaller",
      "number of simulations (nsim)!!", sep=" "))))
 
-  expect_error(opi_impact(doc, sec_keywords=NULL, metric = 1,
+  expect_error(opi_impact(doc, theme_keys=NULL, metric = 1,
      fun = NULL, nsim = 99,
-     prints_text(paste(" 'sec_keywords' parameter",
+     prints_text(paste(" 'theme_keys' parameter",
      "cannot be 'NULL'!! ", sep =" "))))
 
-  expect_error(opi_impact(doc, sec_keywords=NULL, metric = 1,
+  expect_error(opi_impact(doc, theme_keys=NULL, metric = 1,
      fun = NULL, nsim = 99, alternative == "less",
      prints_text(paste('When parameter `metric =` ', metric,
     ", argument `two.sided` must be set as 'less'!! ", sep=""))))
 
-  expect_error(opi_impact(doc, sec_keywords=NULL, metric = 2,
+  expect_error(opi_impact(doc, theme_keys=NULL, metric = 2,
      fun = NULL, nsim = 99, alternative == "two.sided",
      prints_text(paste('When parameter `metric =` ', metric,
      ", argument `two.sided` must be set as 'less'!! ", sep=""))))
 
-  expect_error(opi_impact(doc, sec_keywords=keywords2, metric = 1,
+  expect_error(opi_impact(doc, theme_keys=keywords2, metric = 1,
      fun = NULL, nsim = 99, alternative == "two.sided",
      prints_text(paste("The text record contains NONE of",
      "the secondary keywords!! Operation terminated!!", sep=" "))))
 
-  expect_error(opi_impact(doc, sec_keywords=keywords, metric = 1,
+  expect_error(opi_impact(doc, theme_keys=keywords, metric = 1,
               fun = NULL, nsim = 99, alternative = "less",
               prints_text(paste("When parameter `metric = 1`, argument",
               " `alternative` must be set as 'two.sided'!! "))))
 
-  expect_error(opi_impact(doc, sec_keywords=keywords, metric = 2,
+  expect_error(opi_impact(doc, theme_keys=keywords, metric = 2,
               fun = NULL, nsim = 99, alternative = "two.sided",
               prints_text(paste('When parameter `metric =` ', metric,
               ", argument `two.sided` must be set as 'less'!! ", sep=""))))
 
-  expect_error(opi_impact(textdoc=doc, sec_keywords=keywords, metric = 1,
+  expect_error(opi_impact(textdoc=doc, theme_keys=keywords, metric = 1,
                           fun = NULL, nsim = 99, alternative = "two.sided",
-                          prints_text(paste("The 'sec_keywords' are either completely present",
+                          prints_text(paste("The 'theme_keys' are either completely present",
                                             "or absent in a sentiment class! The process terminated!!",
                                             sep=" "))))
 
@@ -71,7 +71,7 @@ test_that("print out correct error msgs", {
 
 
 #check that the output is complete
-output3 <- opi_impact(textdoc=doc, sec_keywords=keywords3, metric = 1,
+output3 <- opi_impact(textdoc=doc, theme_keys=keywords3, metric = 1,
            fun = NULL, nsim = 99, alternative = "two.sided")
 
 test_that('check that output is complete', {
