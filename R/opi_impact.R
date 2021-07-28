@@ -48,6 +48,7 @@
 #' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
 #' fun = NULL, nsim = 99, alternative="two.sided",
 #' quiet=TRUE)
+#'
 #' @examples
 #'
 #' # Application in marketing:
@@ -56,7 +57,7 @@
 #' #`keywords` -> 'facility_keys'
 #'
 #' #RQ2a: "Do the refreshment outlets impact customers'
-#' opinion of the services at the Piccadilly train station?"
+#' #opinion of the services at the Piccadilly train station?"
 #'
 #' ##execute function
 #' output <- opi_impact(textdoc = reviews_dtd,
