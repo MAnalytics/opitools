@@ -100,8 +100,10 @@
 #' nominees (Donald Trump and Hillary Clinton)
 #' in Sept. 2016. (Credit: NBC News).
 #'
-#' The comments are limited to the first 24hrs. All Comments
-#' which include the names of both candidates are dropped.
+#' The DTD only include the comments within the first 24hrs
+#' in which the video was posted. All individual comments
+#' in which the names of both candidates are mentioned
+#' are filtered out.
 #'
 #' @format A dataframe containing one variable
 #' \itemize{
