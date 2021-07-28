@@ -1,5 +1,5 @@
 ---
-title: "An Opinion Analytical Tool for Big Text Document - A User Guide"
+title: "An Opinion Analytical Tool for Big Digital Text Document - A User Guide"
 
 author: |
   | `Author:`
@@ -25,7 +25,7 @@ always_allow_html: yes
 #fig_caption: yes
 bibliography: references.bib
 
-abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records towards the completion of opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing and political domains.
+abstract: The development of `'opitools'` is inspired by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing and politics.
 
 vignette: >
   %\VignetteIndexEntry{A guide to using 'opitools' package for opinion and its impacts analysis}
