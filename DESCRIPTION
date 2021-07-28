@@ -1,19 +1,21 @@
 Package: opitools
 Type: Package
-Title: A Tool for Analyzing Opinions in a Text Document
-Version: 1.0.3
+Title: A Tool for Analyzing the Opinions in a Text Document
+Version: 1.5.0
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
-Description: This tool is designed for analyzing the opinions 
-  inherent in a digital text document (TDT). Given a text document, this 
+Description: This tool is designed for performing opinion impact analysis 
+  of a digital text document (DTD). Given a DTD, this 
   package allows a user to assess the extent to which a theme
-  or subject within the document impacts the overall opinion 
-  expressed by the document. The package can be applied to a wide 
-  variety of opinion-based DTD, including commentaries on social media
-  platforms (Facebook, Twitter etc.), Product websites (e.g. review 
-  sections) and so on. The utility of the `Opitools` has been demonstrated 
+  or subject within a document impacts the overall opinion 
+  expressed in the document. The package can be applied to a wide 
+  range of opinion-based DTD, including commentaries on social media
+  platforms (such as Facebook, Twitter and Youtube), online products 
+  reviews, and so on. The utility of `Opitools` was originally demonstrated 
   in Adepeju and Jimoh (2021) <doi:10.31235/osf.io/c32qh> in the 
-  assessment of impacts of COVID-19 pandemic on neighbourhood policing.
+  assessment of COVID-19 impacts on neighbourhood policing using 
+  Twitter data. Further examples can be found in the vignette of 
+  the package.
 Language: en-US
 License: GPL-3
 URL: https://github.com/MAnalytics/opitools
