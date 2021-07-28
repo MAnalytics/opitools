@@ -425,7 +425,7 @@ The last application (politics) attempts to identify factors that may have contr
 
 ### Using a user-defined opinion score function
 
-An pinion score function may be defined in a variety of ways depending on the application domain. For instance, [@Razorfish2019] defines opinion score of a product brand as `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. Thus, a user ought to be able to plug in their own opinion score function into the `opi_impact` function. Employing the stated example function, we can plug in the function and re-run the analysis as follows: 
+An opinion score function may be defined in a variety of ways depending on the application domain. For instance, [@Razorfish2019] defines customers' opinion score of a product brand as `score = (P + O - N)/(P + O + N)`, where `P`, `O`, and `N`, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. In order for a user to be able to plug-in their own opinion score function, we provided the parameter `fun` in the `opi_impact` function. This allow users to integrate new functions and test new theories. Employing the example function, we can re-run the analysis as follows: 
 
 (a) Define the user-defined function: 
 
