@@ -3,7 +3,7 @@
 \docType{data}
 \name{policing_dtd}
 \alias{policing_dtd}
-\title{Fake Twitter posts on police/policing}
+\title{Twitter posts on police/policing}
 \format{
 A dataframe containing one variable
 \itemize{
@@ -14,9 +14,9 @@ A dataframe containing one variable
 policing_dtd
 }
 \description{
-A text document (an OTD) containing twitter posts
-(for an anonymous geographical location 1) on police/policing.
-The OTD also includes
+A text document (an DTD) containing twitter posts
+(for an anonymous geographical location 'A') on police/policing.
+The DTD also includes
 posts that express sentiments on policing in relation to
 the COVID-19 pandemic (Secondary subject B)
 }

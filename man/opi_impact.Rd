@@ -5,7 +5,7 @@
 \title{Statistical assessment of
 impacts of a specified theme from a document.}
 \usage{
-opi_impact(textdoc, sec_keywords=NULL, metric = 1,
+opi_impact(textdoc, theme_keys=NULL, metric = 1,
 fun = NULL, nsim = 99, alternative="two.sided",
 quiet=TRUE)
 }
@@ -14,7 +14,7 @@ quiet=TRUE)
 individual text records, where \code{n} is the total
 number of individual records.}
 
-\item{sec_keywords}{(a list) A one-column dataframe (of any
+\item{theme_keys}{(a list) A one-column dataframe (of any
 number of length) containing a list of keywords relating
 to the theme or secondary subject to be investigated.
 The keywords can also be defined as a vector of characters.}
@@ -85,14 +85,14 @@ further details in Adepeju and Jimoh, 2021).
 # Application in marketing:
 
 #`data` -> 'reviews_dtd'
-#`keywords` -> 'facility_keys'
+#`theme` -> 'refreshment_theme'
 
 #RQ2a: "Do the refreshment outlets impact customers'
 #opinion of the services at the Piccadilly train station?"
 
 ##execute function
 output <- opi_impact(textdoc = reviews_dtd,
-          sec_keywords=refreshment_keys, metric = 1,
+          theme_keys=refreshment_theme, metric = 1,
           fun = NULL, nsim = 99, alternative="two.sided",
           quiet=TRUE)
 

@@ -14,7 +14,7 @@ A dataframe containing one variable
 reviews_dtd
 }
 \description{
-A text document (an OTD) containing the  customer reviews
+A text document (an DTD) containing the  customer reviews
 of the Piccadilly train station (Manchester) downloaded
 from the www.tripadvisor.co.uk'. The reviews cover from
 July 2016 to March 2021.
