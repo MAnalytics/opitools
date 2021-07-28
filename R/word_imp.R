@@ -1,9 +1,8 @@
 #' @title Importance of words (terms) embedded
 #' in a text document
-#' @description Produces a word cloud which represents the
+#' @description Produces a wordcloud which represents the
 #' level of importance of each word (across different text groups)
-#' within a text document,
-#' according to a specified measure.
+#' within a text document, according to a specified measure.
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records. An \code{n} x code{2} dataframe can
