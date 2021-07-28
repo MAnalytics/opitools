@@ -53,7 +53,7 @@
 #' # Application in marketing:
 #'
 #' #`data` -> 'reviews_dtd'
-#' #`theme` -> 'refreshment_theme'
+#' #`theme_keys` -> 'refreshment_theme'
 #'
 #' #RQ2a: "Do the refreshment outlets impact customers'
 #' #opinion of the services at the Piccadilly train station?"
