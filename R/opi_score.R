@@ -1,20 +1,20 @@
-#' @title Opinion score of a text document
-#' @description Given a text document,
+#' @title Opinion score of a digital text document (DTD)
+#' @description Given a DTD,
 #' this function computes the overall opinion score based on the
 #' proportion of text records classified as expressing positive,
-#' negative or a neutral sentiment about the subject.
+#' negative or a neutral sentiment.
 #' The function first transforms
 #' the text document into a tidy-format dataframe, described as the
 #' `observed sentiment document (OSD)` (Adepeju and Jimoh, 2021),
 #' in which each text record is assigned a sentiment class based
-#' on the sum of all sentiments expressed by the words in the
-#' text record.
+#' on the summation of all sentiment scores expressed by the words in
+#' the text record.
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records.
 #' @param metric (an integer) Specify the metric to utilize for
-#' the calculation of opinion score. Available values in this
-#' package are: \code{1, 2, ...,5}.
+#' the calculation of opinion score. Valid values include
+#' \code{1, 2, ...,5}.
 #' Assuming \code{P}, \code{N} and \code{O} represent positive,
 #' negative, and neutral record sentiments, respectively,
 #' the followings are the details of the opinion score function
@@ -44,9 +44,7 @@
 #' # Use police/pandemic posts on Twitter
 #' # Experiment with a standard metric (e.g. metric 1)
 #' score <- opi_score(textdoc = policing_dtd, metric = 1, fun = NULL)
-#' #print result details
-#' print(score)
-#' #preview results
+#' #print result
 #' print(score)
 #'
 #' #Example using a user-defined opinion score -
@@ -61,7 +59,7 @@
 #'
 #' #Run analysis
 #' score <- opi_score(textdoc = policing_dtd, metric = 5, fun = myfun)
-#' #preview results
+#' #print results
 #' print(score)
 #'
 #'
