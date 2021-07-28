@@ -454,7 +454,7 @@ output <- opi_impact(debate_dtd, sec_keywords=keys, metric = 5,
 
 # Conclusion
 
-The `opitools` package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in [@Adepeju2021] in its application in law enforcement. domain. Further, this vignette demonstrates the potentials of the package for application across a wide variety of areas, including marketing and politics. This package is being updated on a regular basis to add more functionalities. 
+The `opitools` package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in [@Adepeju2021] in its application in law enforcement domain. In addition, this vignette demonstrates the potentials of the package for application across a wide variety of areas, with examples from marketing and political domains. This package is being updated on a regular basis to add more functionalities. 
 
 We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly. 
 
