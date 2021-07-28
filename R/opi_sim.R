@@ -13,7 +13,7 @@
 #' negative, or neutral), while column \code{3} contains two
 #' variables: `present` and `absent` indicating records that
 #' include and records that do not include any of the specified
-#' secondary keywords, respectively.
+#' theme keywords, respectively.
 #' @param nsim (an integer) Number of replicas (ESD) to simulate.
 #' Recommended values are: 99, 999, 9999, and so on. Since the run time
 #' is proportional to the number of replicas, a moderate number of
