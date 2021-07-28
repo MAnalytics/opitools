@@ -104,21 +104,35 @@ knitr::include_graphics("zipf.png")
 #  data("debate_dtd")
 #  
 #  
-#  p1 <- word_imp(textdoc = policing_dtd, metric= "tf", n_top=5,
+#  #Words importance of public tweets on neighbourhood policing
+#  #based on  (a) ‘tf’ (b) 'tf-idf'
+#  p1a <- word_imp(textdoc = policing_dtd, metric= "tf",
+#                             words_to_filter=c("police","policing"))
+#  
+#  p1b <- word_imp(textdoc = policing_dtd, metric= "tf-idf",
 #                             words_to_filter=c("police","policing"))
 #  
 #  #Note: 'words_to_filter' parameter is used to eliminate non-necessary words that
 #  #may be too dominant in the DTD.
 #  
-#  p2 <- word_imp(textdoc = reviews_dtd, metric= "tf", n_top=5,
-#                             words_to_filter=c("station", "manchester","train"))
+#  #Words importance of customer reviews of a transport service
+#  #based on (a) ‘tf’ (b) 'tf-idf'
+#  p2a <- word_imp(textdoc = reviews_dtd, metric= "tf",
+#                  words_to_filter=c("station"))
 #  
-#  p3 <- word_imp(textdoc = debate_dtd, metric= "tf", n_top=5,
-#                             words_to_filter=NULL)
-#  #output3 <- word_imp(textdoc = debate_otd, metric= "tf", n_top=5
-#  p1$plot
-#  p2$plot
-#  p3$plot
+#  p2b <- word_imp(textdoc = reviews_dtd, metric= "tf-idf",
+#                  words_to_filter=c("station"))
+#  
+#  #Words importance  of comments on a video of a political debate
+#  #based on (a) ‘tf’ (b) 'tf-idf'
+#  p3a <- word_imp(textdoc = debate_dtd, metric= "tf",
+#                  words_to_filter=c("trump","hillary"))
+#  
+#  p3b <- word_imp(textdoc = debate_dtd, metric= "tf-idf",
+#                  words_to_filter=c("trump","hillary"))
+#  
+#  #outputs
+#  p1a$plot; p1b$plot; p2a$plot; p2b$plot; p3a$plot; p3b$plot
 #  
 
 ## ----figs2, echo=FALSE, fig.width=3,fig.height=4,fig.align="center", fig.cap=fig$cap("figs2", "Highlighting words importance from a DTD")----
