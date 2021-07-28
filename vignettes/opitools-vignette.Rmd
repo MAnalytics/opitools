@@ -129,10 +129,10 @@ fig <- local({
 
 # Introduction
 
-The development of `'opitools'` is to address the lack of tools for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis. The potential of `opitools` for application to a wide variety of domains is demonstrated in this vignette with examples from the law enforcement, marketing and politics.
+The `'opitools'` provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of `opitools` for application across a wide variety of domains is demonstrated with examples from the `law enforcement` to examine the impacts of covid-19 on the citizens' opinion of their neighbourhood policing; from `marketing` to examine what features in and around a train station influence customers reviews of the train services; from `politics` to examine the extent to which a political candidate drives viewers opinion of a political debate. 
 
 
-### Setting the Working directory
+### Set the Working directory
 
 ```{r, message=FALSE, eval=FALSE}
 WORKING_DIR <- 'C:/R/Github/JGIS_Policing_COVID-19'
@@ -142,32 +142,25 @@ setwd(WORKING_DIR)
 ```
 
 
-### Installing libraries
+### Instal libraries
 ```{r, include=TRUE, message=FALSE, eval=TRUE}
-
 library(opitools) #for impact analysis
-require(knitr)
-library(kableExtra)
-library(dplyr)
-library(cowplot)
-#library(rtweet) #for data download
-#library(twitteR) #for setting up Twitter authorization
-#library(wordcloud2)
-#library(tibble)
-#library(tm)
-#library(dplyr)
+require(knitr) #for rendering the vignette
+library(kableExtra) #for designing tables
+library(dplyr) #for data analysis
+library(cowplot) #for plot design
 
 ```
 
 # Example datasets
 
-In order to demonstrate the utility of `opitools` for application in a wide variety of domains, the following example datasets are used:
+The following datasets will be employed in our demonstration. The datasets are automatically installed upon the installation of `Opitools`. 
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
 col3 <- c("`Law Enforcement`","`Marketing`", "`Politics`")
-col4 <- c("A digital text document (DTD) containing twitter posts on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customer reviews of the Piccadilly train station (Manchester, uk). Data is downloaded from the www.tripadvisor.co.uk'. The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two US presidential nominees (Donald Trump and Hillary Clinton) in Sept. 2016. (Credit: NBC News).")
+col4 <- c("A digital text document (DTD) containing twitter posts, within a geographical neighbourhood, on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
@@ -188,11 +181,11 @@ knitr::kable(tble1, caption = "Table 1. `Example datasets`", col.names = c("SN",
 
 # Functions
 
-The function in `'opitools'` can be categorized into two groups, namely (1) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (2) analytical - for computing metrics for the impact analysis. 
+The function in `'opitools'` can be categorized into two groups, namely (1) exploratory - for exploring terms or words in a text document, and (2) analytical - for computing metrics for the impact analysis. 
 
 ### Exploratory function
 
-Table 2 shows two exploratory functions embedded in `'opitools'`, namely `'word_distrib'` and `'word_imp'`. Details as follow:
+Table 2 shows two key exploratory functions embedded in `'opitools'`, namely `'word_distrib'` and `'word_imp'`. Details as follow:
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2")
