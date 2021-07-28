@@ -47,7 +47,7 @@ score bounded by positive values, such as when
 should be set as "greater", and set as "less" otherwise.
 If metric parameter is set equal to \code{5}, with a user-defined
 opinion score function (i.e. \code{fun} not NULL ), the user is required
-to determine the boundary of the opinion scores, and set the
+to determine the limits of the opinion scores, and set the
 \code{alternative} argument appropriately.}
 
 \item{quiet}{(TRUE or FALSE) To suppress processing
@@ -79,77 +79,6 @@ function) with the expected scores (distribution) (from the
 number of replicas (\code{nsim}) specified, \code{S.beat} is number of replicas
 in which their expected scores are than the observed score (See
 further details in Adepeju and Jimoh, 2021).
-}
-\examples{
-# Demonstration of `Opitools` in three application
-# domains, namely; law enforcement, Transport and Politics.
-
-#1. Application in law enforcement domain
-#`test document` -> 'policing_dtd': individual
-#tweets relating to police performances during
-#COVID-19 pandemic.
-#`keywords` -> 'covid_keys': keywords relating
-#to covid-19 pandemic
-#RQ1: "Has the COVID-19 pandemic impacted the public
-#opinion on neighourhood policing in a significant
-#way?"
-#execute function
-output <- opi_impact(textdoc = policing_dtd,
-          sec_keywords=covid_keys, metric = 1,
-          fun = NULL, nsim = 99, alternative="two.sided",
-          quiet=TRUE)
-
-#To print results
-print(output)
-
-#Checking the pvalue in order to answer RQ1
-output$pvalue
-
-#2a. Application in transport domain
-#`test document` -> 'reviews_dtd': individual
-#reviews by customers who have used Piccadilly
-#training station in Manchester, UK.
-#`keywords` -> 'facility_keys':list of facilities
-#at the train station.
-#RQ2a: "Do the refreshment outlets that are present at the
-#Piccadilly train station influence customers opinion of the
-#train services?
-
-##execute function
-output <- opi_impact(textdoc = reviews_dtd,
-          sec_keywords=refreshment_keys, metric = 1,
-          fun = NULL, nsim = 99, alternative="two.sided",
-          quiet=TRUE)
-
-#To print results
-print(output)
-
-#Checking the pvalue in order to answer RQ2a
-output$pvalue
-
-#' #2b. Application in transport domain
-#`test document` -> 'reviews_dtd': individual
-#reviews by customers who have used Piccadilly
-#training station in Manchester, UK.
-#`keywords` -> 'signage_keys':keys relating signages
-#at a train station.
-#RQ2b: "Do the signages at the Piccadilly
-#train station influenced customers opinion on the
-#services rendered at the station?
-
-##execute function
-output <- opi_impact(textdoc = reviews_dtd,
-          sec_keywords=signage_keys, metric = 1,
-          fun = NULL, nsim = 99, alternative="two.sided",
-          quiet=TRUE)
-
-#To print results
-print(output)
-
-#Checking the pvalue in order to answer RQ2b
-output$pvalue
-
-
 }
 \references{
 (1) Adepeju, M. and Jimoh, F. (2021). An Analytical
