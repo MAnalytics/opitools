@@ -1,81 +1,62 @@
 ---
 output:
-  word_document: default
   html_document: default
+  word_document: default
   pdf_document: default
 ---
 # "opitools"
 
-An R-package for analyzing Opinions in Big Text Document
+An R-package for analyzing Opinions in Big Digital Text Document (DTD)
 
-### Description
+## Description
 
-The `opitools` is an opinion analytical toolset designed for assessing cross-impacts of multiple subjects on the expressed opinions in a text documents (OTD). An OTD (input as `textdoc`) should composed of individual text records on a specified subject (A), such as a hashtag (using Twitter data) or a topic (using Facebook data). Any other subject that is referenced in relation to this primary subject A can be referred to as a secondary subject, and the records relating to the latter can be identified by searching for the keywords that define it's text records.  To download a Twitter OTD for a defined geographical area, please see the manual of `rtweet` package [(Kearney, 1019)](https://doi.org/10.21105/joss.01829). In the article [adepeju, M. and Jimoh, F. (2021)](https://osf.io/preprints/socarxiv/c32qh/), we described how to deploy `opitools` in order to answer a real-life research question, stated as follows: 'what are the impacts of `COVID-19 pandemic` (secondary subject) on the public opinion concerning neighbourhood policing (primary subject) across England and Wales?' Please note: A freshly downloaded OTD will require some data cleaning exercises in order to remove unwanted texts, such as duplicates, punctuations, hashtags, emojis, and stop words.
+The `opitools` is an R package for exploring a digital text document (DTD) as well as performing the impact analysis of the opinions expressed by the DTD. The package is particularly suited for opinion-based DTD, such as individual-level posts (e.g. commentaries on Twitter or Facebook) and comments (as in an online product reviews). First, an `exploratory` function `word_imp` can be used to identify words relating to different themes (or subjects) that are referenced in a DTD. The `opi_impact` function can then be utilized to investigate whether an identified/specified theme (or subject) impacts the overall opinion expressed by the document. The potentials of `opitools` for application across a wide range of domains is described briefly here (see the `vignette` for details). 
 
-### Installation from `CRAN`
+## Installation from `CRAN`
 
 From an R console, type:
 
 ```{r}
-#{r, echo=TRUE, message=FALSE, eval=TRUE}
 #install.packages("opitools")
 library(opitools)
 
 ```
 
-To install the development version of the package, type:
+To install the developmental version of the package, type:
 `remotes::install_github("MAnalytics/opitools")`. Please, report any
 installation problems in the issues.
 
-### Example usage
+## Example usage
 
-Below is an example usage of the main `opitools` function, `opi_impact`. Given an `OTD` consisting of public tweets concerning neighbourhood policing during the COVID-19 pandemic, for a geographical area, the followings demonstrate how `opitools` can be used to estimate the opinion score and also answer the afore-stated research question. In this example, I will use a fake OTD, namely `policing_otd`, accessible by typing `policing_otd` following the package installation. 
+Below is an example usage of how `opitools` can be employed to identify themes (or subjects) from a DTD and then deployed to perform opinion impact analysis. 
+
 
 ### Importing the dataset
 
+The `policing_dtd` - a DTD comprising Twitter posts about police/policing in a neighbourhood, will be used in this demonstration.
 
 ```r
-
-> policing_otd
-
-#to preview the text document, type:
-head(policing_otd)
+> data(policing_dtd)
 
 ```
 
-### Performing analysis
+### Identify themes (subjects)
 
-Assuming that we want to assess the impacts of another subject inherent in the document (secondary subject B) on the original subject A (for which OTD is downloaded), we need to first identify keywords that relate to subject B in the OTD. A user can employ any relevant analytical approach in order to identify such keywords, e.g. using frequency analysis of terms within the document. A user should then collate and prepare those keywords in the same format as the `covid_keys` data, which is also accessible through the `opitools` package. The `covid_keys` data shows keywords that relate to the COVID-19 pandemic (as a secondary subject) of the `policing_otd` data.
+Utilize `word_imp` function to highlights terms or words in accordance to their importance in the DTD. Through visual inspection, collate related terms or words that denote specific theme or subject from the generated wordcloud. Several words relating to the COVId-19 pandemic, including 'infect', 'pandemic', and 'lockdown' can be identified as been important in the document. These words are provided as `covid_theme` in the package. The function can be ran as follows (see the documentation for details): 
 
 ```r
-
-> covid_keys 
-
-#          keys
-#1     pandemic
-#2    pandemics
-#3     lockdown
-#4    lockdowns
-#5       corona
-#6  coronavirus
-#7        covid
-#8      covid19
-#9     covid-19
-#10       virus
-#11     viruses
-#12  quarantine
-#13      infect
-#14     infects
-#15   infecting
-#16    infected
-
+> p1a <- word_imp(textdoc = policing_dtd, metric= "tf", 
+                           words_to_filter=c("police","policing"))
 ```
 
-```r
+### Impact analysis
 
+The impact analysis can be conducted as follows:
+
+```r
 #Running the analysis
 
-results <- opi_impact(textdoc = policing_otd, sec_keywords=covid_keys, metric = 1,
+results <- opi_impact(textdoc = policing_dtd, theme_keys=covid_theme, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        pplot = TRUE, quiet=FALSE)
                        
@@ -96,7 +77,7 @@ $p_table
 
 |observed_score |S_beat |nsim |pvalue    |signif |
 |:--------------|:------|:----|:----|:------|
-|-5.88          |56     |99   |0.57 |'      |
+|-5.88          |56     |99   |0.52 |'      |
 
 $p_key
 [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
@@ -106,10 +87,25 @@ $p_formula
 
 #......
 
+```
+
+The output above shows the assessment of pandemic impacts on public opinion on neighbourhood policing. The output shows an overall negative opinion (`-5.88`) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (`pvalue` = 0.52) on the opinion expressed by the public. The research question in the above example can be stated as thus: "what is the impact of covid-19 pandemic on the citizens' opinion of their neighbourhood policing" (see details in a similar study that utilized `Opitools`, [adepeju, M. and Jimoh, F. (2021)](https://osf.io/preprints/socarxiv/c32qh/)). 
+
+### Other applications
+
+Table 1 summarizes the analysis using the remaining two example datasets provided in the package. The outputs from the law enforcement application (as in above) is entered in the first row of the table. 
+
+```r
+
+| Column 1       | Column 2     | Column 3     |
+| :------------- | :----------: | -----------: |
+|  Cell Contents | More Stuff   | And Again    |
+| You Can Also   | Put Pipes In | Like this \| |
 
 ```
 
+In each example, the same opinion score function is employed (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`), where `P` and `N` represent `positive` and `negative` sentiments, respectively. See the documentation for details. Employing a threshold of `p=0.05`, any p-value less or equal to the threshold (e.g. example 2a) represent a significant impact of the specified theme on the overall opinion score.
+
+
 ### References
 1. Adepeju, M. and Jimoh, F. (2021). An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the impacts of COVID-19 Pandemic using Twitter Data. [https://doi.org/10.31235/osf.io/c32qh](https://osf.io/preprints/socarxiv/c32qh/)
-
-2. Kearney MW (2019). “rtweet: Collecting and analyzing Twitter data.” Journal of Open Source Software, 4(42), 1829. [doi: 10.21105/joss.01829](https://doi.org/10.21105/joss.01829)
