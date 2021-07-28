@@ -80,6 +80,30 @@ number of replicas (\code{nsim}) specified, \code{S.beat} is number of replicas
 in which their expected scores are than the observed score (See
 further details in Adepeju and Jimoh, 2021).
 }
+\examples{
+
+# Application in marketing:
+
+#`data` -> 'reviews_dtd'
+#`keywords` -> 'facility_keys'
+
+#RQ2a: "Do the refreshment outlets impact customers'
+#opinion of the services at the Piccadilly train station?"
+
+##execute function
+output <- opi_impact(textdoc = reviews_dtd,
+          sec_keywords=refreshment_keys, metric = 1,
+          fun = NULL, nsim = 99, alternative="two.sided",
+          quiet=TRUE)
+
+#To print results
+print(output)
+
+#extracting the pvalue in order to answer RQ2a
+output$pvalue
+
+
+}
 \references{
 (1) Adepeju, M. and Jimoh, F. (2021). An Analytical
 Framework for Measuring Inequality in the Public Opinions on
