@@ -15,9 +15,9 @@ A dataframe with the following variables:
 tweets
 }
 \description{
-A text document (an OTD) containing twitter posts
+A text document (an DTD) containing twitter posts
 (for an anonymous geographical location 2) on police/policing
-(primary subject A). The OTD includes
+(primary subject A). The DTD includes
 posts that express sentiments on policing in relation to
 the COVID-19 pandemic (Secondary subject B)
 }
