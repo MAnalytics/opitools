@@ -17,7 +17,7 @@ column \code{2} shows the sentiment classes (i.e. positive,
 negative, or neutral), while column \code{3} contains two
 variables: \code{present} and \code{absent} indicating records that
 include and records that do not include any of the specified
-secondary keywords, respectively.}
+theme keywords, respectively.}
 
 \item{nsim}{(an integer) Number of replicas (ESD) to simulate.
 Recommended values are: 99, 999, 9999, and so on. Since the run time
