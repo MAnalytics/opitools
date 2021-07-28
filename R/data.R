@@ -12,7 +12,7 @@
 #' Observed sentiment document (OSD).
 #'
 #' A tidy-format list (dataframe) showing the resulting
-#' classification of each text records into positive, negative
+#' classification of each text record into positive, negative
 #' or neutral sentiment. The second column of the dataframe consists of
 #' labels variables `present` and `absent` to indicate whether any of the secondary
 #' keywords exist in a text record.
@@ -30,9 +30,9 @@
 
 #' Fake Twitter posts on police/policing
 #'
-#' A text document (an OTD) containing twitter posts
+#' A text document (an DTD) containing twitter posts
 #' (for an anonymous geographical location 1) on police/policing.
-#' The OTD also includes
+#' The DTD also includes
 #' posts that express sentiments on policing in relation to
 #' the COVID-19 pandemic (Secondary subject B)
 #'
@@ -44,9 +44,9 @@
 
 #' Fake Twitter posts on police/policing 2
 #'
-#' A text document (an OTD) containing twitter posts
+#' A text document (an DTD) containing twitter posts
 #' (for an anonymous geographical location 2) on police/policing
-#' (primary subject A). The OTD includes
+#' (primary subject A). The DTD includes
 #' posts that express sentiments on policing in relation to
 #' the COVID-19 pandemic (Secondary subject B)
 #'
@@ -82,7 +82,7 @@
 
 #' Customer reviews from tripadvisor website
 #'
-#' A text document (an OTD) containing the  customer reviews
+#' A text document (an DTD) containing the  customer reviews
 #' of the Piccadilly train station (Manchester) downloaded
 #' from the www.tripadvisor.co.uk'. The reviews cover from
 #' July 2016 to March 2021.
