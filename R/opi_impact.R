@@ -1,14 +1,13 @@
 #' @title Statistical assessment of
-#' impacts of a specified theme from a document.
+#' impacts of a specified theme from a DTD.
 #' @description This function assesses the impacts of a theme
-#' (or subject) on the overall opinion computed for a text
-#' document. The text records relating to the theme in question
-#' should be identified and provided as input
-#' to this function. The identification can be
-#' done by using keywords relating to the subject
-#' (see `word_importance` function).
-#' The keywords should then be collated and provided as input
-#' to this function (see below).
+#' (or subject) on the overall opinion computed for a DTD
+#' Different themes in a DTD can be identified by the keywords
+#' used in the DTD. These keywords (or words) can be extracted by
+#' any analytical means available to the users, e.g.
+#' `word_imp` function. The keywords must be collated and
+#' supplied this function through the `theme_keys` argument
+#' (see below).
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records.
