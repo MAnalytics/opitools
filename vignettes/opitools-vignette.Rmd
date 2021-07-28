@@ -389,7 +389,7 @@ To display the graphics showing the proportion of various sentiment classes (as 
 knitr::include_graphics("likert.png")
 ```
 
-Table 4 summarizes the results of impact analysis using all the example datasets in Table 1 with their respective research questions (RQs). The outputs from the law enforcement application (as in above) is entered as the first record of the table. In each example, we employed the same score function (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`), where `P` and `N` represent `positive` and `negative` sentiments, respectively. See the documentation for details.
+Table 4 summarizes the results of impact analysis using all the example datasets in Table 1 with their respective research questions (RQs). The outputs from the law enforcement application (as in above) is entered as the first record of the table. In each example, we employed the same score function (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`, where `P` and `N` represent `positive` and `negative` sentiments, respectively). See the documentation for details.
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2a", "2b","3")
