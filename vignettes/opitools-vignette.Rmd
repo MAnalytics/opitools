@@ -281,19 +281,21 @@ p1a$plot; p1b$plot; p2a$plot; p2b$plot; p3a$plot; p3b$plot
 knitr::include_graphics("wordcloud.png")
 ```
 
-In Figure `r fig$ref("figs2")`, the size of a word represents its level of importance according to the selected metric (i.e. 'tf' or 'tf-idf'). From each graphic, a user can easily identify related words that denote certain themes or subjects within the document. In Figure 1A, words such as lockdown, infect and covid, refers to the pandemic-related sentiment under which the policing were operating as at the time the tweets were posted. Does the pandemic has significant impacts on the public opinion of the police activities? Figure 1B shows that the word importance may vary significantly by the metric. In Figure 2A, we see that related words, such as restaurant, shops, food and coffee, denoting refreshment outlets, are important to the customers. Do these refreshment outlets impact the overall customers' opinion of the train services?. Similarly, related words such as board, map and display, denoting signages may have influenced customers opinion of the station?.
+In Figure `r fig$ref("figs2")`, the size of a word represents its level of importance according to a selected metric (i.e. 'tf' or 'tf-idf'). From each representation, a user can easily identify (related) words that denote certain themes or subjects within the document. In Figure 1A, words such as 'lockdown', 'infect' and 'covid', refer to the sentiments relating to the pandemic under which the police were operating as at the time tweets were posted. "Does the pandemic has any significant impacts on the public opinion of the police activities during the period?". This is an example of the RQs that can be investigated using `Opitools`. On the other hand, Figure 1B shows that the word importance may vary significantly by the choice of the measure between 'tf' and 'tf-idf'. Figure 1B shows that a significant amount of the most important words using `tf-idf` are distinct from those ones resulting from using `tf`. 
+
+In Figure 2A, we see that related words, such as 'restaurant', 'shops', 'food' and 'coffee', denoting `refreshment items`, are highlighted as been the most important to the customers. "`Do these refreshment items impact the overall customers' opinion of the train services?`". Similarly, related words such as 'board', 'map' and 'display', denoting `signages` around the station may have influenced customers opinion of the station.
 
 
 ### Analytical functions
 
-Table 3 shows the list of impact analytical functions in the `'opitools'` package.
+Table 3 shows the list of analytical functions of the `'Opitools'` package.
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("3", "4", "5")
 col2 <- c("`opi_score`","`opi_sim`", "`opi_impact`")
-col3 <- c("`Opinion score of a text document`",
+col3 <- c("`Computes the overall opinion score of a text document`",
           "`Simulates the opinion expectation distribution of a text document`",
-          "`Statistical assessment of impacts of a specified theme (or subject) from a document`")
+          "`Computes the statistical significance of impacts of a specified/selected theme (or subject) on the overall opinion score of a document`")
 col4 <- c("Given a text document, this function computes the overall opinion score based on the proportion of text records classified as expressing positive, negative or a neutral sentiment about the subject.",  "This function simulates the expectation distribution of the observed opinion score (computed using the `opi_score` function).",  "This function assesses the impacts of a theme (or subject) on the overall opinion computed for a text document. The text records relating to the theme in question should be identified and provided as input to this function")
 tble3 <- data.frame(col1, col2, col3, col4)
 tble3<- tble3
@@ -309,7 +311,7 @@ knitr::kable(tble3, caption = "Table 3. `Impact Analytical` function", col.names
   #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
 
-The key analytical function is the `opi_impact()` which draws from `opi_score()` and `opi_sim()` to compute the observed opinion score and its expectations, respectively. The observed opinion score is compared with the expectation in order to derive the statistical significance of the impacts. The aforementioned questions can be answered by running the following codes: 
+The key analytical function is the `opi_impact()` which draws from `opi_score()` and `opi_sim()` to compute the observed opinion score and the expectations, respectively. The observed opinion score is compared with the expectation in order to derive the statistical significance of impacts of a specified/selected theme. Using the example dataset `policing_dtd`:  
 
 The impact analysis can be performed as follows: 
 
@@ -317,10 +319,10 @@ The impact analysis can be performed as follows:
 
 #Application: Law enforcement
 
-# Load DTD
+#Load DTD
 data(policing_dtd)
 
-# Load theme keywords
+#Load theme keywords
 data(covid_keys)
 
 # Run the analysis
@@ -379,7 +381,7 @@ $plot
   + `plot` - plot showing Percentage proportion of classes
 
 
-The output shows an overall negative opinion of the public on the neighbourhood policing, and that COVID-19 pandemic has not had a significant impacts (pvalue = 0.52) on the those opinion expressed by the general public. 
+The output shows an overall negative opinion (`-5.88`) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (`pvalue` = 0.52) on the opinion expressed by the public. 
 
 To display the graphics showing the proportion of various sentiment classes (as in Figure `r fig$ref("figs3")`), type `output$plot` in the console.
 
@@ -387,11 +389,11 @@ To display the graphics showing the proportion of various sentiment classes (as 
 knitr::include_graphics("likert.png")
 ```
 
-Table 4 summarizes the results of impact analysis using the example datasets in Table 1 for different research questions (RQs). The application in law enforcement (as conducted above) is entered as the first record of the table.  For demonstration, we employed the same score function (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`) in each application, where P and N represent positive and negative sentiments, respectively. See the documentation for details.
+Table 4 summarizes the results of impact analysis using all the example datasets in Table 1 with their respective research questions (RQs). The outputs from the law enforcement application (as in above) is entered as the first record of the table. In each example, we employed the same score function (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`), where `P` and `N` represent `positive` and `negative` sentiments, respectively. See the documentation for details.
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2a", "2b","3")
-col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton ) impacts the viewers' opinion of the debate?")
+col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets/items impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton) affects viewers' opinion of the presidential debate?")
 col3 <- c("`policing_dtd`","`reviews_dtd`", "`reviews_dtd`", "`debate_dtd`")
 col4 <- c("`covid_keys`","`refreshment_keys`", "`signage_keys`", "direct input")
 col5 <- c("two.sided", "two.sided", "two.sided", "two.sided")
@@ -417,7 +419,9 @@ knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.",
   #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
  
-In the marketing application (2a & 2b), we tested the impacts of two themes, namely; refreshment outlets and the signages, on the customers' opinions of the train services. The statistics (S=67.92, pvalue = 0.01) show an overall positive customers' opinions of the train station or services, with the refreshments outlets in and around the station contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages in and around the station have no significant influence (p=0.1) on the positive review of the train service. The last application attempts to identify factors that may have contributed to viewers opinion of a political debate. The statistics (S=-0.33, pvalue = 0.93) show that viewers have a negative opinion on the debate, but their views on the democratic candidate (Hillary Clinton) is not a factor that contributes significantly to the overall negative opinion of the debate.
+In the marketing application (2a & 2b), we tested the impacts of two themes, namely; `refreshment items/outlets` and the `signages`, on the customers' opinions of the train services. The statistics (`S=67.92, pvalue = 0.01`) show an overall positive customers' opinions of the train station or services, with the refreshments items/outlets (in and around the station) contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages (in and around the station) have no significant influence (p=0.1) on the positive review of the train service. 
+
+The last application (politics) attempts to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (`S=-0.33, pvalue = 0.93`) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.
 
 ### Using a user-defined opinion score function
 
