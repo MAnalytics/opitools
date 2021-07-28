@@ -12,7 +12,7 @@
 #' @param textdoc An \code{n} x \code{1} list (dataframe) of
 #' individual text records, where \code{n} is the total
 #' number of individual records.
-#' @param sec_keywords (a list) A one-column dataframe (of any
+#' @param theme_keys (a list) A one-column dataframe (of any
 #' number of length) containing a list of keywords relating
 #' to the theme or secondary subject to be investigated.
 #' The keywords can also be defined as a vector of characters.
@@ -45,7 +45,7 @@
 #' `alternative` argument appropriately.
 #' @param quiet (TRUE or FALSE) To suppress processing
 #' messages. Default: \code{TRUE}.
-#' @usage opi_impact(textdoc, sec_keywords=NULL, metric = 1,
+#' @usage opi_impact(textdoc, theme_keys=NULL, metric = 1,
 #' fun = NULL, nsim = 99, alternative="two.sided",
 #' quiet=TRUE)
 #'
@@ -54,14 +54,14 @@
 #' # Application in marketing:
 #'
 #' #`data` -> 'reviews_dtd'
-#' #`keywords` -> 'facility_keys'
+#' #`theme` -> 'refreshment_theme'
 #'
 #' #RQ2a: "Do the refreshment outlets impact customers'
 #' #opinion of the services at the Piccadilly train station?"
 #'
 #' ##execute function
 #' output <- opi_impact(textdoc = reviews_dtd,
-#'           sec_keywords=refreshment_keys, metric = 1,
+#'           theme_keys=refreshment_theme, metric = 1,
 #'           fun = NULL, nsim = 99, alternative="two.sided",
 #'           quiet=TRUE)
 #'
@@ -102,15 +102,15 @@
 
 #' @export
 
-opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
+opi_impact <- function(textdoc, theme_keys=NULL, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        quiet=TRUE){ #tweets
 
   keywords <- text <- ID <- sentiment<-flush.console <-
     desc <- asterisk <- comb <- NULL
 
-  if(!is.null(sec_keywords)){
-    sec_keywords <- data.frame(sec_keywords)
+  if(!is.null(theme_keys)){
+    theme_keys <- data.frame(theme_keys)
   }
 
   #output holder
@@ -126,8 +126,8 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
                "number of simulations (nsim)!!", sep=" "))
   }
 
-  if(is.null(sec_keywords)){
-    stop(" 'sec_keywords' parameter cannot be 'NULL'!! ")
+  if(is.null(theme_keys)){
+    stop(" 'theme_keys' parameter cannot be 'NULL'!! ")
   }
 
   #check any contradiction in tail comparison
@@ -143,10 +143,10 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   }
 
   #format keywords
-  sec_keywords <- data.frame(as.character(sec_keywords[,1]))
-  colnames(sec_keywords) <- "keys"
-  sec_keywords <-
-    as.character(sec_keywords %>% map_chr(~ str_c(., collapse = "|")))
+  theme_keys <- data.frame(as.character(theme_keys[,1]))
+  colnames(theme_keys) <- "keys"
+  theme_keys <-
+    as.character(theme_keys %>% map_chr(~ str_c(., collapse = "|")))
 
   #format text records
   textdoc <- data.frame(textdoc[,1])
@@ -157,7 +157,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   #textdoc_keyabsent': contains no keywords
 
   textdoc_keypresent <- data.frame(textdoc) %>%
-    filter(str_detect(text, sec_keywords, negate=FALSE)) %>%
+    filter(str_detect(text, theme_keys, negate=FALSE)) %>%
     mutate(keywords = "present")
 
   if(nrow(textdoc_keypresent)==0){
@@ -166,7 +166,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
   }
 
   textdoc_keyabsent <- data.frame(textdoc) %>%
-    filter(stringr::str_detect(text, sec_keywords, negate=TRUE))%>%
+    filter(stringr::str_detect(text, theme_keys, negate=TRUE))%>%
     mutate(keywords = "absent")
 
 
@@ -237,7 +237,7 @@ opi_impact <- function(textdoc, sec_keywords=NULL, metric = 1,
     pres_abs <- unique(OSD_joined$keywords)
 
     if(length(pres_abs) == 1){
-      stop(paste("The 'sec_keywords' are either completely present",
+      stop(paste("The 'theme_keys' are either completely present",
                  "or absent in a sentiment class! The process terminated!!",
                  sep=" "))
     }
