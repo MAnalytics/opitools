@@ -1,8 +1,8 @@
 #' @title Simulates the opinion expectation distribution
-#' of a text document.
+#' of a digital text document.
 #' @description This function simulates the expectation distribution of the
 #' observed opinion score (computed using the `opi_score` function).
-#' The resulting tidy-format dataframe is described as the
+#' The resulting tidy-format dataframe can be described as the
 #' `expected sentiment document (ESD)` (Adepeju and Jimoh, 2021).
 #' @param osd_data A list (dataframe). An \code{n} x \code{3}
 #' OSD, in which \code{n} represents the length of the
