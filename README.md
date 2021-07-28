@@ -4,7 +4,7 @@ output:
   word_document: default
   pdf_document: default
 ---
-# "opitools"
+# "Opitools"
 
 An R-package for analyzing Opinions in Big Digital Text Document (DTD)
 
@@ -75,9 +75,9 @@ $exp_summary
 $p_table
 
 
-|observed_score |S_beat |nsim |pvalue    |signif |
-|:--------------|:------|:----|:----|:------|
-|-5.88          |56     |99   |0.52 |'      |
+|observed_score |S_beat |nsim |pvalue  |signif |
+|:--------------|:------|:----|:-------|:------|
+|-5.88          |56     |99   |0.52    |'      |
 
 $p_key
 [1] "0.99'"   "0.05*"   "0.025**" "0.01***"
@@ -89,22 +89,36 @@ $p_formula
 
 ```
 
-The output above shows the assessment of pandemic impacts on public opinion on neighbourhood policing. The output shows an overall negative opinion (`-5.88`) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (`pvalue` = 0.52) on the opinion expressed by the public. The research question in the above example can be stated as thus: "what is the impact of covid-19 pandemic on the citizens' opinion of their neighbourhood policing" (see details in a similar study that utilized `Opitools`, [adepeju, M. and Jimoh, F. (2021)](https://osf.io/preprints/socarxiv/c32qh/)). 
+The research question of the analysis above can be stated as follows:
+
+***RQ1***: "Does COVID-19 pandemic influence public opinion on neighourhood policing?"
+
+The output shows an overall negative opinion (`-5.88`) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (`pvalue` = 0.52) on the opinion expressed by the public. (More detailed explanation can be found in the study [adepeju, M. and Jimoh, F. (2021)](https://osf.io/preprints/socarxiv/c32qh/)). 
 
 ### Other applications
 
-Table 1 summarizes the analysis using the remaining two example datasets provided in the package. The outputs from the law enforcement application (as in above) is entered in the first row of the table. 
+Table 1 summarizes the analysis using different example datasets provided in the package. The output from the law enforcement application (as in above) is entered in the first row of the table. Other research questions investigated are as follow:
+
+***RQ2a***: "Do the refreshment outlets/items impact customers’ opinion of the Piccadilly train services?"
+
+***RQ2b***: "Do the signages influence customers’ opinion of the Piccadilly train services?"
+
+***RQ3***: "How does the democratic candidate (Hillary Clinton) affects viewers’ opinion of the presidential debate?"
+
+
+***Table 1. Impact analysis results***
 
 ```r
-
-| Column 1       | Column 2     | Column 3     |
-| :------------- | :----------: | -----------: |
-|  Cell Contents | More Stuff   | And Again    |
-| You Can Also   | Put Pipes In | Like this \| |
+|  RQs   | Primary data | Theme_keys        | Score function | Observed Score (S) | P-value    |
+|:-----: | :----------: | :---------------: | :-------------:| :-----------------:| :---------:| 
+|  RQ1   | policing_dtd | covid_theme       | '1'            | -5.88              | 0.52       |
+|  RQ2a  | reviews_dtd  | refreshment_theme | '1'            | 67.92              | 0.01       |
+|  RQ2b  | reviews_dtd  | signage_theme     | '1'            | 67.92              | 0.1        |
+|  RQ3   | debate_dtd   | direct input      | '1'            | -0.33              | 0.93       |
 
 ```
 
-In each example, the same opinion score function is employed (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`), where `P` and `N` represent `positive` and `negative` sentiments, respectively. See the documentation for details. Employing a threshold of `p=0.05`, any p-value less or equal to the threshold (e.g. example 2a) represent a significant impact of the specified theme on the overall opinion score.
+In each example, the same opinion score function is employed (`metric = 1`, i.e. the `polarity score = (P - N)/(P + N)*100`, where `P` and `N` represent `positive` and `negative` sentiments, respectively). See the documentation for details. Employing a threshold of `p=0.05`, any p-values less or equal to the threshold (e.g. RQ2a) represent a significant impact of the specified theme (i.e. `refreshment_theme`) on the overall opinion score computed based on the `reviews_dtd`.
 
 
 ### References
