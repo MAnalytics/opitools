@@ -54,7 +54,6 @@ output <- opi_score(textdoc=doc , metric = 1, fun = NULL)
 test_that('check that output is complete', {
   #check completeness of result..
   expect_equal(length(output), 5)
-  expect_equal(length(output$sentiments), 5)
   expect_equal(length(output$opiscore), 1)
   expect_equal(length(output$metric), 1)
   expect_equal(length(output$equation), 1)

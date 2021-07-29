@@ -62,10 +62,10 @@ test_that("print out correct error msgs", {
               ", argument `two.sided` must be set as 'less'!! ", sep=""))))
 
   expect_error(opi_impact(textdoc=doc, theme_keys=keywords, metric = 1,
-                          fun = NULL, nsim = 99, alternative = "two.sided",
-                          prints_text(paste("The 'theme_keys' are either completely present",
-                                            "or absent in a sentiment class! The process terminated!!",
-                                            sep=" "))))
+              fun = NULL, nsim = 99, alternative = "two.sided",
+              prints_text(paste("The 'theme_keys' are either completely present",
+              "or absent in a sentiment class! The process terminated!!",
+              sep=" "))))
 
 })
 
