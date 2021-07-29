@@ -20,7 +20,8 @@ For an \code{n} x \code{1} dataframe, an arbitrary grouping is
 automatically imposed.}
 
 \item{metric}{(character) The measure for determining the level of
-importance of each word within the text document. Options include \code{'tf'}
+importance of each word within the text document. Options
+include \code{'tf'}
 representing \verb{term frequency} and \code{'tf-idf'}
 representing \verb{term frequency inverse document frequency}
 (Silge & Robinson, 2016).}
