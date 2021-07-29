@@ -63,7 +63,8 @@ word_imp <- function(textdoc, metric = "tf",
   output <- list()
 
   #global variables
-  aes <- freq<- arrange <- collapse <- coord_flip <- desc <- facet_wrap <- filter <- geom_bar <-
+  aes <- freq<- arrange <- collapse <- coord_flip <- desc <- facet_wrap <-
+    filter <- geom_bar <-
     group_by <- labs <- mutate <- ntile <- rowname <- scale_alpha_discrete <-
     scale_fill_brewer <- select <- stopwords <- text <- text2 <-
     tf <- top_n <- ungroup <- word <- wordcloud2 <- img1 <- img2 <-img3 <-
@@ -153,7 +154,8 @@ word_imp <- function(textdoc, metric = "tf",
     dplyr::filter(!word %in% words_to_filter)
 
   #removing stopwords
-  tokenize_series <- tokenize_series[!tokenize_series$word %in% stopwords("english"),]
+  tokenize_series <-
+    tokenize_series[!tokenize_series$word %in% stopwords("english"),]
 
   #calculate 'tf' across all groups & 'tf_idf' value per groups
   tf <- tokenize_series %>%
@@ -211,15 +213,17 @@ word_imp <- function(textdoc, metric = "tf",
       filter(!duplicated(word))%>%
       group_by(freq) %>%
       mutate(count=n())%>%
-      mutate(bigN = as.numeric(paste("1e-", dec_place, sep=""))) %>%#modify by adding values
+      #modify by adding values
+      mutate(bigN = as.numeric(paste("1e-", dec_place, sep=""))) %>%
       mutate(number=1)%>%
       mutate(incr = cumsum(number))%>%
-      mutate(bigN2 = as.numeric(paste(paste("1e-", dec_place, sep=""),incr, sep="")))%>%
+      mutate(bigN2 = as.numeric(paste(paste("1e-", dec_place, sep=""),
+                                      incr, sep="")))%>%
       mutate(differentiator = freq + bigN2) %>%
       mutate(freq=differentiator)%>%
       select(word, freq)
 
-    tf_idf <- data.frame(tf_idf[1:length(magn_tf),])
+    tf_idf <- data.frame(tf_idf[seq_len(length(magn_tf)),])
     #tf_idf <- tf_idf[1:500,]
     tf_idf$freq <- magn_tf
     #tf_idf <- tf_idf %>%
