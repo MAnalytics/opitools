@@ -3,7 +3,7 @@
 \name{opi_sim}
 \alias{opi_sim}
 \title{Simulates the opinion expectation distribution
-of a text document.}
+of a digital text document.}
 \usage{
 opi_sim(osd_data, nsim=99, metric = 1, fun = NULL, quiet=TRUE)
 }
@@ -44,7 +44,7 @@ to the number of simulation (\code{nsim}) specified.
 \description{
 This function simulates the expectation distribution of the
 observed opinion score (computed using the \code{opi_score} function).
-The resulting tidy-format dataframe is described as the
+The resulting tidy-format dataframe can be described as the
 \verb{expected sentiment document (ESD)} (Adepeju and Jimoh, 2021).
 }
 \details{

@@ -3,7 +3,7 @@
 \name{opi_impact}
 \alias{opi_impact}
 \title{Statistical assessment of
-impacts of a specified theme from a document.}
+impacts of a specified theme from a DTD.}
 \usage{
 opi_impact(textdoc, theme_keys=NULL, metric = 1,
 fun = NULL, nsim = 99, alternative="two.sided",
@@ -60,14 +60,13 @@ primary subject \code{A}.
 }
 \description{
 This function assesses the impacts of a theme
-(or subject) on the overall opinion computed for a text
-document. The text records relating to the theme in question
-should be identified and provided as input
-to this function. The identification can be
-done by using keywords relating to the subject
-(see \code{word_importance} function).
-The keywords should then be collated and provided as input
-to this function (see below).
+(or subject) on the overall opinion computed for a DTD
+Different themes in a DTD can be identified by the keywords
+used in the DTD. These keywords (or words) can be extracted by
+any analytical means available to the users, e.g.
+\code{word_imp} function. The keywords must be collated and
+supplied this function through the \code{theme_keys} argument
+(see below).
 }
 \details{
 This function calculates the statistical
@@ -85,7 +84,7 @@ further details in Adepeju and Jimoh, 2021).
 # Application in marketing:
 
 #`data` -> 'reviews_dtd'
-#`theme` -> 'refreshment_theme'
+#`theme_keys` -> 'refreshment_theme'
 
 #RQ2a: "Do the refreshment outlets impact customers'
 #opinion of the services at the Piccadilly train station?"

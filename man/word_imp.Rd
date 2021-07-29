@@ -41,10 +41,9 @@ words are ranked in each group (histogram) in their order
 of importance.
 }
 \description{
-Produces a word cloud which represents the
+Produces a wordcloud which represents the
 level of importance of each word (across different text groups)
-within a text document,
-according to a specified measure.
+within a text document, according to a specified measure.
 }
 \details{
 The function determines the most important words
