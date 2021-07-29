@@ -1,6 +1,6 @@
 ---
 title: "R-Opitools – An Opinion Analytical Tool for Big Digital Text Document (DTD)"
-date: "28th July 2021"
+date: "30th July 2021"
 bibliography: paper.bib
 output: pdf_document
 affiliations:
