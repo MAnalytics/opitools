@@ -337,7 +337,6 @@ opi_impact <- function(textdoc, theme_keys=NULL, metric = 1,
 
   p_loc <- p_loc[, "comb"]
 
-
   #collate all results
   output$test <- "Test of significance (Randomization testing)"
   output$criterion <- alternative
