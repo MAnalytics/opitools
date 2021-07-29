@@ -21,7 +21,7 @@ osd_data
 A tidy-format list (dataframe) showing the resulting
 classification of each text record into positive, negative
 or neutral sentiment. The second column of the dataframe consists of
-labels variables \code{present} and \code{absent} to indicate whether any of the secondary
-keywords exist in a text record.
+labels variables \code{present} and \code{absent} to indicate whether any of
+the secondary keywords exist in a text record.
 }
 \keyword{datasets}
