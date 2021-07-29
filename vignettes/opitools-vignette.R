@@ -29,9 +29,11 @@ fig <- local({
 ## ---- include=TRUE, message=FALSE, eval=TRUE----------------------------------
 library(opitools) #for impact analysis
 require(knitr) #for rendering the vignette
+library(rvest)
 library(kableExtra) #for designing tables
 library(dplyr) #for data analysis
 library(cowplot) #for plot design
+
 
 
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------

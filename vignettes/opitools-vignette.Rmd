@@ -28,7 +28,7 @@ bibliography: references.bib
 abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing and politics.
 
 vignette: >
-  %\VignetteIndexEntry{A guide to using 'opitools' package for opinion and its impacts analysis}
+  %\VignetteIndexEntry{An Opinion Analytical Tool for Big Digital Text Document - A User Guide}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -146,9 +146,11 @@ setwd(WORKING_DIR)
 ```{r, include=TRUE, message=FALSE, eval=TRUE}
 library(opitools) #for impact analysis
 require(knitr) #for rendering the vignette
+library(rvest)
 library(kableExtra) #for designing tables
 library(dplyr) #for data analysis
 library(cowplot) #for plot design
+
 
 ```
 
