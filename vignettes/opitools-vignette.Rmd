@@ -25,7 +25,7 @@ always_allow_html: yes
 #fig_caption: yes
 bibliography: references.bib
 
-abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing and politics.
+abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing research and electoral politics.
 
 vignette: >
   %\VignetteIndexEntry{An Opinion Analytical Tool for Big Digital Text Document - A User Guide}
@@ -129,7 +129,7 @@ fig <- local({
 
 # Introduction
 
-The `'opitools'` provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of `opitools` for application across a wide variety of domains is demonstrated with examples from the `law enforcement` to examine the impacts of covid-19 on the citizens' opinion of their neighbourhood policing; from `marketing` to examine what features in and around a train station influence customers reviews of the train services; from `politics` to examine the extent to which a political candidate drives viewers opinion of a political debate. 
+The `'opitools'` provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of `opitools` for application across a wide variety of domains is demonstrated with examples from the `law enforcement` to examine the impacts of covid-19 on the citizens' opinion of their neighbourhood policing; from `marketing research` to examine what features in and around a train station influence customers reviews of the train services; from `electoral politics` to examine the extent to which a political candidate drives viewers opinion of a political debate. 
 
 
 ### Set the Working directory
@@ -161,7 +161,7 @@ The following datasets will be employed in our demonstration. The datasets are a
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
-col3 <- c("`Law Enforcement`","`Marketing`", "`Politics`")
+col3 <- c("`Law Enforcement`","`Marketing Research`", "`Electoral Politics`")
 col4 <- c("A digital text document (DTD) containing twitter posts, within a geographical neighbourhood, on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
@@ -423,7 +423,7 @@ knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.",
  
 In the marketing application (2a & 2b), we tested the impacts of two themes, namely; `refreshment items/outlets` and the `signages`, on the customers' opinions of the train services. The statistics (`S=67.92, pvalue = 0.01`) show an overall positive customers' opinions of the train station or services, with the refreshments items/outlets (in and around the station) contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages (in and around the station) have no significant influence (p=0.1) on the positive review of the train service. 
 
-The last application (politics) attempts to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (`S=-0.33, pvalue = 0.93`) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.
+The last application (electoral politics) attempts to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (`S=-0.33, pvalue = 0.93`) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.
 
 ### Using a user-defined opinion score function
 
