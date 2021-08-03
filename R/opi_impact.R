@@ -50,7 +50,7 @@
 #'
 #' @examples
 #'
-#' # Application in marketing:
+#' # Application in marketing research:
 #'
 #' #`data` -> 'reviews_dtd'
 #' #`theme_keys` -> 'refreshment_theme'
