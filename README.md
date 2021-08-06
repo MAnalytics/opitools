@@ -107,12 +107,12 @@ Table 1 summarizes the analysis using different example datasets provided in the
 ***Table 1. Impact analysis results***
 
 ```r
-|  RQs   | Primary data | Theme_keys        | Score function | Observed Score (S) | P-value    |
-|:-----: | :----------: | :---------------: | :-------------:| :-----------------:| :---------:| 
-|  RQ1   | policing_dtd | covid_theme       | '1'            | -5.88              | 0.52       |
-|  RQ2a  | reviews_dtd  | refreshment_theme | '1'            | 67.92              | 0.01       |
-|  RQ2b  | reviews_dtd  | signage_theme     | '1'            | 67.92              | 0.1        |
-|  RQ3   | debate_dtd   | direct input      | '1'            | -0.33              | 0.93       |
+|  RQs   | Primary data | Theme_keys        | Score function   | Observed Score (S) | P-value    |
+|:-----: | :----------: | :---------------: | :---------------:| :-----------------:| :---------:| 
+|  RQ1   | policing_dtd | covid_theme       | 'Polarity score' | -5.88              | 0.52       |
+|  RQ2a  | reviews_dtd  | refreshment_theme | 'Polarity score' | 67.92              | 0.01       |
+|  RQ2b  | reviews_dtd  | signage_theme     | 'Polarity score' | 67.92              | 0.1        |
+|  RQ3   | debate_dtd   | direct input      | 'Polarity score' | -0.33              | 0.93       |
 
 ```
 
