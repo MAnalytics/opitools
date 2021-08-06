@@ -4,7 +4,7 @@ title: "An Opinion Analytical Tool for Big Digital Text Document - A User Guide"
 author: |
   | `Author:`
   | `Adepeju, M.`
-  | `Big Data Centre, Manchester Metropolitan University, Manchester, M15 6BH`
+  | `Big Data Centre, Dept. of Sociology, Manchester Metropolitan University, Manchester, M15 6BH`
   
 date: |
   | `Date:`
