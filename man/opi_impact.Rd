@@ -81,7 +81,7 @@ further details in Adepeju and Jimoh, 2021).
 }
 \examples{
 
-# Application in marketing:
+# Application in marketing research:
 
 #`data` -> 'reviews_dtd'
 #`theme_keys` -> 'refreshment_theme'
