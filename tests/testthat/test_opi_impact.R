@@ -71,8 +71,8 @@ test_that("print out correct error msgs", {
 
 
 #check that the output is complete
-output3 <- opi_impact(textdoc=doc, theme_keys=keywords3, metric = 1,
-           fun = NULL, nsim = 99, alternative = "two.sided")
+#output3 <- opi_impact(textdoc=doc, theme_keys=keywords3, metric = 1,
+#           fun = NULL, nsim = 99, alternative = "two.sided")
 
 test_that('check that output is complete', {
   #check completeness of result..
