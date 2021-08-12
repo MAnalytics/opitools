@@ -4,3 +4,4 @@
 # Extra miscellaneous support files/directories.
 cran-comments.md
 ^CODE_OF_CONDUCT\.md$
+^\.github$
