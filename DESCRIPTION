@@ -45,5 +45,6 @@ Suggests:
   rmarkdown,
   testthat,
   rvest,
-  kableExtra
+  kableExtra,
+  markdown
 VignetteBuilder: knitr
