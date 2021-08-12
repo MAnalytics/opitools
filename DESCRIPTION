@@ -41,10 +41,5 @@ Imports:
   cowplot
 RoxygenNote: 7.1.1
 Suggests:
-  knitr,
-  rmarkdown,
-  testthat,
-  rvest,
-  kableExtra,
-  markdown
+  knitr
 VignetteBuilder: knitr
