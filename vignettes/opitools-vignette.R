@@ -39,7 +39,7 @@ library(cowplot) #for plot design
 ## ---- echo=FALSE, include=FALSE-----------------------------------------------
 col1 <- c("1", "2", "3")
 col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
-col3 <- c("`Law Enforcement`","`Marketing`", "`Politics`")
+col3 <- c("`Law Enforcement`","`Marketing Research`", "`Electoral Politics`")
 col4 <- c("A digital text document (DTD) containing twitter posts, within a geographical neighbourhood, on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).")
 col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
@@ -206,7 +206,7 @@ col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood polic
 col3 <- c("`policing_dtd`","`reviews_dtd`", "`reviews_dtd`", "`debate_dtd`")
 col4 <- c("`covid_theme`","`refreshment_theme`", "`signage_theme`", "direct input")
 col5 <- c("two.sided", "two.sided", "two.sided", "two.sided")
-col6 <- c("(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100", "(P - N)/(P + N)*100")
+col6 <- c("Polarity score", "Polarity score", "Polarity score", "Polarity score")
 col7 <- c("-5.88", "67.92", "67.92", "-0.33")
 col8 <- c("0.52", "0.01", "0.1", "0.93")
 tble4 <- data.frame(col1, col2, col3, col4, col5, col6, col7, col8)

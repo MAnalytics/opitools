@@ -581,12 +581,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">An Opinion Analytical Tool for Big Digital Text Document - A User Guide</h1>
 <h4 class="author"><div class="line-block"><code>Author:</code><br />
 <code>Adepeju, M.</code><br />
-<code>Big Data Centre, Manchester Metropolitan University, Manchester, M15 6BH</code></div></h4>
+<code>Big Data Centre, Manchester Metropolitan University, Manchester, M15 6BH, UK</code></div></h4>
 <h4 class="date"><div class="line-block"><code>Date:</code><br />
-<code>2021-07-29</code></div></h4>
+<code>2021-08-12</code></div></h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-The development of <code>&#39;opitools&#39;</code> is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of <code>Opitools</code> is demonstrated with examples from the law enforcement, marketing and politics.
+The development of <code>&#39;opitools&#39;</code> is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of <code>Opitools</code> is demonstrated with examples from the law enforcement, marketing research and electoral politics.
 </div>
 
 
@@ -659,7 +659,7 @@ h3 { /* Header 3 */
 </style>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The <code>&#39;opitools&#39;</code> provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of <code>opitools</code> for application across a wide variety of domains is demonstrated with examples from the <code>law enforcement</code> to examine the impacts of covid-19 on the citizens’ opinion of their neighbourhood policing; from <code>marketing</code> to examine what features in and around a train station influence customers reviews of the train services; from <code>politics</code> to examine the extent to which a political candidate drives viewers opinion of a political debate.</p>
+<p>The <code>&#39;opitools&#39;</code> provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of <code>opitools</code> for application across a wide variety of domains is demonstrated with examples from the <code>law enforcement</code> to examine the impacts of covid-19 on the citizens’ opinion of their neighbourhood policing; from <code>marketing research</code> to examine what features in and around a train station influence customers reviews of the train services; from <code>electoral politics</code> to examine the extent to which a political candidate drives viewers opinion of a political debate.</p>
 <div id="set-the-working-directory" class="section level3">
 <h3>Set the Working directory</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>WORKING_DIR &lt;-<span class="st"> &#39;C:/R/Github/JGIS_Policing_COVID-19&#39;</span></span>
@@ -734,7 +734,7 @@ www.twitter.com
 <code>reviews_dtd</code>
 </td>
 <td style="text-align:left;width: 12em; background-color: white !important;">
-<code>Marketing</code>
+<code>Marketing Research</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
 A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.
@@ -751,7 +751,7 @@ www.tripadvisor.co.uk
 <code>debate_dtd</code>
 </td>
 <td style="text-align:left;width: 12em; background-color: white !important;">
-<code>Politics</code>
+<code>Electoral Politics</code>
 </td>
 <td style="text-align:left;width: 16em; background-color: white !important;">
 A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).
@@ -1073,7 +1073,7 @@ Does COVID-19 pandemic influence public opinion on neighourhood policing?
 two.sided
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
-(P - N)/(P + N)*100
+Polarity score
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 -5.88
@@ -1099,7 +1099,7 @@ Do the refreshment outlets/items impact customers’ opinion of the Piccadilly t
 two.sided
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
-(P - N)/(P + N)*100
+Polarity score
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 67.92
@@ -1125,7 +1125,7 @@ Do the signages influence customers’ opinion of the Piccadilly train services?
 two.sided
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
-(P - N)/(P + N)*100
+Polarity score
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 67.92
@@ -1151,7 +1151,7 @@ direct input
 two.sided
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
-(P - N)/(P + N)*100
+Polarity score
 </td>
 <td style="text-align:left;width: 8em; background-color: white !important;">
 -0.33
@@ -1163,7 +1163,7 @@ two.sided
 </tbody>
 </table>
 <p>In the marketing application (2a &amp; 2b), we tested the impacts of two themes, namely; <code>refreshment items/outlets</code> and the <code>signages</code>, on the customers’ opinions of the train services. The statistics (<code>S=67.92, pvalue = 0.01</code>) show an overall positive customers’ opinions of the train station or services, with the refreshments items/outlets (in and around the station) contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages (in and around the station) have no significant influence (p=0.1) on the positive review of the train service.</p>
-<p>The last application (politics) attempts to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (<code>S=-0.33, pvalue = 0.93</code>) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.</p>
+<p>The last application (electoral politics) attempts to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (<code>S=-0.33, pvalue = 0.93</code>) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.</p>
 </div>
 <div id="using-a-user-defined-opinion-score-function" class="section level3">
 <h3>Using a user-defined opinion score function</h3>
