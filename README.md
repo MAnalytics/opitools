@@ -1,7 +1,3 @@
----
-output:
-  html_document: default
----
 # "Opitools"
 
 An R-package for analyzing Opinions in Big Digital Text Document (DTD)
