@@ -45,6 +45,8 @@ Utilize `word_imp` function to highlights terms or words in accordance to their 
 ```r
 > p1a <- word_imp(textdoc = policing_dtd, metric= "tf", 
                            words_to_filter=c("police","policing"))
+                           
+#Note: `policing_dtd` is a dataframe
 ```
 
 ### Impact analysis
@@ -58,6 +60,8 @@ results <- opi_impact(textdoc = policing_dtd, theme_keys=covid_theme, metric = 1
                        fun = NULL, nsim = 99, alternative="two.sided",
                        pplot = TRUE, quiet=FALSE)
                        
+#Note: `policing_dtd` is a dataframe    
+
 print(results)
 
 $test
