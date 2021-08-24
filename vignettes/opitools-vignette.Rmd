@@ -224,8 +224,9 @@ tweets_dat <- as.data.frame(tweets[,1])
 # Run function
 plt = word_distrib(textdoc = tweets_dat)
 
-#Show Zipf's distribution:
+#Note: `tweets_dat` is a dataframe 
 
+#Show Zipf's distribution:
 plt$plot
 
 ```
@@ -251,6 +252,8 @@ data("reviews_dtd")
 #based on  (a) ‘tf’ and (b) 'tf-idf' metrics
 p1a <- word_imp(textdoc = policing_dtd, metric= "tf", 
                            words_to_filter=c("police","policing"))
+
+#Note: `policing_dtd` is a dataframe 
 
 p1b <- word_imp(textdoc = policing_dtd, metric= "tf-idf", 
                            words_to_filter=c("police","policing"))
@@ -331,6 +334,9 @@ data(covid_theme)
 output1 <- opi_impact(policing_dtd, theme_keys=covid_theme, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        quiet=TRUE)
+
+#Note: `policing_dtd` is a dataframe 
+
 print(output1)
 
 ```
@@ -445,9 +451,8 @@ myfun <- function(P, N, O){
 
 ```
 
-(b) Integrate the function and run analysis
+(b) Integrate the function and run analysis (for example)
 
-For example,
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
