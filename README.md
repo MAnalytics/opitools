@@ -91,17 +91,17 @@ The research question of the analysis above can be stated as follows:
 
 ***RQ1***: "Does COVID-19 pandemic influence public opinion on neighourhood policing?"
 
-The output shows an overall negative opinion (`-5.88`) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (`pvalue` = 0.52) on the opinion expressed by the public. (More detailed explanation can be found in the study [adepeju, M. and Jimoh, F. (2021)](https://osf.io/preprints/socarxiv/c32qh/)). 
+The output shows an overall negative opinion (`-5.88`) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (`pvalue` = 0.52) on the opinion expressed by the public. (More detailed explanation can be found in the study [adepeju, M. and Jimoh, F. (2021)](https://www.scirp.org/journal/paperinformation.aspx?paperid=107836)). 
 
 ### Other applications
 
 Table 1 summarizes the analysis using different example datasets provided in the package. The output from the law enforcement application (as in above) is entered in the first row of the table. Other research questions investigated are as follow:
 
-***RQ2a***: "Do the refreshment outlets/items impact customers’ opinion of the Piccadilly train services?"
+***RQ2***: "How does the democratic candidate (Hillary Clinton) affects viewers’ opinion of the presidential debate?"
 
-***RQ2b***: "Do the signages influence customers’ opinion of the Piccadilly train services?"
+***RQ3a***: "Do the refreshment outlets/items impact customers’ opinion of the Piccadilly train services?"
 
-***RQ3***: "How does the democratic candidate (Hillary Clinton) affects viewers’ opinion of the presidential debate?"
+***RQ4b***: "Do the signages influence customers’ opinion of the Piccadilly train services?"
 
 
 ***Table 1. Impact analysis results***
@@ -110,17 +110,17 @@ Table 1 summarizes the analysis using different example datasets provided in the
 |  RQs   | Primary data | Theme_keys        | Score function   | Observed Score (S) | P-value    |
 |:-----: | :----------: | :---------------: | :---------------:| :-----------------:| :---------:| 
 |  RQ1   | policing_dtd | covid_theme       | 'Polarity score' | -5.88              | 0.52       |
-|  RQ2a  | reviews_dtd  | refreshment_theme | 'Polarity score' | 67.92              | 0.01       |
-|  RQ2b  | reviews_dtd  | signage_theme     | 'Polarity score' | 67.92              | 0.1        |
-|  RQ3   | debate_dtd   | direct input      | 'Polarity score' | -0.33              | 0.93       |
+|  RQ2   | debate_dtd   | direct input      | 'Polarity score' | -0.33              | 0.93       |
+|  RQ3a  | reviews_dtd  | refreshment_theme | 'Polarity score' | 67.92              | 0.01       |
+|  RQ3b  | reviews_dtd  | signage_theme     | 'Polarity score' | 67.92              | 0.1        |
 
 ```
 
-In each example, the same opinion score function is employed (`metric = 1`, i.e. the `polarity score = (P - N)/(P + N)*100`, where `P` and `N` represent `positive` and `negative` sentiments, respectively). See the documentation for details. Employing a threshold of `p=0.05`, any p-values less or equal to the threshold (e.g. RQ2a) represent a significant impact of the specified theme (i.e. `refreshment_theme`) on the overall opinion score computed based on the `reviews_dtd`.
+In each example, the same opinion score function is employed (`metric = 1`, i.e. the `polarity score = (P - N)/(P + N)*100`, where `P` and `N` represent `positive` and `negative` sentiments, respectively). See the documentation for details. Employing a threshold of `p=0.05`, any p-values less or equal to the threshold (e.g. RQ3a) represent a significant impact of the specified theme (i.e. `refreshment_theme`) on the overall opinion score computed based on the `reviews_dtd`.
 
 
 ### References
-1. Adepeju, M. and Jimoh, F. (2021). An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the impacts of COVID-19 Pandemic using Twitter Data. [https://doi.org/10.31235/osf.io/c32qh](https://osf.io/preprints/socarxiv/c32qh/)
+1. Adepeju, M. and Jimoh, F. (2021). An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the impacts of COVID-19 Pandemic using Twitter Data. [click here:](https://www.scirp.org/journal/paperinformation.aspx?paperid=107836)
 
 
 ## Code of Conduct
