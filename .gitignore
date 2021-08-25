@@ -1,2 +1,6 @@
 .Rproj.user
-R/test.R
+doc
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
