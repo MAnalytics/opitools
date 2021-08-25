@@ -1,7 +1,3 @@
----
-output:
-  html_document: default
----
 # "Opitools"
 
 An R-package for analyzing Opinions in Big Digital Text Document (DTD)
@@ -60,8 +56,7 @@ The impact analysis can be conducted as follows:
 #Running the analysis
 
 results <- opi_impact(textdoc = policing_dtd, theme_keys=covid_theme, metric = 1,
-                       fun = NULL, nsim = 99, alternative="two.sided",
-                       pplot = TRUE, quiet=FALSE)
+                       fun = NULL, nsim = 99, alternative="two.sided", quiet=FALSE)
                        
 #Note: `policing_dtd` is a dataframe    
 

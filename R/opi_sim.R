@@ -32,14 +32,14 @@
 #' @examples
 #'
 #' #Prepare an osd data from the output
-#' #of `opi_score` function.
+#' #of opi_score function.
 #'
 #' score <- opi_score(textdoc = policing_dtd,
 #'                      metric = 1, fun = NULL)
 #' #extract OSD
 #' OSD <- score$OSD
-#' #note that `OSD` is shorter in length
-#' #than `policing_dtd`, meaning that some
+#' #note that OSD is shorter in length
+#' #than policing_dtd, meaning that some
 #' #text records were not classified
 #'
 #' #Bind a fictitious indicator column

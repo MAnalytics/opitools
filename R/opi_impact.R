@@ -52,8 +52,8 @@
 #'
 #' # Application in marketing research:
 #'
-#' #`data` -> 'reviews_dtd'
-#' #`theme_keys` -> 'refreshment_theme'
+#' # data -> 'reviews_dtd'
+#' # theme_keys -> 'refreshment_theme'
 #'
 #' #RQ2a: "Do the refreshment outlets impact customers'
 #' #opinion of the services at the Piccadilly train station?"
@@ -215,7 +215,6 @@ opi_impact <- function(textdoc, theme_keys=NULL, metric = 1,
   #unique(likert_osd$class)
 
   #plot function here
-  #if(pplot == TRUE){
     lik_p1 <- data.frame(likert_osd) %>% mutate_if(is.character,as.factor)
     # Make list of ordered factor variables
     out <- lapply(lik_p1, function(x) ordered(x,
@@ -229,7 +228,6 @@ opi_impact <- function(textdoc, theme_keys=NULL, metric = 1,
     title <- "Percentage proportion of classes"
     #plot(p, center=3, centered=FALSE) + ggtitle(title)
     pp <- likert.bar.plot(p, legend="Classes")
-  #}
 
     #terminate process if keyword fields
     #does not include both 'present' and 'absent'
