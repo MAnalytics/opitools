@@ -25,7 +25,7 @@ always_allow_html: yes
 #fig_caption: yes
 bibliography: references.bib
 
-abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, marketing research and electoral politics.
+abstract: The development of `'opitools'` is instigated by the lack of tools for performing opinion impact analysis of a digital text document (DTD). The package includes a number of interrelated functions for exploring and analyzing text records in order to complete an opinion impact analysis of a digital text document (DTD). The utility of `Opitools` is demonstrated with examples from the law enforcement, electoral politics and product marketing.
 
 vignette: >
   %\VignetteIndexEntry{An Opinion Analytical Tool for Big Digital Text Document - A User Guide}
@@ -129,7 +129,7 @@ fig <- local({
 
 # Introduction
 
-The `'opitools'` provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of `opitools` for application across a wide variety of domains is demonstrated with examples from the `law enforcement` to examine the impacts of covid-19 on the citizens' opinion of their neighbourhood policing; from `marketing research` to examine what features in and around a train station influence customers reviews of the train services; from `electoral politics` to examine the extent to which a political candidate drives viewers opinion of a political debate. 
+The `'opitools'` provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of `opitools` for application across a wide variety of domains is demonstrated with examples from the `law enforcement` to examine the impacts of covid-19 on the citizens' opinion of their neighbourhood policing; from `electoral politics` to examine the extent to which a political candidate drives viewers opinion of a political debate; and from `product marketing` to examine what features in and around a train station influence customers reviews of the train services;  
 
 
 ### Set the Working directory
@@ -160,10 +160,10 @@ The following datasets will be employed in our demonstration. The datasets are a
 
 ```{r, echo=FALSE, include=FALSE}
 col1 <- c("1", "2", "3")
-col2 <- c("`policing_dtd`","`reviews_dtd`","`debate_dtd`")
-col3 <- c("`Law Enforcement`","`Marketing Research`", "`Electoral Politics`")
-col4 <- c("A digital text document (DTD) containing twitter posts, within a geographical neighbourhood, on police/policing during the 2020 COVID-19 pandemic", "A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.", "A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).")
-col5 <- c("www.twitter.com", "www.tripadvisor.co.uk","www.youtube.com")
+col2 <- c("`policing_dtd`", "`debate_dtd`", "`reviews_dtd`")
+col3 <- c("`Law Enforcement`", "`Electoral Politics`", "`Product Marketing`")
+col4 <- c("A digital text document (DTD) containing twitter posts, within a geographical neighbourhood, on police/policing during the 2020 COVID-19 pandemic", "A DTD containing individual comments on the video showing the debate between two United States presidential candidates (Donald Trump and Hillary Clinton) in September of 2016. (Credit: NBC News).", "A DTD containing customers reviews of the Piccadilly train station (Manchester, UK). The records cover from July 2016 to March 2021.")
+col5 <- c("www.twitter.com", "www.youtube.com", "www.tripadvisor.co.uk")
 tble1 <- data.frame(col1, col2, col3, col4, col5)
 tble1 <- tble1
 ```
@@ -224,8 +224,9 @@ tweets_dat <- as.data.frame(tweets[,1])
 # Run function
 plt = word_distrib(textdoc = tweets_dat)
 
-#Show Zipf's distribution:
+#Note: `tweets_dat` is a dataframe 
 
+#Show Zipf's distribution:
 plt$plot
 
 ```
@@ -236,21 +237,23 @@ knitr::include_graphics("zipf.png")
 
 For a natural language text, the Zipf's distribution plot has a negative slope with each term falling on a straight line. Any variance from this (ideal) trend can be attributed to imperfections in the term usage. For example, the presence of strange terms or 'made-up' words can cause a deviation from the ideal trend. The result of our example dataaset is shown in Figure `r fig$ref("figs1")`. The graph can be divided into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an ideal Zipf's distribution), we can see what the slope of the upper section is quite different from the middle and the lower sections of the graph. The variance at the high rank terms (usually, common terms, such as 'the', 'of', and 'at',) indicates an imperfection because of lack of perfect alignment with the straight line. For Twitter data, this variance suggests a significant use of abbreviated terms, such as using "&" or "nd" instead of the term "`and`". Apart from the small variance at the upper section of the graph, we can state that the law holds within most parts of the document.
 
-The second exploratory function `'word_imp'` can be used to highlight the importance of each terms in a DTD. The level of importance can then be used to identify different themes (or subjects) from the DTD. Two measures, namely (i) `'term frequency (tf)'` and `term frequency inverse document frequency (tf-idf)` [@Silge2016] can be used to highlight the importance of terms in a DTD. In Figure 2, results 1, 2 and 3 are generated from the datasets; `policing_dtd`, `reviews_dtd` and `debate_dtd`, respectively. The results of the measures `'tf'` and `'tf_idf'` for each data sample are labeled as A and B, respectively. The function draws from `wordcloud2` package in R [@Dawei2018], in order to highlight words importance as shown in Figure 2.
+The second exploratory function `'word_imp'` can be used to highlight the importance of each terms in a DTD. The level of importance can then be used to identify different themes (or subjects) from the DTD. Two measures, namely (i) `'term frequency (tf)'` and `term frequency inverse document frequency (tf-idf)` [@Silge2016] can be used to highlight the importance of terms in a DTD. In Figure 2, results 1, 2 and 3 are generated from the datasets; `policing_dtd`, `debate_dtd` `reviews_dtd`, respectively. The results for each data sample based on the `'tf'` and `'tf_idf'` measures are labeled as A and B, respectively. The function draws from `wordcloud2` package in R [@Dawei2018], in order to highlight words importance as shown in Figure 2.
 
 ```{r, message=FALSE, include = TRUE, eval=FALSE}
 
 #Load datasets
 
 data("policing_dtd")
-data("reviews_dtd")
 data("debate_dtd")
+data("reviews_dtd")
 
 
 #Words importance of public tweets on neighbourhood policing 
-#based on  (a) ‘tf’ (b) 'tf-idf'  
+#based on  (a) ‘tf’ and (b) 'tf-idf' metrics
 p1a <- word_imp(textdoc = policing_dtd, metric= "tf", 
                            words_to_filter=c("police","policing"))
+
+#Note: `policing_dtd` is a dataframe 
 
 p1b <- word_imp(textdoc = policing_dtd, metric= "tf-idf", 
                            words_to_filter=c("police","policing"))
@@ -258,21 +261,21 @@ p1b <- word_imp(textdoc = policing_dtd, metric= "tf-idf",
 #Note: 'words_to_filter' parameter is used to eliminate non-necessary words that 
 #may be too dominant in the DTD.
 
-#Words importance of customer reviews of a transport service 
-#based on (a) ‘tf’ (b) 'tf-idf' 
-p2a <- word_imp(textdoc = reviews_dtd, metric= "tf", 
-                words_to_filter=c("station")) 
-
-p2b <- word_imp(textdoc = reviews_dtd, metric= "tf-idf",  
-                words_to_filter=c("station")) 
-
 #Words importance  of comments on a video of a political debate 
-#based on (a) ‘tf’ (b) 'tf-idf'
-p3a <- word_imp(textdoc = debate_dtd, metric= "tf", 
+#based on (a) ‘tf’ and (b) 'tf-idf' metrics
+p2a <- word_imp(textdoc = debate_dtd, metric= "tf", 
                 words_to_filter=c("trump","hillary")) 
 
-p3b <- word_imp(textdoc = debate_dtd, metric= "tf-idf", 
+p2b <- word_imp(textdoc = debate_dtd, metric= "tf-idf", 
                 words_to_filter=c("trump","hillary")) 
+
+#Words importance of customer reviews of a transport service 
+#based on (a) ‘tf’ and (b) 'tf-idf' metrics 
+p3a <- word_imp(textdoc = reviews_dtd, metric= "tf", 
+                words_to_filter=c("station")) 
+
+p3b <- word_imp(textdoc = reviews_dtd, metric= "tf-idf",  
+                words_to_filter=c("station")) 
 
 #outputs
 p1a$plot; p1b$plot; p2a$plot; p2b$plot; p3a$plot; p3b$plot
@@ -283,9 +286,9 @@ p1a$plot; p1b$plot; p2a$plot; p2b$plot; p3a$plot; p3b$plot
 knitr::include_graphics("wordcloud.png")
 ```
 
-In Figure `r fig$ref("figs2")`, the size of a word represents its level of importance according to a selected metric (i.e. 'tf' or 'tf-idf'). From each representation, a user can easily identify (related) words that denote certain themes or subjects within the document. In Figure 1A, words such as 'lockdown', 'infect' and 'covid', refer to the sentiments relating to the pandemic under which the police were operating as at the time tweets were posted. "Does the pandemic has any significant impacts on the public opinion of the police activities during the period?". This is an example of the RQs that can be investigated using `Opitools`. On the other hand, Figure 1B shows that the word importance may vary significantly by the choice of the measure between 'tf' and 'tf-idf'. Figure 1B shows that a significant amount of the most important words using `tf-idf` are distinct from those ones resulting from using `tf`. 
+In Figure `r fig$ref("figs2")`, the size of a word represents its level of importance according to a selected metric (i.e. 'tf' or 'tf-idf'). From each representation, a user can easily identify (related) words that denote certain themes or subjects within the document. In Figure 1A, words such as 'lockdown', 'infect' and 'covid', refer to the sentiments relating to the pandemic under which the police were operating as at the time tweets were posted. "Does the pandemic has any significant impacts on the public opinion of the police activities during the period?". This is an example of the RQs from social science research that can be investigated using `Opitools`. On the other hand, Figure 1B shows that the word importance may vary significantly by the choice of the measure between 'tf' and 'tf-idf'. Figure 1B shows that a significant amount of the most important words using `tf-idf` are distinct from those ones resulting from using `tf`. 
 
-In Figure 2A, we see that related words, such as 'restaurant', 'shops', 'food' and 'coffee', denoting `refreshment items`, are highlighted as been the most important to the customers. "`Do these refreshment items impact the overall customers' opinion of the train services?`". Similarly, related words such as 'board', 'map' and 'display', denoting `signages` around the station may have influenced customers opinion of the station.
+In marketing research (Figure 3A), we see that related words, such as 'restaurant', 'shops', 'food' and 'coffee', denoting `refreshment items`, are highlighted as been the most important to the customers. "`Do these refreshment items impact the overall customers' opinion of the train services?`". Similarly, related words such as 'board', 'map' and 'display', denoting `signages` around the station may have influenced customers opinion of the station.
 
 
 ### Analytical functions
@@ -331,6 +334,9 @@ data(covid_theme)
 output1 <- opi_impact(policing_dtd, theme_keys=covid_theme, metric = 1,
                        fun = NULL, nsim = 99, alternative="two.sided",
                        quiet=TRUE)
+
+#Note: `policing_dtd` is a dataframe 
+
 print(output1)
 
 ```
@@ -394,14 +400,14 @@ knitr::include_graphics("likert.png")
 Table 4 summarizes the results of impact analysis using all the example datasets in Table 1 with their respective research questions (RQs). The outputs from the law enforcement application (as in above) is entered as the first record of the table. In each example, we employed the same score function (`metric = 1`, i.e. `polarity score = (P - N)/(P + N)*100`, where `P` and `N` represent `positive` and `negative` sentiments, respectively). See the documentation for details.
 
 ```{r, echo=FALSE, include=FALSE}
-col1 <- c("1", "2a", "2b","3")
-col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "Do the refreshment outlets/items impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?", "How does the democratic candidate (Hillary Clinton) affects viewers' opinion of the presidential debate?")
-col3 <- c("`policing_dtd`","`reviews_dtd`", "`reviews_dtd`", "`debate_dtd`")
-col4 <- c("`covid_theme`","`refreshment_theme`", "`signage_theme`", "direct input")
+col1 <- c("1", "2", "3a","3b")
+col2 <- c("Does COVID-19 pandemic influence public opinion on neighourhood policing?", "How does the democratic candidate (Hillary Clinton) affects viewers' opinion of the presidential debate?", "Do the refreshment outlets/items impact customers' opinion of the Piccadilly train services?", "Do the signages influence customers' opinion of the Piccadilly train services?")
+col3 <- c("`policing_dtd`","`debate_dtd`","`reviews_dtd`", "`reviews_dtd`")
+col4 <- c("`covid_theme`","direct input","`refreshment_theme`", "`signage_theme`")
 col5 <- c("two.sided", "two.sided", "two.sided", "two.sided")
 col6 <- c("Polarity score", "Polarity score", "Polarity score", "Polarity score")
-col7 <- c("-5.88", "67.92", "67.92", "-0.33")
-col8 <- c("0.52", "0.01", "0.1", "0.93")
+col7 <- c("-5.88", "-0.33", "67.92", "67.92")
+col8 <- c("0.52", "0.93", "0.01", "0.1")
 tble4 <- data.frame(col1, col2, col3, col4, col5, col6, col7, col8)
 tble4 <- tble4
 ```
@@ -421,9 +427,10 @@ knitr::kable(tble4, caption = "Table 4. `Impact analysis`", col.names = c("SN.",
   #row_spec(3:5, bold = T, color = "white", background = "#D7261E")
 ```
  
-In the marketing application (2a & 2b), we tested the impacts of two themes, namely; `refreshment items/outlets` and the `signages`, on the customers' opinions of the train services. The statistics (`S=67.92, pvalue = 0.01`) show an overall positive customers' opinions of the train station or services, with the refreshments items/outlets (in and around the station) contributing significantly towards the positive opinions. On the other hand, the result (2b) indicates that the signages (in and around the station) have no significant influence (p=0.1) on the positive review of the train service. 
+In the application to electoral politics, we attempt to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (`S=-0.33, pvalue = 0.93`) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.
 
-The last application (electoral politics) attempts to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (`S=-0.33, pvalue = 0.93`) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.
+Lastly in the marketing application (3a & 3b), we tested the impacts of two themes, namely; `refreshment items/outlets` and the `signages`, on the customers' opinions of the Piccadilly train services. The statistics (`S=67.92, pvalue = 0.01`) show an overall positive customers' opinions of the train station or services, with the refreshments items/outlets (in and around the station) contributing significantly towards the positive opinions. On the other hand, the the signages (in and around the station) have no significant influence (p=0.1) on the positive review of the train service. 
+
 
 ### Using a user-defined opinion score function
 
@@ -444,7 +451,8 @@ myfun <- function(P, N, O){
 
 ```
 
-(b) Integrate the function and run analysis
+(b) Integrate the function and run analysis (for example)
+
 
 ```{r, echo=TRUE, message=FALSE, eval=FALSE}
 
@@ -456,7 +464,7 @@ output <- opi_impact(debate_dtd, theme_keys=keys, metric = 5,
 
 # Conclusion
 
-The `opitools` package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in [@Adepeju2021] in its application in law enforcement domain. In addition, this vignette demonstrates the potentials of the package for application across a wide variety of areas, with examples from marketing and political domains. This package is being updated on a regular basis to add more functionalities. 
+The `opitools` package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in [@Adepeju2021] in its application in law enforcement domain. In addition, this vignette demonstrates the potentials of the package for application across a wide variety of areas, with examples from electoral politics and product marketing. This package is being updated on a regular basis to add more functionalities. 
 
 We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly. 
 
