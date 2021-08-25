@@ -206,14 +206,14 @@ Twitter Data. https://doi.org/10.31235/osf.io/c32qh</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>#Prepare an osd data from the output</span>
-<span class='co'>#of `opi_score` function.</span>
+<span class='co'>#of opi_score function.</span>
 
 <span class='va'>score</span> <span class='op'>&lt;-</span> <span class='fu'><a href='opi_score.html'>opi_score</a></span><span class='op'>(</span>textdoc <span class='op'>=</span> <span class='va'>policing_dtd</span>,
                      metric <span class='op'>=</span> <span class='fl'>1</span>, fun <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 <span class='co'>#extract OSD</span>
 <span class='va'>OSD</span> <span class='op'>&lt;-</span> <span class='va'>score</span><span class='op'>$</span><span class='va'>OSD</span>
-<span class='co'>#note that `OSD` is shorter in length</span>
-<span class='co'>#than `policing_dtd`, meaning that some</span>
+<span class='co'>#note that OSD is shorter in length</span>
+<span class='co'>#than policing_dtd, meaning that some</span>
 <span class='co'>#text records were not classified</span>
 
 <span class='co'>#Bind a fictitious indicator column</span>

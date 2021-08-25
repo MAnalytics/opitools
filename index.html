@@ -93,9 +93,6 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
-<hr>
-<p>output: html_document: default —</p>
 <div id="opitools" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#opitools" class="anchor"></a>“Opitools”</h1></div>
@@ -143,37 +140,36 @@ library(opitools)
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#Running the analysis</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a>results &lt;-<span class="st"> </span><span class="kw">opi_impact</span>(<span class="dt">textdoc =</span> policing_dtd, <span class="dt">theme_keys=</span>covid_theme, <span class="dt">metric =</span> <span class="dv">1</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>                       <span class="dt">fun =</span> <span class="ot">NULL</span>, <span class="dt">nsim =</span> <span class="dv">99</span>, <span class="dt">alternative=</span><span class="st">"two.sided"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>                       <span class="dt">pplot =</span> <span class="ot">TRUE</span>, <span class="dt">quiet=</span><span class="ot">FALSE</span>)</span>
-<span id="cb4-6"><a href="#cb4-6"></a>                       </span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#Note: `policing_dtd` is a dataframe    </span></span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">print</span>(results)</span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="op">$</span>test</span>
-<span id="cb4-12"><a href="#cb4-12"></a>[<span class="dv">1</span>] <span class="st">"Test of significance (Randomization testing)"</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="op">$</span>criterion</span>
-<span id="cb4-15"><a href="#cb4-15"></a>[<span class="dv">1</span>] <span class="st">"two.sided"</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="op">$</span>exp_summary</span>
-<span id="cb4-18"><a href="#cb4-18"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span id="cb4-19"><a href="#cb4-19"></a> <span class="fl">-8.240</span>  <span class="fl">-5.880</span>  <span class="fl">-5.880</span>  <span class="fl">-5.028</span>  <span class="fl">-3.530</span>  <span class="fl">-1.180</span> </span>
-<span id="cb4-20"><a href="#cb4-20"></a></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="op">$</span>p_table</span>
+<span id="cb4-4"><a href="#cb4-4"></a>                       <span class="dt">fun =</span> <span class="ot">NULL</span>, <span class="dt">nsim =</span> <span class="dv">99</span>, <span class="dt">alternative=</span><span class="st">"two.sided"</span>, <span class="dt">quiet=</span><span class="ot">FALSE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>                       </span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#Note: `policing_dtd` is a dataframe    </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="kw">print</span>(results)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="op">$</span>test</span>
+<span id="cb4-11"><a href="#cb4-11"></a>[<span class="dv">1</span>] <span class="st">"Test of significance (Randomization testing)"</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="op">$</span>criterion</span>
+<span id="cb4-14"><a href="#cb4-14"></a>[<span class="dv">1</span>] <span class="st">"two.sided"</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="op">$</span>exp_summary</span>
+<span id="cb4-17"><a href="#cb4-17"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
+<span id="cb4-18"><a href="#cb4-18"></a> <span class="fl">-8.240</span>  <span class="fl">-5.880</span>  <span class="fl">-5.880</span>  <span class="fl">-5.028</span>  <span class="fl">-3.530</span>  <span class="fl">-1.180</span> </span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="op">$</span>p_table</span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
 <span id="cb4-22"><a href="#cb4-22"></a></span>
-<span id="cb4-23"><a href="#cb4-23"></a></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="op">|</span>observed_score <span class="op">|</span>S_beat <span class="op">|</span>nsim <span class="op">|</span>pvalue  <span class="op">|</span>signif <span class="op">|</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="er">|:</span><span class="op">--------------</span><span class="er">|:</span><span class="op">------</span><span class="er">|:</span><span class="op">----</span><span class="er">|:</span><span class="op">-------</span><span class="er">|:</span><span class="op">------</span><span class="er">|</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="er">|</span><span class="op">-</span><span class="fl">5.88</span>          <span class="op">|</span><span class="dv">56</span>     <span class="op">|</span><span class="dv">99</span>   <span class="op">|</span><span class="fl">0.52</span>    <span class="op">|</span><span class="st">'      |</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="st">$p_key</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="st">[1] "0.99'"   "</span><span class="fl">0.05</span><span class="op">*</span><span class="st">"   "</span><span class="fl">0.025</span><span class="op">**</span><span class="st">" "</span><span class="fl">0.01</span><span class="op">**</span><span class="er">*</span><span class="st">"</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="st">$p_formula</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="st">[1] "</span>(S_beat <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(nsim <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="st">"</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a></span>
-<span id="cb4-34"><a href="#cb4-34"></a><span class="st">#......</span></span></code></pre></div>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="op">|</span>observed_score <span class="op">|</span>S_beat <span class="op">|</span>nsim <span class="op">|</span>pvalue  <span class="op">|</span>signif <span class="op">|</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="er">|:</span><span class="op">--------------</span><span class="er">|:</span><span class="op">------</span><span class="er">|:</span><span class="op">----</span><span class="er">|:</span><span class="op">-------</span><span class="er">|:</span><span class="op">------</span><span class="er">|</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="er">|</span><span class="op">-</span><span class="fl">5.88</span>          <span class="op">|</span><span class="dv">56</span>     <span class="op">|</span><span class="dv">99</span>   <span class="op">|</span><span class="fl">0.52</span>    <span class="op">|</span><span class="st">'      |</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="st">$p_key</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="st">[1] "0.99'"   "</span><span class="fl">0.05</span><span class="op">*</span><span class="st">"   "</span><span class="fl">0.025</span><span class="op">**</span><span class="st">" "</span><span class="fl">0.01</span><span class="op">**</span><span class="er">*</span><span class="st">"</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="st">$p_formula</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="st">[1] "</span>(S_beat <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(nsim <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="st">"</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="st">#......</span></span></code></pre></div>
 <p>The research question of the analysis above can be stated as follows:</p>
 <p><strong><em>RQ1</em></strong>: “Does COVID-19 pandemic influence public opinion on neighourhood policing?”</p>
 <p>The output shows an overall negative opinion (<code>-5.88</code>) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (<code>pvalue</code> = 0.52) on the opinion expressed by the public. (More detailed explanation can be found in the study <a href="https://www.scirp.org/journal/paperinformation.aspx?paperid=107836">adepeju, M. and Jimoh, F. (2021)</a>).</p>
@@ -209,7 +205,6 @@ library(opitools)
 <p>Please note that the <code>opitools</code> package is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
