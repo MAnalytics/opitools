@@ -21,8 +21,9 @@ library(opitools)
 ```
 
 To install the developmental version of the package, type:
-`remotes::install_github("MAnalytics/opitools")`. Please, report any
-installation problems in the issues.
+`remotes::install_github("MAnalytics/opitools")`. (Note: `remotes` is an extra package that needed to be installed prior to the running of this code). 
+
+Please, report any installation problems in the issues.
 
 ## Example usage
 
