@@ -20,7 +20,7 @@ Description: Designed for performing impact analysis of
 Language: en-US
 License: GPL-3
 URL: https://github.com/MAnalytics/opitools
-BugReports: https://github.com/MAnalytics/opitools/issues/1
+BugReports: https://github.com/MAnalytics/opitools/issues/new/choose
 Depends: R (>= 4.0.0)
 Encoding: UTF-8
 LazyData: true
