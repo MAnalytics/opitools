@@ -19,7 +19,9 @@ authors:
 
 # Statement of Need
 
-Since the year 2000, various computational intelligence techniques have been developed for analyzing sentiments of users either in the field of natural language processing or computational linguistics. To date, the majority of the techniques as deployed across various fields, including Social science [@Somasundaran:2010; @Morency:2011; @Nikolovska:2020], Market research [@Feldman:2011; @Otaibi:2018], and Electoral politics [@Ansari:2020; @Connor:2010] have focused largely on detecting subjectivity, and/or extracting and classifying sentiments and opinions in a text document. Building on this existing work, the current paper advances an opinion impact analytical tool, namely; `Opitools`, that does not only extracts inherent themes from within a digital text document (DTD), but also evaluates the extent to which a specified theme may have contributed to the overall opinions expressed by the document. Based on this advancement, `Opitools` holds prospect for wider applications, compared to the existing techniques, in the aforementioned application fields. For example, in Law enforcement, the package can be deployed to understand factors (themes) that drive public perception of the police services [@Adepeju:2021]; in Market research, to identify factors that underlie customers satisfaction in a product; and, in Electoral politics, to identify factors that may be influencing electoral interests in an upcoming election. These examples have also been demonstrated in the documentation of the package (please see the `README.md` file and the package `Vignette` for details). Lastly, it is argued that this contribution provides a framework by which some of the existing opinion mining tools [@Tai:2015; @Kiomourtzis:2014; @Wawer:2016; @Munson:2019] may be further advanced for wider research impacts.
+Since the year 2000, various computational intelligence techniques have been developed for analyzing sentiments of users either in the field of natural language processing or computational linguistics. To date, the majority of the techniques as deployed across various fields, including Social science [@Somasundaran:2010; @Morency:2011; @Nikolovska:2020], Market research [@Feldman:2011; @Otaibi:2018], and Electoral politics [@Ansari:2020; @Connor:2010] have focused largely on detecting subjectivity, and/or extracting and classifying sentiments and opinions in a text document. Building on this existing work, the current paper advances an opinion impact analytical tool, namely; `Opitools`, that not only extracts inherent themes from within a digital text document (DTD), but also evaluates the extent to which a specified theme may have contributed to the overall opinions expressed by the document. 
+
+`Opitools` has potential for wider applications. For example, in Law enforcement, the package can be deployed to understand factors (themes) that drive public perception of the police services [@Adepeju:2021]; in Market research, to identify factors that underlie customers satisfaction in a product; and, in Electoral politics, to identify factors that may be influencing electoral interests in an upcoming election.
 
 # Implementation
 
@@ -28,9 +30,9 @@ Having extracted a set of thematic keywords from a digital text document, the go
 
 # Key Functionalities
 
-The package contains text exploratory functions, including `opi_imp`,  for extracting themes from a digital text document. To conduct the impact analysis, the `opi_impact()` function draws from two supporting functions, `opi_score()` and `opi_sim()`, to compute the observed opinion score and its expectations, respectively. 
+The package contains text exploratory functions to extract themes from a digital text document as well as functions to conduct impact analysis.
 
-Different types of opinion score functions are embedded in the package for user-selection based on the research question been investigated. A `'fun'` parameter is also included to allow the integration of pre-defined user score functions. This feature is to further facilitate the uptake of the package in more application fields.
+The package provides different types of opinion score functions, which can be used depending on the research question. Additional parameters also permit the integration of pre-defined user score functions, which provide flexibility for applications in other fields.
 
 # Acknowledgment
 

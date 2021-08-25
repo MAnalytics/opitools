@@ -11,3 +11,9 @@ results <- opi_impact(textdoc = policing_dtd, theme_keys=c("covid", "pandemic"),
                       fun = NULL, nsim = 99, alternative="two.sided", quiet=FALSE)
 
 results$plot
+
+data -> 'reviews_dtd'
+
+tweets_dat <- data.frame(text=tweets[,1])
+plt = word_distrib(textdoc = tweets_dat)
+plt

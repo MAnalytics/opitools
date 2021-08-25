@@ -52,8 +52,8 @@
 #'
 #' # Application in marketing research:
 #'
-#' #`data` -> 'reviews_dtd'
-#' #`theme_keys` -> 'refreshment_theme'
+#' # data -> 'reviews_dtd'
+#' # theme_keys -> 'refreshment_theme'
 #'
 #' #RQ2a: "Do the refreshment outlets impact customers'
 #' #opinion of the services at the Piccadilly train station?"
