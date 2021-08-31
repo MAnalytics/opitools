@@ -4,7 +4,7 @@ date: "30th July 2021"
 bibliography: paper.bib
 output: pdf_document
 affiliations:
-- name: Crime and Well-being Big Data Centre, Manchester Metropolitan University
+- name: Crime and Well-being Big Data Centre, Manchester Metropolitan University, United Kingdom
   index: 1
 tags:
 - digital text document
