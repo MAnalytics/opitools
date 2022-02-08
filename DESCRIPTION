@@ -1,7 +1,7 @@
 Package: opitools
 Type: Package
 Title: Analyzing the Opinions in a Big Text Document
-Version: 1.8.0
+Version: 2.0.0
 Author: Monsuru Adepeju [cre, aut],
 Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
 Description: Designed for performing impact analysis of
