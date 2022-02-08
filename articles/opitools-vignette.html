@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">opitools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -58,13 +54,10 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/MAnalytics/opitools/">
+  <a href="https://github.com/MAnalytics/opitools/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -84,15 +77,15 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>An Opinion Analytical Tool for Big Digital Text Document - A User Guide</h1>
-                        <h4 class="author"><div class="line-block">
+                        <h4 data-toc-skip class="author"><div class="line-block">
 <code>Author:</code><br><code>Adepeju, M.</code><br><code>Big Data Centre, Manchester Metropolitan University, Manchester, M15 6BH, UK</code>
 </div></h4>
             
-            <h4 class="date"><div class="line-block">
-<code>Date:</code><br><code>2021-08-31</code>
+            <h4 data-toc-skip class="date"><div class="line-block">
+<code>Date:</code><br><code>2022-02-08</code>
 </div></h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/MAnalytics/opitools/blob/master/vignettes/opitools-vignette.Rmd"><code>vignettes/opitools-vignette.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MAnalytics/opitools/blob/HEAD/vignettes/opitools-vignette.Rmd" class="external-link"><code>vignettes/opitools-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>opitools-vignette.Rmd</code></div>
 
     </div>
@@ -169,36 +162,36 @@ h3 { /* Header 3 */
   color: DarkBlue;
 
 </style>
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>The <code>'opitools'</code> provides the mechanism for carrying out opinion impact analysis of a digital text document (DTD). The package functions can be categorized into two groups, namely (a) exploratory - for exploring terms in a document, e.g. importance of words and their statistical distribution, and (b) analytical - for computing metrics on the impacts of a theme or subject on the opinion expressed in a document. The potentials of <code>opitools</code> for application across a wide variety of domains is demonstrated with examples from the <code>law enforcement</code> to examine the impacts of covid-19 on the citizens’ opinion of their neighbourhood policing; from <code>electoral politics</code> to examine the extent to which a political candidate drives viewers opinion of a political debate; and from <code>product marketing</code> to examine what features in and around a train station influence customers reviews of the train services;</p>
-<div id="set-the-working-directory" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-the-working-directory" class="anchor"></a>Set the Working directory</h3>
+<div class="section level4">
+<h4 id="set-the-working-directory">Set the Working directory<a class="anchor" aria-label="anchor" href="#set-the-working-directory"></a>
+</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">WORKING_DIR</span> <span class="op">&lt;-</span> <span class="st">'C:/R/Github/JGIS_Policing_COVID-19'</span>
 
 <span class="co">#setting working directory</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">WORKING_DIR</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">WORKING_DIR</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="instal-libraries" class="section level3">
-<h3 class="hasAnchor">
-<a href="#instal-libraries" class="anchor"></a>Instal libraries</h3>
+<div class="section level4">
+<h4 id="instal-libraries">Instal libraries<a class="anchor" aria-label="anchor" href="#instal-libraries"></a>
+</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MAnalytics/opitools">opitools</a></span><span class="op">)</span> <span class="co">#for impact analysis</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span> <span class="co">#for rendering the vignette</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span> <span class="co">#for designing tables</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co">#for data analysis</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span> <span class="co">#for plot design</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MAnalytics/opitools" class="external-link">opitools</a></span><span class="op">)</span> <span class="co">#for impact analysis</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span> <span class="co">#for rendering the vignette</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/" class="external-link">rvest</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span> <span class="co">#for designing tables</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span> <span class="co">#for data analysis</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span> <span class="co">#for plot design</span></code></pre></div>
 </div>
 </div>
-<div id="example-datasets" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example-datasets" class="anchor"></a>Example datasets</h1>
+<div class="section level2">
+<h2 id="example-datasets">Example datasets<a class="anchor" aria-label="anchor" href="#example-datasets"></a>
+</h2>
 <p>The following datasets will be employed in our demonstration. The datasets are automatically installed upon the installation of <code>Opitools</code>.</p>
-<table class="table table">
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 1. <code>Example datasets</code>
 </caption>
@@ -274,15 +267,15 @@ www.tripadvisor.co.uk
 </tbody>
 </table>
 </div>
-<div id="functions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#functions" class="anchor"></a>Functions</h1>
+<div class="section level2">
+<h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
+</h2>
 <p>The function in <code>'opitools'</code> can be categorized into two groups, namely (1) exploratory - for exploring terms or words in a text document, and (2) analytical - for computing metrics for the impact analysis.</p>
-<div id="exploratory-function" class="section level3">
-<h3 class="hasAnchor">
-<a href="#exploratory-function" class="anchor"></a>Exploratory function</h3>
+<div class="section level4">
+<h4 id="exploratory-function">Exploratory function<a class="anchor" aria-label="anchor" href="#exploratory-function"></a>
+</h4>
 <p>Table 2 shows two key exploratory functions embedded in <code>'opitools'</code>, namely <code>'word_distrib'</code> and <code>'word_imp'</code>. Details as follow:</p>
-<table class="table table">
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 2. <code>Exploratory</code> functions
 </caption>
@@ -332,17 +325,17 @@ Produces a table or graphic that highlights the importance of individual terms (
 </tbody>
 </table>
 </div>
-<div id="example-data-exploration" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-data-exploration" class="anchor"></a>Example data exploration</h3>
+<div class="section level4">
+<h4 id="example-data-exploration">Example data exploration<a class="anchor" aria-label="anchor" href="#example-data-exploration"></a>
+</h4>
 <p>Below, the use of <code>'word_distrib'</code> and <code>'word_imp'</code> functions is demonstrated with the example datasets <code>'tweets'</code> (see documentations). The <code>'word_distrib'</code> can be used to answer a RQ such as; “How similar is a given DTD to the ideal natural language text?”. In other words, does the word usage in a DTD follow the ideal natural language usage represeted by the Zipf’s distribution <span class="citation">(Zipf 1936)</span>? Basically, the function examines the log rank-frequency of the terms across the document. The level of similarity is examined by the extent to which the frequency of each term is inversely proportional to their rank in a frequency table. Using a randomized Twitter data (embedded in the package),</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Load data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span>
 
 <span class="co"># Get the texts</span>
-<span class="va">tweets_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="va">tweets_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># Run function</span>
 <span class="va">plt</span> <span class="op">=</span> <span class="fu"><a href="../reference/word_distrib.html">word_distrib</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">tweets_dat</span><span class="op">)</span>
@@ -362,20 +355,20 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 <code class="sourceCode R">
 <span class="co">#Load datasets</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"policing_dtd"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"debate_dtd"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"reviews_dtd"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"policing_dtd"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"debate_dtd"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"reviews_dtd"</span><span class="op">)</span>
 
 
 <span class="co">#Words importance of public tweets on neighbourhood policing </span>
 <span class="co">#based on  (a) ‘tf’ and (b) 'tf-idf' metrics</span>
 <span class="va">p1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">policing_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, 
-                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span>
+                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">#Note: `policing_dtd` is a dataframe </span>
 
 <span class="va">p1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">policing_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>, 
-                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span>
+                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">#Note: 'words_to_filter' parameter is used to eliminate non-necessary words that </span>
 <span class="co">#may be too dominant in the DTD.</span>
@@ -383,18 +376,18 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 <span class="co">#Words importance  of comments on a video of a political debate </span>
 <span class="co">#based on (a) ‘tf’ and (b) 'tf-idf' metrics</span>
 <span class="va">p2a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">debate_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, 
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> 
+                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> 
 
 <span class="va">p2b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">debate_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>, 
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> 
+                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> 
 
 <span class="co">#Words importance of customer reviews of a transport service </span>
 <span class="co">#based on (a) ‘tf’ and (b) 'tf-idf' metrics </span>
 <span class="va">p3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, 
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> 
+                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> 
 
 <span class="va">p3b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>,  
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> 
+                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> 
 
 <span class="co">#outputs</span>
 <span class="va">p1a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p1b</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p2a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p2b</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p3a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p3b</span><span class="op">$</span><span class="va">plot</span></code></pre></div>
@@ -406,11 +399,11 @@ Figure 2: Highlighting words importance from a DTD
 <p>In Figure 2, the size of a word represents its level of importance according to a selected metric (i.e. ‘tf’ or ‘tf-idf’). From each representation, a user can easily identify (related) words that denote certain themes or subjects within the document. In Figure 1A, words such as ‘lockdown’, ‘infect’ and ‘covid’, refer to the sentiments relating to the pandemic under which the police were operating as at the time tweets were posted. “Does the pandemic has any significant impacts on the public opinion of the police activities during the period?”. This is an example of the RQs from social science research that can be investigated using <code>Opitools</code>. On the other hand, Figure 1B shows that the word importance may vary significantly by the choice of the measure between ‘tf’ and ‘tf-idf’. Figure 1B shows that a significant amount of the most important words using <code>tf-idf</code> are distinct from those ones resulting from using <code>tf</code>.</p>
 <p>In marketing research (Figure 3A), we see that related words, such as ‘restaurant’, ‘shops’, ‘food’ and ‘coffee’, denoting <code>refreshment items</code>, are highlighted as been the most important to the customers. “<code>Do these refreshment items impact the overall customers' opinion of the train services?</code>”. Similarly, related words such as ‘board’, ‘map’ and ‘display’, denoting <code>signages</code> around the station may have influenced customers opinion of the station.</p>
 </div>
-<div id="analytical-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#analytical-functions" class="anchor"></a>Analytical functions</h3>
+<div class="section level4">
+<h4 id="analytical-functions">Analytical functions<a class="anchor" aria-label="anchor" href="#analytical-functions"></a>
+</h4>
 <p>Table 3 shows the list of analytical functions of the <code>'Opitools'</code> package.</p>
-<table class="table table">
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 3. <code>Impact Analytical</code> function
 </caption>
@@ -480,10 +473,10 @@ This function assesses the impacts of a theme (or subject) on the overall opinio
 <span class="co">#Application: Law enforcement</span>
 
 <span class="co">#Load DTD</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">policing_dtd</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">policing_dtd</span><span class="op">)</span>
 
 <span class="co">#Load theme keywords</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">covid_theme</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">covid_theme</span><span class="op">)</span>
 
 <span class="co"># Run the analysis</span>
 <span class="va">output1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/opi_impact.html">opi_impact</a></span><span class="op">(</span><span class="va">policing_dtd</span>, theme_keys<span class="op">=</span><span class="va">covid_theme</span>, metric <span class="op">=</span> <span class="fl">1</span>,
@@ -492,7 +485,7 @@ This function assesses the impacts of a theme (or subject) on the overall opinio
 
 <span class="co">#Note: `policing_dtd` is a dataframe </span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">output1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">output1</span><span class="op">)</span></code></pre></div>
 <p>To print results:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;</span><span class="st"> </span>output1</span>
@@ -542,7 +535,7 @@ Figure 3: Percentage proportion of classes
 </p>
 </div>
 <p>Table 4 summarizes the results of impact analysis using all the example datasets in Table 1 with their respective research questions (RQs). The outputs from the law enforcement application (as in above) is entered as the first record of the table. In each example, we employed the same score function (<code>metric = 1</code>, i.e. <code>polarity score = (P - N)/(P + N)*100</code>, where <code>P</code> and <code>N</code> represent <code>positive</code> and <code>negative</code> sentiments, respectively). See the documentation for details.</p>
-<table class="table table">
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Table 4. <code>Impact analysis</code>
 </caption>
@@ -682,9 +675,9 @@ Polarity score
 <p>In the application to electoral politics, we attempt to identify factors that may have contributed to viewers opinion of a presidential debate. The statistics (<code>S=-0.33, pvalue = 0.93</code>) show that viewers opinion of the debate is negative. However, viewers opinion of the democratic candidate (Hillary Clinton) has no impacts of their overall negative opinion of the debate.</p>
 <p>Lastly in the marketing application (3a &amp; 3b), we tested the impacts of two themes, namely; <code>refreshment items/outlets</code> and the <code>signages</code>, on the customers’ opinions of the Piccadilly train services. The statistics (<code>S=67.92, pvalue = 0.01</code>) show an overall positive customers’ opinions of the train station or services, with the refreshments items/outlets (in and around the station) contributing significantly towards the positive opinions. On the other hand, the the signages (in and around the station) have no significant influence (p=0.1) on the positive review of the train service.</p>
 </div>
-<div id="using-a-user-defined-opinion-score-function" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-a-user-defined-opinion-score-function" class="anchor"></a>Using a user-defined opinion score function</h3>
+<div class="section level4">
+<h4 id="using-a-user-defined-opinion-score-function">Using a user-defined opinion score function<a class="anchor" aria-label="anchor" href="#using-a-user-defined-opinion-score-function"></a>
+</h4>
 <p>An opinion score function may be defined in a variety of ways depending on the application domain. For instance, <span class="citation">(Razorfish 2009)</span> defines customers’ opinion score of a product brand as <code>score = (P + O - N)/(P + O + N)</code>, where <code>P</code>, <code>O</code>, and <code>N</code>, represent the amount/proportion of positive, neutral and negative, sentiments, respectively. In order for a user to be able to plug-in their own opinion score function, we provided the parameter <code>fun</code> in the <code>opi_impact</code> function. This allow users to integrate new functions and test new theories. Employing the example function, we can re-run the analysis as follows:</p>
 <ol style="list-style-type: lower-alpha">
 <li>Define the user-defined function:</li>
@@ -697,7 +690,7 @@ Polarity score
 <span class="co">#Corresponding function</span>
 <span class="va">myfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">P</span>, <span class="va">N</span>, <span class="va">O</span><span class="op">)</span><span class="op">{</span>
    <span class="va">score</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">-</span> <span class="va">N</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">+</span> <span class="va">N</span><span class="op">)</span>
-   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span>
+   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Integrate the function and run analysis (for example)</li>
@@ -709,21 +702,21 @@ Polarity score
                        quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="conclusion" class="section level1">
-<h1 class="hasAnchor">
-<a href="#conclusion" class="anchor"></a>Conclusion</h1>
+<div class="section level2">
+<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h2>
 <p>The <code>opitools</code> package has been developed in order to address the lack of mechanism for carrying out impact analysis of opinions for digital text document (DTD). The utility of the package was originally demonstrated in <span class="citation">(Adepeju and Jimoh 2021)</span> in its application in law enforcement domain. In addition, this vignette demonstrates the potentials of the package for application across a wide variety of areas, with examples from electoral politics and product marketing. This package is being updated on a regular basis to add more functionalities.</p>
 <p>We encourage users to report any bugs encountered while using the package so that they can be fixed immediately. Welcome contributions to this package which will be acknowledged accordingly.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references">
 <div id="ref-Adepeju2021">
 <p>Adepeju, M., and F. Jimoh. 2021. “An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the Impacts of Covid-19 Pandemic Using Twitter Data.” <em>Journal of Geographical Information System (in Press)</em>.</p>
 </div>
 <div id="ref-Dawei2018">
-<p>Lang, Dawei, and Guan-tin Chien. 2018. <em>Wordcloud2: Create Word Cloud by ’Htmlwidget’</em>. <a href="https://CRAN.R-project.org/package=wordcloud2">https://CRAN.R-project.org/package=wordcloud2</a>.</p>
+<p>Lang, Dawei, and Guan-tin Chien. 2018. <em>Wordcloud2: Create Word Cloud by ’Htmlwidget’</em>. <a href="https://CRAN.R-project.org/package=wordcloud2" class="external-link">https://CRAN.R-project.org/package=wordcloud2</a>.</p>
 </div>
 <div id="ref-Razorfish2019">
 <p>Razorfish. 2009. <em>Fluent: The Razorfish Social Influence Marketing Report</em>. Atlanta, United States.</p>
@@ -749,11 +742,13 @@ Polarity score
 
 
       <footer><div class="copyright">
-  <p>Developed by Monsuru Adepeju.</p>
+  <p></p>
+<p>Developed by Monsuru Adepeju.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -761,6 +756,8 @@ Polarity score
 
   
 
+
+  
 
   </body>
 </html>

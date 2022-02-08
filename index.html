@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,18 +45,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">opitools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -70,13 +66,10 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="news/index.html">Changelog</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/MAnalytics/opitools/">
+  <a href="https://github.com/MAnalytics/opitools/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -93,49 +86,48 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="opitools" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#opitools" class="anchor"></a>“Opitools”</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="opitools">“Opitools”<a class="anchor" aria-label="anchor" href="#opitools"></a>
+</h1></div>
 <p>An R-package for analyzing Opinions in Big Digital Text Document (DTD)</p>
-<div id="description" class="section level2">
-<h2 class="hasAnchor">
-<a href="#description" class="anchor"></a>Description</h2>
+<div class="section level2">
+<h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h2>
 <p>The <code>opitools</code> is an R package for exploring a digital text document (DTD) as well as performing the impact analysis of the opinions expressed by the DTD. The package is particularly suited for opinion-based DTD, such as individual-level posts (e.g. commentaries on Twitter or Facebook) and comments (as in an online product reviews). First, an <code>exploratory</code> function <code>word_imp</code> can be used to identify words relating to different themes (or subjects) that are referenced in a DTD. The <code>opi_impact</code> function can then be utilized to investigate whether an identified/specified theme (or subject) impacts the overall opinion expressed by the document. The potentials of <code>opitools</code> for application across a wide range of domains is described briefly here (see the <code>vignette</code> for details).</p>
-<p><a href="https://manalytics.github.io/opitools/index.html">Click here</a> to visit the built website for the package.</p>
+<p><a href="https://manalytics.github.io/opitools/index.html" class="external-link">Click here</a> to visit the built website for the package.</p>
 </div>
-<div id="installation-from-cran" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation-from-cran" class="anchor"></a>Installation from <code>CRAN</code>
+<div class="section level2">
+<h2 id="installation-from-cran">Installation from <code>CRAN</code>
+<a class="anchor" aria-label="anchor" href="#installation-from-cran"></a>
 </h2>
 <p>From an R console, type:</p>
-<pre class="{r}"><code><a href="https://github.com/MAnalytics/opitools">#install.packages("opitools")
-library(opitools)
-</a></code></pre>
-<p>To install the developmental version of the package, type: <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("MAnalytics/opitools")</a></code>. (Note: <code>remotes</code> is an extra package that needed to be installed prior to the running of this code).</p>
+<pre class="{r}"><code><span class="co">#install.packages("opitools")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MAnalytics/opitools" class="external-link">opitools</a></span><span class="op">)</span></code></pre>
+<p>To install the developmental version of the package, type: <code>remotes::install_github("MAnalytics/opitools")</code>. (Note: <code>remotes</code> is an extra package that needed to be installed prior to the running of this code).</p>
 <p>Please, report any installation problems in the issues.</p>
 </div>
-<div id="example-usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-usage" class="anchor"></a>Example usage</h2>
+<div class="section level2">
+<h2 id="example-usage">Example usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
+</h2>
 <p>Below is an example usage of how <code>opitools</code> can be employed to identify themes (or subjects) from a DTD and then deployed to perform opinion impact analysis.</p>
-<div id="importing-the-dataset" class="section level3">
-<h3 class="hasAnchor">
-<a href="#importing-the-dataset" class="anchor"></a>Importing the dataset</h3>
+<div class="section level3">
+<h3 id="importing-the-dataset">Importing the dataset<a class="anchor" aria-label="anchor" href="#importing-the-dataset"></a>
+</h3>
 <p>The <code>policing_dtd</code> - a DTD comprising Twitter posts about police/policing in a neighbourhood, will be used in this demonstration.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">data</span>(policing_dtd)</span></code></pre></div>
 </div>
-<div id="identify-themes-subjects" class="section level3">
-<h3 class="hasAnchor">
-<a href="#identify-themes-subjects" class="anchor"></a>Identify themes (subjects)</h3>
+<div class="section level3">
+<h3 id="identify-themes-subjects">Identify themes (subjects)<a class="anchor" aria-label="anchor" href="#identify-themes-subjects"></a>
+</h3>
 <p>Utilize <code>word_imp</code> function to highlights terms or words in accordance to their importance in the DTD. Through visual inspection, collate related terms or words that denote specific theme or subject from the generated wordcloud. Several words relating to the COVId-19 pandemic, including ‘infect’, ‘pandemic’, and ‘lockdown’ can be identified as been important in the document. These words are provided as <code>covid_theme</code> in the package. The function can be ran as follows (see the documentation for details):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;</span><span class="st"> </span>p1a &lt;-<span class="st"> </span><span class="kw">word_imp</span>(<span class="dt">textdoc =</span> policing_dtd, <span class="dt">metric=</span> <span class="st">"tf"</span>, </span>
 <span id="cb3-2"><a href="#cb3-2"></a>                           <span class="dt">words_to_filter=</span><span class="kw">c</span>(<span class="st">"police"</span>,<span class="st">"policing"</span>))</span>
 <span id="cb3-3"><a href="#cb3-3"></a>                           </span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co">#Note: `policing_dtd` is a dataframe</span></span></code></pre></div>
 </div>
-<div id="impact-analysis" class="section level3">
-<h3 class="hasAnchor">
-<a href="#impact-analysis" class="anchor"></a>Impact analysis</h3>
+<div class="section level3">
+<h3 id="impact-analysis">Impact analysis<a class="anchor" aria-label="anchor" href="#impact-analysis"></a>
+</h3>
 <p>The impact analysis can be conducted as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#Running the analysis</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
@@ -172,11 +164,11 @@ library(opitools)
 <span id="cb4-33"><a href="#cb4-33"></a><span class="st">#......</span></span></code></pre></div>
 <p>The research question of the analysis above can be stated as follows:</p>
 <p><strong><em>RQ1</em></strong>: “Does COVID-19 pandemic influence public opinion on neighourhood policing?”</p>
-<p>The output shows an overall negative opinion (<code>-5.88</code>) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (<code>pvalue</code> = 0.52) on the opinion expressed by the public. (More detailed explanation can be found in the study <a href="https://www.scirp.org/journal/paperinformation.aspx?paperid=107836">adepeju, M. and Jimoh, F. (2021)</a>).</p>
+<p>The output shows an overall negative opinion (<code>-5.88</code>) of the public on the neighbourhood policing, and that the pandemic has not had a significant impacts (<code>pvalue</code> = 0.52) on the opinion expressed by the public. (More detailed explanation can be found in the study <a href="https://www.scirp.org/journal/paperinformation.aspx?paperid=107836" class="external-link">adepeju, M. and Jimoh, F. (2021)</a>).</p>
 </div>
-<div id="other-applications" class="section level3">
-<h3 class="hasAnchor">
-<a href="#other-applications" class="anchor"></a>Other applications</h3>
+<div class="section level3">
+<h3 id="other-applications">Other applications<a class="anchor" aria-label="anchor" href="#other-applications"></a>
+</h3>
 <p>Table 1 summarizes the analysis using different example datasets provided in the package. The output from the law enforcement application (as in above) is entered in the first row of the table. Other research questions investigated are as follow:</p>
 <p><strong><em>RQ2</em></strong>: “How does the democratic candidate (Hillary Clinton) affects viewers’ opinion of the presidential debate?”</p>
 <p><strong><em>RQ3a</em></strong>: “Do the refreshment outlets/items impact customers’ opinion of the Piccadilly train services?”</p>
@@ -190,64 +182,75 @@ library(opitools)
 <span id="cb5-6"><a href="#cb5-6"></a><span class="er">|</span><span class="st">  </span>RQ3b  <span class="op">|</span><span class="st"> </span>reviews_dtd  <span class="op">|</span><span class="st"> </span>signage_theme     <span class="op">|</span><span class="st"> 'Polarity score'</span> <span class="op">|</span><span class="st"> </span><span class="fl">67.92</span>              <span class="op">|</span><span class="st"> </span><span class="fl">0.1</span>        <span class="op">|</span></span></code></pre></div>
 <p>In each example, the same opinion score function is employed (<code>metric = 1</code>, i.e. the <code>polarity score = (P - N)/(P + N)*100</code>, where <code>P</code> and <code>N</code> represent <code>positive</code> and <code>negative</code> sentiments, respectively). See the documentation for details. Employing a threshold of <code>p=0.05</code>, any p-values less or equal to the threshold (e.g. RQ3a) represent a significant impact of the specified theme (i.e. <code>refreshment_theme</code>) on the overall opinion score computed based on the <code>reviews_dtd</code>.</p>
 </div>
-<div id="references" class="section level3">
-<h3 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h3>
-<ol>
-<li>Adepeju, M. and Jimoh, F. (2021). An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the impacts of COVID-19 Pandemic using Twitter Data. <a href="https://www.scirp.org/journal/paperinformation.aspx?paperid=107836">click here:</a>
+<div class="section level3">
+<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Adepeju, M. and Jimoh, F. (2021). An Analytical Framework for Measuring Inequality in the Public Opinions on Policing – Assessing the impacts of COVID-19 Pandemic using Twitter Data. <a href="https://www.scirp.org/journal/paperinformation.aspx?paperid=107836" class="external-link">click here:</a>
 </li>
 </ol>
 </div>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>Please note that the <code>opitools</code> package is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the <code>opitools</code> package is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=opitools">https://​cloud.r-project.org/​package=opitools</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/MAnalytics/opitools/">https://​github.com/​MAnalytics/​opitools/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/MAnalytics/opitools/issues/new/choose">https://​github.com/​MAnalytics/​opitools/​issues/​new/​choose</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=opitools" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/MAnalytics/opitools/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/MAnalytics/opitools/issues/new/choose" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing opitools</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Monsuru Adepeju <br><small class="roles"> Maintainer </small>  </li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Monsuru Adepeju.</p>
+  <p></p>
+<p>Developed by Monsuru Adepeju.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -255,6 +258,8 @@ library(opitools)
 
   
 
+
+  
 
   </body>
 </html>
