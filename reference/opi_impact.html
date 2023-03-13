@@ -35,7 +35,7 @@ supplied this function through the theme_keys argument
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -44,6 +44,9 @@ supplied this function through the theme_keys argument
       <a href="../articles/opitools-vignette.html">An Opinion Analytical Tool for Big Digital Text Document - A User Guide</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/MAnalytics/opitools/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -77,9 +80,9 @@ supplied this function through the <code>theme_keys</code> argument
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">opi_impact</span><span class="op">(</span><span class="va">textdoc</span>, theme_keys<span class="op">=</span><span class="cn">NULL</span>, metric <span class="op">=</span> <span class="fl">1</span>,
-fun <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,
-quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">opi_impact</span><span class="op">(</span><span class="va">textdoc</span>, theme_keys<span class="op">=</span><span class="cn">NULL</span>, metric <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>fun <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,</span>
+<span>quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -88,25 +91,35 @@ quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</sp
 <dd><p>An <code>n</code> x <code>1</code> list (dataframe) of
 individual text records, where <code>n</code> is the total
 number of individual records.</p></dd>
+
+
 <dt>theme_keys</dt>
 <dd><p>(a list) A one-column dataframe (of any
 number of length) containing a list of keywords relating
 to the theme or secondary subject to be investigated.
 The keywords can also be defined as a vector of characters.</p></dd>
+
+
 <dt>metric</dt>
 <dd><p>(an integer) Specify the metric to utilize
 for the calculation of opinion score. Default: <code>1</code>.
 See detailed documentation
 in the <code>opi_score</code> function.</p></dd>
+
+
 <dt>fun</dt>
 <dd><p>A user-defined function given that parameter
 <code>metric</code> (above) is set equal to <code>5</code>.
 See detailed documentation
 in the <code>opi_score</code> function.</p></dd>
+
+
 <dt>nsim</dt>
 <dd><p>(an integer) Number of replicas (ESD) to generate.
 See detailed documentation in the <code>opi_sim</code> function.
 Default: <code>99</code>.</p></dd>
+
+
 <dt>alternative</dt>
 <dd><p>(a character) Default: <code>"two.sided"</code>,
 indicating a two-tailed test. A user can override
@@ -124,13 +137,18 @@ If metric parameter is set equal to <code>5</code>, with a user-defined
 opinion score function (i.e. <code>fun</code> not NULL ), the user is required
 to determine the limits of the opinion scores, and set the
 <code>alternative</code> argument appropriately.</p></dd>
+
+
 <dt>quiet</dt>
 <dd><p>(TRUE or FALSE) To suppress processing
 messages. Default: <code>TRUE</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Details of statistical significance of impacts
+    
+
+<p>Details of statistical significance of impacts
 of a secondary subject <code>B</code> on the opinion concerning the
 primary subject <code>A</code>.</p>
     </div>
@@ -156,21 +174,21 @@ Twitter Data. https://doi.org/10.31235/osf.io/c32qh</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># Application in marketing research:</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># data -&gt; 'reviews_dtd'</span></span>
-<span class="r-in"><span class="co"># theme_keys -&gt; 'refreshment_theme'</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#RQ2a: "Do the refreshment outlets impact customers'</span></span>
-<span class="r-in"><span class="co">#opinion of the services at the Piccadilly train station?"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##execute function</span></span>
-<span class="r-in"><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">opi_impact</span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>,</span>
-<span class="r-in">          theme_keys<span class="op">=</span><span class="va">refreshment_theme</span>, metric <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">          fun <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,</span>
-<span class="r-in">          quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = "ID"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Application in marketing research:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># data -&gt; 'reviews_dtd'</span></span></span>
+<span class="r-in"><span><span class="co"># theme_keys -&gt; 'refreshment_theme'</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#RQ2a: "Do the refreshment outlets impact customers'</span></span></span>
+<span class="r-in"><span><span class="co">#opinion of the services at the Piccadilly train station?"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##execute function</span></span></span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">opi_impact</span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>,</span></span>
+<span class="r-in"><span>          theme_keys<span class="op">=</span><span class="va">refreshment_theme</span>, metric <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>          fun <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,</span></span>
+<span class="r-in"><span>          quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(ID)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `keywords`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `keywords`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `keywords`</span>
@@ -270,9 +288,9 @@ Twitter Data. https://doi.org/10.31235/osf.io/c32qh</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `keywords`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `keywords`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `keywords`</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#To print results</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#To print results</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Test of significance (Randomization testing)"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -281,7 +299,7 @@ Twitter Data. https://doi.org/10.31235/osf.io/c32qh</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $exp_summary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   50.25   56.78   58.79   58.65   60.80   64.82 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   51.76   56.78   58.79   58.94   60.80   65.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $p_table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -299,12 +317,12 @@ Twitter Data. https://doi.org/10.31235/osf.io/c32qh</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot</span>
 <span class="r-plt img"><img src="opi_impact-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#extracting the pvalue in order to answer RQ2a</span></span>
-<span class="r-in"><span class="va">output</span><span class="op">$</span><span class="va">pvalue</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#extracting the pvalue in order to answer RQ2a</span></span></span>
+<span class="r-in"><span><span class="va">output</span><span class="op">$</span><span class="va">pvalue</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -319,7 +337,7 @@ Twitter Data. https://doi.org/10.31235/osf.io/c32qh</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

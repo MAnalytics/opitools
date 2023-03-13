@@ -43,7 +43,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -53,6 +53,9 @@
       <a href="../articles/opitools-vignette.html">An Opinion Analytical Tool for Big Digital Text Document - A User Guide</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -82,7 +85,7 @@
 </div></h4>
             
             <h4 data-toc-skip class="date"><div class="line-block">
-<code>Date:</code><br><code>2022-02-08</code>
+<code>Date:</code><br><code>2023-03-13</code>
 </div></h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MAnalytics/opitools/blob/HEAD/vignettes/opitools-vignette.Rmd" class="external-link"><code>vignettes/opitools-vignette.Rmd</code></a></small>
@@ -170,21 +173,21 @@ h3 { /* Header 3 */
 <h4 id="set-the-working-directory">Set the Working directory<a class="anchor" aria-label="anchor" href="#set-the-working-directory"></a>
 </h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">WORKING_DIR</span> <span class="op">&lt;-</span> <span class="st">'C:/R/Github/JGIS_Policing_COVID-19'</span>
-
-<span class="co">#setting working directory</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">WORKING_DIR</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">WORKING_DIR</span> <span class="op">&lt;-</span> <span class="st">'C:/R/Github/JGIS_Policing_COVID-19'</span></span>
+<span></span>
+<span><span class="co">#setting working directory</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">WORKING_DIR</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="instal-libraries">Instal libraries<a class="anchor" aria-label="anchor" href="#instal-libraries"></a>
 </h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MAnalytics/opitools" class="external-link">opitools</a></span><span class="op">)</span> <span class="co">#for impact analysis</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span> <span class="co">#for rendering the vignette</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/" class="external-link">rvest</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span> <span class="co">#for designing tables</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span> <span class="co">#for data analysis</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span> <span class="co">#for plot design</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MAnalytics/opitools" class="external-link">opitools</a></span><span class="op">)</span> <span class="co">#for impact analysis</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span> <span class="co">#for rendering the vignette</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/" class="external-link">rvest</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span> <span class="co">#for designing tables</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span> <span class="co">#for data analysis</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span> <span class="co">#for plot design</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -330,20 +333,20 @@ Produces a table or graphic that highlights the importance of individual terms (
 </h4>
 <p>Below, the use of <code>'word_distrib'</code> and <code>'word_imp'</code> functions is demonstrated with the example datasets <code>'tweets'</code> (see documentations). The <code>'word_distrib'</code> can be used to answer a RQ such as; “How similar is a given DTD to the ideal natural language text?”. In other words, does the word usage in a DTD follow the ideal natural language usage represeted by the Zipf’s distribution <span class="citation">(Zipf 1936)</span>? Basically, the function examines the log rank-frequency of the terms across the document. The level of similarity is examined by the extent to which the frequency of each term is inversely proportional to their rank in a frequency table. Using a randomized Twitter data (embedded in the package),</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Load data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span>
-
-<span class="co"># Get the texts</span>
-<span class="va">tweets_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co"># Run function</span>
-<span class="va">plt</span> <span class="op">=</span> <span class="fu"><a href="../reference/word_distrib.html">word_distrib</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">tweets_dat</span><span class="op">)</span>
-
-<span class="co">#Note: `tweets_dat` is a dataframe </span>
-
-<span class="co">#Show Zipf's distribution:</span>
-<span class="va">plt</span><span class="op">$</span><span class="va">plot</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Load data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get the texts</span></span>
+<span><span class="va">tweets_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run function</span></span>
+<span><span class="va">plt</span> <span class="op">=</span> <span class="fu"><a href="../reference/word_distrib.html">word_distrib</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">tweets_dat</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Note: `tweets_dat` is a dataframe </span></span>
+<span></span>
+<span><span class="co">#Show Zipf's distribution:</span></span>
+<span><span class="va">plt</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="zipf.png" alt="Figure 1: Data freq. plot vs. Zipf's distribution"><p class="caption">
 Figure 1: Data freq. plot vs. Zipf’s distribution
@@ -352,45 +355,45 @@ Figure 1: Data freq. plot vs. Zipf’s distribution
 <p>For a natural language text, the Zipf’s distribution plot has a negative slope with each term falling on a straight line. Any variance from this (ideal) trend can be attributed to imperfections in the term usage. For example, the presence of strange terms or ‘made-up’ words can cause a deviation from the ideal trend. The result of our example dataaset is shown in Figure 1. The graph can be divided into the three sections: the upper, the middle and the lower sections. By fitting a regression line (an ideal Zipf’s distribution), we can see what the slope of the upper section is quite different from the middle and the lower sections of the graph. The variance at the high rank terms (usually, common terms, such as ‘the’, ‘of’, and ‘at’,) indicates an imperfection because of lack of perfect alignment with the straight line. For Twitter data, this variance suggests a significant use of abbreviated terms, such as using “&amp;” or “nd” instead of the term “<code>and</code>”. Apart from the small variance at the upper section of the graph, we can state that the law holds within most parts of the document.</p>
 <p>The second exploratory function <code>'word_imp'</code> can be used to highlight the importance of each terms in a DTD. The level of importance can then be used to identify different themes (or subjects) from the DTD. Two measures, namely (i) <code>'term frequency (tf)'</code> and <code>term frequency inverse document frequency (tf-idf)</code> <span class="citation">(Silge and Robinson 2016)</span> can be used to highlight the importance of terms in a DTD. In Figure 2, results 1, 2 and 3 are generated from the datasets; <code>policing_dtd</code>, <code>debate_dtd</code> <code>reviews_dtd</code>, respectively. The results for each data sample based on the <code>'tf'</code> and <code>'tf_idf'</code> measures are labeled as A and B, respectively. The function draws from <code>wordcloud2</code> package in R <span class="citation">(Lang and Chien 2018)</span>, in order to highlight words importance as shown in Figure 2.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">#Load datasets</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"policing_dtd"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"debate_dtd"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"reviews_dtd"</span><span class="op">)</span>
-
-
-<span class="co">#Words importance of public tweets on neighbourhood policing </span>
-<span class="co">#based on  (a) ‘tf’ and (b) 'tf-idf' metrics</span>
-<span class="va">p1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">policing_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, 
-                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">#Note: `policing_dtd` is a dataframe </span>
-
-<span class="va">p1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">policing_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>, 
-                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">#Note: 'words_to_filter' parameter is used to eliminate non-necessary words that </span>
-<span class="co">#may be too dominant in the DTD.</span>
-
-<span class="co">#Words importance  of comments on a video of a political debate </span>
-<span class="co">#based on (a) ‘tf’ and (b) 'tf-idf' metrics</span>
-<span class="va">p2a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">debate_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, 
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="va">p2b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">debate_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>, 
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="co">#Words importance of customer reviews of a transport service </span>
-<span class="co">#based on (a) ‘tf’ and (b) 'tf-idf' metrics </span>
-<span class="va">p3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, 
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="va">p3b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>,  
-                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="co">#outputs</span>
-<span class="va">p1a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p1b</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p2a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p2b</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p3a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p3b</span><span class="op">$</span><span class="va">plot</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#Load datasets</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"policing_dtd"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"debate_dtd"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"reviews_dtd"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#Words importance of public tweets on neighbourhood policing </span></span>
+<span><span class="co">#based on  (a) ‘tf’ and (b) 'tf-idf' metrics</span></span>
+<span><span class="va">p1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">policing_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, </span>
+<span>                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Note: `policing_dtd` is a dataframe </span></span>
+<span></span>
+<span><span class="va">p1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">policing_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>, </span>
+<span>                           words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"police"</span>,<span class="st">"policing"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Note: 'words_to_filter' parameter is used to eliminate non-necessary words that </span></span>
+<span><span class="co">#may be too dominant in the DTD.</span></span>
+<span></span>
+<span><span class="co">#Words importance  of comments on a video of a political debate </span></span>
+<span><span class="co">#based on (a) ‘tf’ and (b) 'tf-idf' metrics</span></span>
+<span><span class="va">p2a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">debate_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, </span>
+<span>                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">p2b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">debate_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>, </span>
+<span>                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trump"</span>,<span class="st">"hillary"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">#Words importance of customer reviews of a transport service </span></span>
+<span><span class="co">#based on (a) ‘tf’ and (b) 'tf-idf' metrics </span></span>
+<span><span class="va">p3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>, metric<span class="op">=</span> <span class="st">"tf"</span>, </span>
+<span>                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">p3b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/word_imp.html">word_imp</a></span><span class="op">(</span>textdoc <span class="op">=</span> <span class="va">reviews_dtd</span>, metric<span class="op">=</span> <span class="st">"tf-idf"</span>,  </span>
+<span>                words_to_filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">#outputs</span></span>
+<span><span class="va">p1a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p1b</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p2a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p2b</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p3a</span><span class="op">$</span><span class="va">plot</span>; <span class="va">p3b</span><span class="op">$</span><span class="va">plot</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="wordcloud.png" alt="Figure 2: Highlighting words importance from a DTD"><p class="caption">
 Figure 2: Highlighting words importance from a DTD
@@ -469,23 +472,23 @@ This function assesses the impacts of a theme (or subject) on the overall opinio
 <p>The key analytical function is the <code><a href="../reference/opi_impact.html">opi_impact()</a></code> which draws from <code><a href="../reference/opi_score.html">opi_score()</a></code> and <code><a href="../reference/opi_sim.html">opi_sim()</a></code> to compute the observed opinion score and the expectations, respectively. The observed opinion score is compared with the expectation in order to derive the statistical significance of impacts of a specified/selected theme. Using the example dataset <code>policing_dtd</code>:</p>
 <p>The impact analysis can be performed as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">#Application: Law enforcement</span>
-
-<span class="co">#Load DTD</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">policing_dtd</span><span class="op">)</span>
-
-<span class="co">#Load theme keywords</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">covid_theme</span><span class="op">)</span>
-
-<span class="co"># Run the analysis</span>
-<span class="va">output1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/opi_impact.html">opi_impact</a></span><span class="op">(</span><span class="va">policing_dtd</span>, theme_keys<span class="op">=</span><span class="va">covid_theme</span>, metric <span class="op">=</span> <span class="fl">1</span>,
-                       fun <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,
-                       quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co">#Note: `policing_dtd` is a dataframe </span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">output1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#Application: Law enforcement</span></span>
+<span></span>
+<span><span class="co">#Load DTD</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">policing_dtd</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Load theme keywords</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">covid_theme</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run the analysis</span></span>
+<span><span class="va">output1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/opi_impact.html">opi_impact</a></span><span class="op">(</span><span class="va">policing_dtd</span>, theme_keys<span class="op">=</span><span class="va">covid_theme</span>, metric <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                       fun <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,</span>
+<span>                       quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Note: `policing_dtd` is a dataframe </span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">output1</span><span class="op">)</span></span></code></pre></div>
 <p>To print results:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="op">&gt;</span><span class="st"> </span>output1</span>
@@ -683,23 +686,23 @@ Polarity score
 <li>Define the user-defined function:</li>
 </ol>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">#The equation</span>
-<span class="va">Score</span> <span class="op">=</span> <span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">-</span> <span class="va">N</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">+</span> <span class="va">N</span><span class="op">)</span>
-
-<span class="co">#Corresponding function</span>
-<span class="va">myfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">P</span>, <span class="va">N</span>, <span class="va">O</span><span class="op">)</span><span class="op">{</span>
-   <span class="va">score</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">-</span> <span class="va">N</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">+</span> <span class="va">N</span><span class="op">)</span>
-   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co">#The equation</span></span>
+<span><span class="va">Score</span> <span class="op">=</span> <span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">-</span> <span class="va">N</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">+</span> <span class="va">N</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Corresponding function</span></span>
+<span><span class="va">myfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">P</span>, <span class="va">N</span>, <span class="va">O</span><span class="op">)</span><span class="op">{</span></span>
+<span>   <span class="va">score</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">-</span> <span class="va">N</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">P</span> <span class="op">+</span> <span class="va">O</span> <span class="op">+</span> <span class="va">N</span><span class="op">)</span></span>
+<span>   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">score</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Integrate the function and run analysis (for example)</li>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/opi_impact.html">opi_impact</a></span><span class="op">(</span><span class="va">debate_dtd</span>, theme_keys<span class="op">=</span><span class="va">keys</span>, metric <span class="op">=</span> <span class="fl">5</span>,
-                       fun <span class="op">=</span> <span class="va">myfun</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,
-                       quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/opi_impact.html">opi_impact</a></span><span class="op">(</span><span class="va">debate_dtd</span>, theme_keys<span class="op">=</span><span class="va">keys</span>, metric <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                       fun <span class="op">=</span> <span class="va">myfun</span>, nsim <span class="op">=</span> <span class="fl">99</span>, alternative<span class="op">=</span><span class="st">"two.sided"</span>,</span>
+<span>                       quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -748,7 +751,7 @@ Polarity score
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
